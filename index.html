@@ -1241,3 +1241,696 @@ console.log(
 
 </script></body>
   </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#050505">
+<title>DOOM AI — Open Knowledge Intelligence</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#03050a;
+  --panel:#0a0f18;
+  --panel2:#101722;
+  --line:#263244;
+  --text:#f5f7fb;
+  --muted:#9ba8ba;
+  --accent:#64d8ff;
+  --accent2:#9b7cff;
+  --good:#51e59a;
+  --warn:#ffd166;
+  --bad:#ff647c;
+}
+
+html,body{
+  width:100%;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,
+  "Segoe UI",Arial,sans-serif;
+}
+
+body{
+  overflow-x:hidden;
+}
+
+button,input,textarea,select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+#app{
+  min-height:100vh;
+  position:relative;
+}
+
+.bg{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(100,216,255,.09),transparent 28%),
+    radial-gradient(circle at 85% 70%,rgba(155,124,255,.10),transparent 30%),
+    #03050a;
+}
+
+.grid{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  opacity:.16;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  backdrop-filter:blur(18px);
+  background:rgba(3,5,10,.78);
+  border-bottom:1px solid var(--line);
+}
+
+.nav{
+  max-width:1400px;
+  margin:auto;
+  min-height:72px;
+  padding:12px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.logo{
+  width:44px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--accent);
+  border-radius:13px;
+  background:rgba(100,216,255,.08);
+  box-shadow:0 0 25px rgba(100,216,255,.12);
+  font-size:21px;
+}
+
+.brandText strong{
+  display:block;
+  font-size:18px;
+}
+
+.brandText span{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:2px;
+}
+
+.status{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  color:var(--good);
+  font-size:12px;
+}
+
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--good);
+  box-shadow:0 0 12px var(--good);
+}
+
+main{
+  width:min(1400px,100%);
+  margin:auto;
+  padding:28px 18px 60px;
+}
+
+.hero{
+  text-align:center;
+  padding:42px 15px 30px;
+}
+
+.hero h1{
+  font-size:clamp(40px,8vw,86px);
+  line-height:.95;
+  letter-spacing:-4px;
+  margin-bottom:15px;
+}
+
+.hero h1 span{
+  background:linear-gradient(90deg,var(--accent),#fff,var(--accent2));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.hero p{
+  max-width:760px;
+  margin:auto;
+  color:var(--muted);
+  line-height:1.65;
+}
+
+.searchBox{
+  max-width:950px;
+  margin:30px auto 0;
+  display:flex;
+  gap:10px;
+}
+
+.searchBox input{
+  flex:1;
+  min-width:0;
+  height:58px;
+  padding:0 18px;
+  color:white;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:15px;
+  outline:none;
+}
+
+.searchBox input:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(100,216,255,.08);
+}
+
+.btn{
+  border:1px solid var(--line);
+  background:var(--panel2);
+  color:white;
+  border-radius:14px;
+  padding:0 20px;
+  min-height:50px;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+  border-color:var(--accent);
+}
+
+.btn.primary{
+  background:linear-gradient(135deg,#16465b,#30245f);
+  border-color:rgba(100,216,255,.45);
+}
+
+.btn.good{
+  border-color:rgba(81,229,154,.4);
+}
+
+.tabs{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:9px;
+  margin:25px 0;
+}
+
+.tab{
+  padding:10px 15px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.025);
+  color:var(--muted);
+}
+
+.tab.active,
+.tab:hover{
+  color:white;
+  border-color:var(--accent);
+}
+
+.panel{
+  background:rgba(10,15,24,.82);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:20px;
+  margin-top:18px;
+  box-shadow:0 20px 70px rgba(0,0,0,.18);
+}
+
+.panelTitle{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:15px;
+}
+
+.panelTitle h2{
+  font-size:18px;
+}
+
+.panelTitle span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.chat{
+  min-height:350px;
+  max-height:560px;
+  overflow:auto;
+  padding:5px;
+}
+
+.msg{
+  max-width:88%;
+  margin:12px 0;
+  padding:14px 16px;
+  border-radius:17px;
+  line-height:1.55;
+  white-space:pre-wrap;
+}
+
+.msg.user{
+  margin-left:auto;
+  background:#182433;
+  border:1px solid #2b4059;
+}
+
+.msg.ai{
+  margin-right:auto;
+  background:#0d1620;
+  border:1px solid #233444;
+}
+
+.msg small{
+  display:block;
+  color:var(--muted);
+  margin-bottom:5px;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+.chatInput{
+  display:flex;
+  gap:9px;
+  margin-top:12px;
+}
+
+.chatInput textarea{
+  flex:1;
+  resize:none;
+  min-height:52px;
+  max-height:130px;
+  padding:14px;
+  border-radius:14px;
+  color:white;
+  background:#080d15;
+  border:1px solid var(--line);
+  outline:none;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:13px;
+}
+
+.card{
+  padding:18px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.018);
+  border-radius:17px;
+}
+
+.card h3{
+  margin-bottom:7px;
+  font-size:16px;
+}
+
+.card p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.55;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 8px;
+  border-radius:999px;
+  font-size:10px;
+  margin-bottom:12px;
+  background:rgba(81,229,154,.08);
+  color:var(--good);
+  border:1px solid rgba(81,229,154,.25);
+}
+
+.source{
+  margin-top:10px;
+  padding:10px;
+  border-radius:11px;
+  background:#080c13;
+  border:1px solid #202b3a;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.source b{
+  color:white;
+}
+
+.mediaGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:15px;
+}
+
+.media{
+  overflow:hidden;
+  border-radius:17px;
+  border:1px solid var(--line);
+  background:#080c13;
+}
+
+.mediaVisual{
+  min-height:150px;
+  display:grid;
+  place-items:center;
+  font-size:50px;
+  background:
+    radial-gradient(circle at 30% 30%,rgba(100,216,255,.15),transparent 35%),
+    radial-gradient(circle at 70% 70%,rgba(155,124,255,.16),transparent 35%);
+}
+
+.mediaBody{
+  padding:14px;
+}
+
+.mediaBody h3{
+  font-size:15px;
+  margin-bottom:6px;
+}
+
+.mediaBody p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5;
+}
+
+footer{
+  text-align:center;
+  color:var(--muted);
+  padding:35px 15px;
+  font-size:11px;
+}
+
+.hidden{
+  display:none!important;
+}
+
+@media(max-width:700px){
+  .nav{min-height:62px}
+  .status{display:none}
+  .hero{padding-top:30px}
+  .hero h1{letter-spacing:-2px}
+  .searchBox,
+  .chatInput{
+    flex-direction:column;
+  }
+  .searchBox .btn{
+    min-height:52px;
+  }
+  .msg{max-width:96%}
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+<div class="bg"></div>
+<div class="grid"></div>
+
+<header>
+  <div class="nav">
+    <div class="brand">
+      <div class="logo">◈</div>
+      <div class="brandText">
+        <strong>DOOM AI</strong>
+        <span>OPEN KNOWLEDGE INTELLIGENCE</span>
+      </div>
+    </div>
+
+    <div class="status">
+      <i class="dot"></i>
+      DEMO ENGINE ONLINE
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <h1><span>DOOM AI</span></h1>
+
+  <p>
+    A source-aware knowledge interface designed for open,
+    public-domain and openly reusable information.
+    Answers should be backed by evidence rather than empty claims.
+  </p>
+
+  <div class="searchBox">
+    <input id="globalSearch"
+      placeholder="Ask anything… science, space, history, cities, media…"
+      autocomplete="off">
+    <button class="btn primary" onclick="doomSearch()">
+      🔎 Deep Search
+    </button>
+  </div>
+</section>
+
+<div class="tabs">
+  <button class="tab active" onclick="showSection('chat',this)">💬 Chat</button>
+  <button class="tab" onclick="showSection('knowledge',this)">🧠 Knowledge</button>
+  <button class="tab" onclick="showSection('media',this)">🖼️ Media</button>
+  <button class="tab" onclick="showSection('space',this)">🚀 Space</button>
+  <button class="tab" onclick="showSection('sources',this)">📚 Sources</button>
+</div>
+
+<section id="chatSection" class="panel">
+  <div class="panelTitle">
+    <h2>DOOM Conversation</h2>
+    <span>Source-aware demo</span>
+  </div>
+
+  <div id="chat" class="chat">
+    <div class="msg ai">
+      <small>DOOM AI</small>
+      Namaste. Ask me a question. I will search the local open-knowledge
+      index and show the evidence available in this demo.
+    </div>
+  </div>
+
+  <div class="chatInput">
+    <textarea id="chatInput"
+      placeholder="Type your question..."></textarea>
+
+    <button class="btn primary" onclick="sendMessage()">
+      Send →
+    </button>
+  </div>
+</section>
+
+<section id="knowledgeSection" class="panel hidden">
+  <div class="panelTitle">
+    <h2>Knowledge Explorer</h2>
+    <span id="resultCount">0 results</span>
+  </div>
+
+  <div id="knowledgeResults" class="cards">
+    <div class="card">
+      <span class="badge">READY</span>
+      <h3>Open Knowledge Index</h3>
+      <p>
+        Search terms will be matched against the bundled demonstration
+        knowledge base.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="mediaSection" class="panel hidden">
+  <div class="panelTitle">
+    <h2>Open Media</h2>
+    <span>License-aware demo</span>
+  </div>
+
+  <div id="mediaResults" class="mediaGrid"></div>
+</section>
+
+<section id="spaceSection" class="panel hidden">
+  <div class="panelTitle">
+    <h2>🚀 Space Intelligence</h2>
+    <span>Demo dataset</span>
+  </div>
+
+  <div id="spaceResults" class="cards"></div>
+</section>
+
+<section id="sourcesSection" class="panel hidden">
+  <div class="panelTitle">
+    <h2>📚 Source & License Rules</h2>
+    <span>Transparency layer</span>
+  </div>
+
+  <div id="sourceRules" class="cards"></div>
+</section>
+
+<footer>
+  DOOM AI • Open-data focused demo • Verify individual source licenses
+  before commercial reuse.
+</footer>
+
+</main>
+</div>
+
+<script>
+/* PART 1 — CORE UI */
+
+const DOOM = {
+  version:"1.0-demo",
+  mode:"local",
+  history:[],
+  results:[]
+};
+
+function $(id){
+  return document.getElementById(id);
+}
+
+function showSection(name,button){
+
+  const sections = [
+    "chatSection",
+    "knowledgeSection",
+    "mediaSection",
+    "spaceSection",
+    "sourcesSection"
+  ];
+
+  sections.forEach(id=>{
+    $(id).classList.add("hidden");
+  });
+
+  $(name+"Section").classList.remove("hidden");
+
+  document.querySelectorAll(".tab").forEach(x=>{
+    x.classList.remove("active");
+  });
+
+  if(button){
+    button.classList.add("active");
+  }
+}
+
+function addMessage(type,text){
+
+  const box = $("chat");
+
+  const div = document.createElement("div");
+  div.className = "msg " + type;
+
+  const label = type==="user" ? "YOU" : "DOOM AI";
+
+  div.innerHTML =
+    "<small>"+label+"</small>" +
+    escapeHTML(text);
+
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+function escapeHTML(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+$("globalSearch").addEventListener("keydown",function(e){
+
+  if(e.key==="Enter"){
+    e.preventDefault();
+    doomSearch();
+  }
+});
+
+$("chatInput").addEventListener("keydown",function(e){
+
+  if(e.key==="Enter" && !e.shiftKey){
+    e.preventDefault();
+    sendMessage();
+  }
+});
+
+function sendMessage(){
+
+  const input = $("chatInput");
+  const q = input.value.trim();
+
+  if(!q) return;
+
+  addMessage("user",q);
+  input.value = "";
+
+  processQuestion(q);
+}
+
+function doomSearch(){
+
+  const q = $("globalSearch").value.trim();
+
+  if(!q) return;
+
+  addMessage("user",q);
+
+  processQuestion(q);
+}
+
+function processQuestion(query){
+
+  showSection("knowledge");
+
+  $("knowledgeResults").innerHTML =
+    `<div class="card">
+      <span class="badge">SEARCHING</span>
+      <h3>DOOM retrieval engine</h3>
+      <p>Analyzing your query against the local open-knowledge index…</p>
+    </div>`;
+
+  setTimeout(()=>{
+    runLocalSearch(query);
+  },350);
+}
+</script>
+
+</body>
+   </html>
