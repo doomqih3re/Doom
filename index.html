@@ -9,2155 +9,1536 @@
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:#05050b;
-  color:#f8f9ff;
-  min-height:100vh;
-  overflow-x:hidden;
-}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
 :root{
  --bg:#05050b;
  --panel:#0d0d18;
- --panel2:#111121;
+ --panel2:#111122;
  --line:#ffffff18;
  --text:#f8f9ff;
  --muted:#9298ad;
  --a:#8b5cf6;
  --b:#06d6ff;
  --c:#ff3cac;
- --good:#22c55e;
- --danger:#ef4444;
+ --good:#35e69b;
+ --danger:#ff5577;
 }
-body:before{
- content:"";
- position:fixed;
- inset:0;
- pointer-events:none;
- z-index:-1;
+html{scroll-behavior:smooth}
+body{
+ font-family:Inter,Arial,sans-serif;
  background:
- radial-gradient(circle at 10% 10%,#8b5cf615,transparent 28%),
- radial-gradient(circle at 90% 20%,#06d6ff12,transparent 25%),
- radial-gradient(circle at 50% 100%,#ff3cac10,transparent 30%);
+ radial-gradient(circle at 10% 10%,#8b5cf622,transparent 30%),
+ radial-gradient(circle at 90% 20%,#06d6ff18,transparent 28%),
+ radial-gradient(circle at 50% 90%,#ff3cac12,transparent 30%),
+ var(--bg);
+ color:var(--text);
+ min-height:100vh;
+ overflow-x:hidden;
 }
-a{color:inherit;text-decoration:none}
-.hidden{display:none!important}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
 
-/* HEADER */
-header{
- position:sticky;
- top:0;
- z-index:1000;
- height:70px;
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:0 24px;
- border-bottom:1px solid var(--line);
- background:#05050bdd;
- backdrop-filter:blur(20px);
+.app{display:flex;min-height:100vh}
+
+.sidebar{
+ position:fixed;
+ left:0;top:0;bottom:0;
+ width:250px;
+ padding:22px 16px;
+ background:#070711e8;
+ border-right:1px solid var(--line);
+ backdrop-filter:blur(22px);
+ z-index:100;
+ overflow-y:auto;
 }
 .logo{
- font-size:22px;
+ font-size:25px;
  font-weight:900;
  letter-spacing:4px;
-}
-.logo span{
+ margin:5px 10px 5px;
  background:linear-gradient(90deg,var(--a),var(--b),var(--c));
  -webkit-background-clip:text;
  color:transparent;
 }
-nav{display:flex;gap:5px;flex-wrap:wrap}
-nav button{
+.logoSub{
+ font-size:10px;
+ color:var(--muted);
+ letter-spacing:2px;
+ margin:0 10px 25px;
+}
+.nav{
+ display:flex;
+ flex-direction:column;
+ gap:7px;
+}
+.nav button{
  border:1px solid transparent;
  background:transparent;
- color:var(--muted);
- padding:9px 11px;
- border-radius:10px;
+ color:#aeb3c8;
+ text-align:left;
+ padding:12px 13px;
+ border-radius:12px;
+ transition:.2s;
 }
-nav button:hover,nav button.active{
- color:white;
- background:#ffffff0a;
+.nav button:hover,.nav button.active{
+ background:#ffffff0b;
  border-color:var(--line);
-}
-.menu{
- display:none;
- background:#ffffff0a;
  color:white;
+ transform:translateX(3px);
+}
+.nav button.active{
+ box-shadow:inset 2px 0 var(--a);
+}
+.sideStatus{
+ margin:25px 8px 0;
+ padding:12px;
  border:1px solid var(--line);
- padding:9px 12px;
- border-radius:10px;
+ border-radius:14px;
+ background:#ffffff05;
 }
-
-/* APP */
-main{max-width:1450px;margin:auto;padding:25px}
-.page{display:none;animation:fade .3s ease}
-.page.active{display:block}
-@keyframes fade{
- from{opacity:0;transform:translateY(8px)}
- to{opacity:1;transform:none}
+.statusDot{
+ display:inline-block;
+ width:8px;height:8px;
+ border-radius:50%;
+ background:var(--good);
+ box-shadow:0 0 12px var(--good);
+ margin-right:7px;
 }
+.sideStatus small{color:var(--muted)}
 
-/* HERO */
-.hero{
- min-height:calc(100vh - 120px);
- display:grid;
- grid-template-columns:1.2fr .8fr;
+.main{
+ margin-left:250px;
+ width:calc(100% - 250px);
+ min-height:100vh;
+}
+.topbar{
+ position:sticky;
+ top:0;
+ z-index:50;
+ padding:15px 25px;
+ border-bottom:1px solid var(--line);
+ background:#05050bdd;
+ backdrop-filter:blur(18px);
+ display:flex;
+ justify-content:space-between;
  align-items:center;
- gap:50px;
 }
-.badge{
- display:inline-flex;
- padding:8px 12px;
- border:1px solid #8b5cf644;
- border-radius:999px;
- color:#c4b5fd;
- background:#8b5cf610;
- font-size:13px;
+.topTitle{font-size:13px;color:#aeb3c8;letter-spacing:1px}
+.apiState{
+ font-size:12px;
+ padding:7px 11px;
+ border:1px solid var(--line);
+ border-radius:20px;
+ color:#aeb3c8;
+}
+
+.page{display:none;padding:35px;max-width:1500px;margin:auto}
+.page.active{display:block}
+
+.hero{
+ min-height:600px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ text-align:center;
+ flex-direction:column;
+}
+.eyebrow{
+ color:var(--b);
+ font-size:12px;
+ letter-spacing:4px;
+ text-transform:uppercase;
  margin-bottom:18px;
 }
 .hero h1{
- font-size:clamp(60px,10vw,150px);
- line-height:.82;
+ font-size:clamp(65px,13vw,170px);
+ line-height:.85;
+ font-weight:1000;
  letter-spacing:-7px;
-}
-.gradient{
- background:linear-gradient(90deg,#fff,var(--b),var(--a),var(--c));
+ background:linear-gradient(100deg,#fff,var(--b),var(--a),var(--c));
  -webkit-background-clip:text;
  color:transparent;
 }
 .hero p{
  max-width:700px;
  color:var(--muted);
- font-size:18px;
  line-height:1.7;
- margin:25px 0;
+ margin:25px auto;
 }
-.actions{display:flex;gap:12px;flex-wrap:wrap}
+.heroBtns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+
 .btn{
  border:1px solid var(--line);
  background:#ffffff08;
  color:white;
- padding:12px 18px;
+ padding:11px 16px;
  border-radius:12px;
  transition:.2s;
 }
 .btn:hover{transform:translateY(-2px);background:#ffffff12}
 .btn.primary{
  border:0;
- background:linear-gradient(135deg,var(--a),var(--b));
- box-shadow:0 0 35px #8b5cf633;
+ background:linear-gradient(100deg,var(--a),var(--b));
+ color:#05050b;
+ font-weight:800;
 }
-.btn.danger{background:#ef444420;border-color:#ef444455}
-.btn.good{background:#22c55e20;border-color:#22c55e55}
+.btn.danger{background:#ff557714;color:#ff8aa0}
+.btn.good{background:#35e69b14;color:#6ff0b6}
 
-/* CORE */
-.core{
- min-height:420px;
- border:1px solid var(--line);
- border-radius:30px;
- background:linear-gradient(145deg,#ffffff08,#ffffff02);
- display:flex;
- align-items:center;
- justify-content:center;
- position:relative;
- overflow:hidden;
+.sectionTitle{
+ margin-bottom:22px;
 }
-.core:before{
- content:"";
- width:230px;
- height:230px;
- border-radius:50%;
- border:1px solid #ffffff22;
- box-shadow:0 0 80px #8b5cf655,inset 0 0 60px #06d6ff22;
- animation:pulse 4s infinite;
-}
-.core:after{
- content:"DOOM";
- position:absolute;
- font-size:42px;
- font-weight:900;
- letter-spacing:8px;
- background:linear-gradient(90deg,var(--a),var(--b),var(--c));
- -webkit-background-clip:text;
- color:transparent;
-}
-@keyframes pulse{
- 50%{transform:scale(1.12);box-shadow:0 0 120px #06d6ff55,inset 0 0 80px #ff3cac33}
-}
+.sectionTitle h2{font-size:30px}
+.sectionTitle p{color:var(--muted);margin-top:6px}
 
-/* TITLES */
-.section-title{
- margin:20px 0 25px;
-}
-.section-title h2{font-size:38px}
-.section-title p{color:var(--muted);margin-top:7px}
-
-/* CARDS */
 .grid{
  display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:18px;
+ grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+ gap:16px;
 }
 .card{
+ background:linear-gradient(145deg,#ffffff09,#ffffff03);
  border:1px solid var(--line);
- background:linear-gradient(145deg,#ffffff08,#ffffff02);
  border-radius:20px;
- padding:22px;
+ padding:20px;
  transition:.25s;
 }
 .card:hover{
  transform:translateY(-5px);
  border-color:#ffffff30;
- box-shadow:0 20px 70px #00000055;
+ box-shadow:0 15px 50px #0008;
 }
-.icon{
- width:48px;height:48px;
- display:grid;place-items:center;
- border-radius:14px;
- background:linear-gradient(135deg,#8b5cf622,#06d6ff22);
- font-size:22px;
- margin-bottom:15px;
-}
-.card h3{font-size:19px;margin-bottom:8px}
-.card p{color:var(--muted);line-height:1.6}
-.card .open{
- margin-top:18px;
- width:100%;
-}
+.cardIcon{font-size:32px;margin-bottom:13px}
+.card h3{margin-bottom:8px}
+.card p{color:var(--muted);line-height:1.55;font-size:14px}
 
-/* WORKSPACE */
 .workspace{
  display:grid;
- grid-template-columns:320px 1fr;
- gap:18px;
+ grid-template-columns:1fr;
+ gap:16px;
 }
 .panel{
+ background:#0b0b16dd;
  border:1px solid var(--line);
- background:#0d0d18dd;
  border-radius:20px;
  padding:20px;
 }
-.panel h3{margin-bottom:16px}
+.panel h3{margin-bottom:14px}
+
 label{
  display:block;
+ color:#b5bad0;
  font-size:12px;
- color:var(--muted);
- margin:14px 0 7px;
+ margin-bottom:7px;
 }
 input,textarea,select{
  width:100%;
- color:white;
- background:#05050c;
  border:1px solid var(--line);
- border-radius:11px;
+ background:#05050b;
+ color:white;
+ border-radius:12px;
  padding:12px;
  outline:none;
 }
 input:focus,textarea:focus,select:focus{
- border-color:#8b5cf688;
+ border-color:#8b5cf677;
  box-shadow:0 0 0 3px #8b5cf611;
 }
-textarea{min-height:130px;resize:vertical}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.full{width:100%;margin-top:15px}
+textarea{min-height:140px;resize:vertical}
 
-/* CHAT */
-.chatbox{
- height:500px;
+.field{margin-bottom:15px}
+.row{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:12px;
+}
+.row3{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:12px;
+}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+
+.output{
+ margin-top:16px;
+ padding:16px;
+ border:1px dashed #ffffff20;
+ border-radius:15px;
+ background:#00000030;
+ min-height:80px;
+ white-space:pre-wrap;
+ color:#dce0ee;
+ line-height:1.6;
+}
+.muted{color:var(--muted)}
+.success{color:var(--good)}
+.error{color:#ff718b}
+
+.mediaResult{
+ margin-top:15px;
+ display:grid;
+ gap:12px;
+}
+.mediaResult img,.mediaResult video,.mediaResult audio{
+ width:100%;
+ max-height:600px;
+ border-radius:15px;
+ background:#000;
+}
+
+.chatBox{
+ height:430px;
  overflow:auto;
  padding:10px;
- display:flex;
- flex-direction:column;
- gap:12px;
+ background:#05050b;
+ border:1px solid var(--line);
+ border-radius:16px;
 }
 .msg{
  max-width:82%;
- padding:13px 15px;
- border-radius:15px;
- line-height:1.6;
+ padding:12px 14px;
+ margin:9px 0;
+ border-radius:14px;
+ line-height:1.5;
  white-space:pre-wrap;
 }
 .msg.user{
- align-self:flex-end;
- background:linear-gradient(135deg,#8b5cf633,#06d6ff22);
- border:1px solid #8b5cf644;
+ margin-left:auto;
+ background:#8b5cf622;
+ border:1px solid #8b5cf633;
 }
 .msg.ai{
- align-self:flex-start;
  background:#ffffff08;
  border:1px solid var(--line);
 }
-.chat-input{
- display:grid;
- grid-template-columns:1fr auto;
+.chatInput{
+ display:flex;
  gap:10px;
- margin-top:12px;
+ margin-top:10px;
 }
-.chat-input textarea{min-height:55px}
-
-/* OUTPUT */
-.output{
- min-height:300px;
- border:1px dashed #ffffff20;
- border-radius:16px;
- padding:20px;
- background:#05050b;
- overflow:auto;
-}
-pre{
- white-space:pre-wrap;
- word-break:break-word;
- color:#dbeafe;
- line-height:1.6;
-}
-.status{
- display:inline-flex;
- align-items:center;
- gap:7px;
- font-size:12px;
- color:var(--muted);
-}
-.dot{
- width:8px;height:8px;border-radius:50%;
- background:var(--good);
- box-shadow:0 0 10px var(--good);
+.chatInput textarea{
+ min-height:55px;
+ max-height:130px;
 }
 
-/* IMAGE */
-.preview{
- min-height:350px;
- display:grid;
- place-items:center;
- background:#05050b;
- border:1px dashed #ffffff22;
- border-radius:16px;
- overflow:hidden;
-}
-.preview img{
- max-width:100%;
- max-height:650px;
- display:block;
-}
-.placeholder{text-align:center;color:var(--muted);padding:40px}
-
-/* PRICING */
-.price{
+.temporalHero{
  text-align:center;
+ padding:25px 0 30px;
+}
+.temporalHero h1{
+ font-size:clamp(42px,8vw,90px);
+ background:linear-gradient(90deg,#fff,var(--b),var(--a));
+ -webkit-background-clip:text;
+ color:transparent;
+ letter-spacing:-4px;
+}
+.temporalHero p{color:var(--muted);margin-top:12px}
+
+.quick{
+ display:flex;
+ flex-wrap:wrap;
+ gap:8px;
+ margin:15px 0;
+}
+.quick button{
+ background:#ffffff07;
+ border:1px solid var(--line);
+ color:#c8cce0;
+ padding:8px 11px;
+ border-radius:10px;
+}
+.quick button:hover{background:#ffffff12;color:white}
+
+.timelineWrap{
+ margin:20px 0;
+ padding:20px;
+ border:1px solid var(--line);
+ border-radius:20px;
+ background:#00000020;
+}
+.timelineBar{
+ height:12px;
+ border-radius:20px;
+ background:linear-gradient(90deg,var(--a),var(--b),var(--c));
  position:relative;
 }
-.price strong{
- display:block;
- font-size:42px;
- margin:18px 0;
+.timelineDot{
+ position:absolute;
+ top:50%;
+ transform:translate(-50%,-50%);
+ width:22px;height:22px;
+ border-radius:50%;
+ background:white;
+ box-shadow:0 0 25px var(--b);
 }
-.price ul{
- list-style:none;
- color:var(--muted);
- line-height:2;
-}
-.price.pro{border-color:#8b5cf655;box-shadow:0 0 50px #8b5cf611}
-
-/* SETTINGS */
-.notice{
- padding:14px;
- border-radius:12px;
- background:#f59e0b12;
- border:1px solid #f59e0b33;
- color:#fcd34d;
- line-height:1.5;
- margin-bottom:15px;
-}
-.success{
- padding:12px;
- border-radius:10px;
- background:#22c55e12;
- border:1px solid #22c55e33;
- color:#86efac;
-}
-.error{
- padding:12px;
- border-radius:10px;
- background:#ef444412;
- border:1px solid #ef444433;
- color:#fca5a5;
-}
-
-/* FOOTER */
-footer{
- border-top:1px solid var(--line);
- margin-top:60px;
- padding:30px 0;
- color:var(--muted);
+.timeLabel{
  display:flex;
  justify-content:space-between;
- gap:20px;
+ color:var(--muted);
+ font-size:11px;
+ margin-top:9px;
 }
 
-/* MOBILE */
-@media(max-width:900px){
- .hero{grid-template-columns:1fr}
- .grid{grid-template-columns:1fr 1fr}
- .workspace{grid-template-columns:1fr}
- nav{display:none;position:absolute;top:70px;left:0;right:0;padding:15px;background:#07070ddd;border-bottom:1px solid var(--line)}
- nav.open{display:grid;grid-template-columns:1fr 1fr}
- .menu{display:block}
+.resultCard{
+ padding:18px;
+ border:1px solid var(--line);
+ border-radius:17px;
+ background:#ffffff05;
+ margin-bottom:10px;
 }
-@media(max-width:600px){
- main{padding:15px}
- .grid{grid-template-columns:1fr}
- .hero h1{font-size:64px;letter-spacing:-4px}
- .core{min-height:280px}
- .row{grid-template-columns:1fr}
- footer{flex-direction:column}
+.resultCard h3{margin-bottom:7px}
+.badge{
+ display:inline-block;
+ padding:4px 8px;
+ border-radius:20px;
+ background:#8b5cf618;
+ color:#bda8ff;
+ font-size:10px;
+ margin-right:5px;
+}
+
+.compare{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:15px;
+}
+.compareBox{
+ border:1px solid var(--line);
+ border-radius:16px;
+ padding:17px;
+ background:#ffffff05;
+}
+
+.stats{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:12px;
+ margin:20px 0;
+}
+.stat{
+ padding:18px;
+ border:1px solid var(--line);
+ border-radius:16px;
+ background:#ffffff05;
+}
+.stat strong{font-size:27px;display:block}
+.stat span{color:var(--muted);font-size:12px}
+
+.modal{
+ display:none;
+ position:fixed;
+ inset:0;
+ z-index:500;
+ background:#000b;
+ backdrop-filter:blur(10px);
+ align-items:center;
+ justify-content:center;
+ padding:20px;
+}
+.modal.show{display:flex}
+.modalBox{
+ width:min(800px,100%);
+ max-height:90vh;
+ overflow:auto;
+ background:#0c0c17;
+ border:1px solid var(--line);
+ border-radius:22px;
+ padding:22px;
+}
+
+footer{
+ padding:40px 0 20px;
+ color:#656b80;
+ text-align:center;
+ font-size:12px;
+}
+
+@media(max-width:850px){
+ .sidebar{
+  position:relative;
+  width:100%;
+  height:auto;
+  bottom:auto;
+  border-right:0;
+  border-bottom:1px solid var(--line);
+ }
+ .app{display:block}
+ .main{margin-left:0;width:100%}
+ .nav{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+ }
+ .topbar{position:relative}
+ .page{padding:22px 15px}
+ .row,.row3,.compare{grid-template-columns:1fr}
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .hero{min-height:500px}
+ .hero h1{letter-spacing:-4px}
+}
+
+@media(max-width:500px){
+ .stats{grid-template-columns:1fr 1fr}
+ .chatInput{flex-direction:column}
 }
 </style>
 </head>
 
 <body>
 
-<header>
- <div class="logo"><span>DOOM</span> AI</div>
+<div class="app">
 
- <nav id="nav">
-  <button data-page="home" class="active">Home</button>
-  <button data-page="chat">AI Chat</button>
-  <button data-page="photo">Photo</button>
-  <button data-page="video">Video</button>
-  <button data-page="coding">Coding</button>
-  <button data-page="song">Song</button>
-  <button data-page="ghibli">Ghibli</button>
-  <button data-page="design">Design</button>
-  <button data-page="explore">Explore</button>
-  <button data-page="pricing">Pricing</button>
-  <button data-page="settings">Settings</button>
+<aside class="sidebar">
+ <div class="logo">DOOM AI</div>
+ <div class="logoSub">UNIVERSAL INTELLIGENCE</div>
+
+ <nav class="nav">
+  <button class="active" data-page="home">⌂ Home</button>
+  <button data-page="chat">◉ AI Chat</button>
+  <button data-page="photo">◈ Photo</button>
+  <button data-page="video">▶ Video</button>
+  <button data-page="coding">⌘ Coding</button>
+  <button data-page="song">♫ Song</button>
+  <button data-page="ghibli">✦ Ghibli</button>
+  <button data-page="design">◆ Design</button>
+  <button data-page="temporal">◷ Temporal Engine</button>
+  <button data-page="encrypted">🔐 Secure Chat</button>
+  <button data-page="explore">◎ Explore</button>
+  <button data-page="pricing">◇ Pricing</button>
+  <button data-page="settings">⚙ Settings</button>
  </nav>
 
- <button class="menu" onclick="toggleMenu()">☰</button>
-</header>
+ <div class="sideStatus">
+  <span class="statusDot"></span>
+  <span>DOOM ONLINE</span>
+  <br>
+  <small>Frontend / API Ready</small>
+ </div>
+</aside>
 
-<main>
+<main class="main">
 
-<!-- ================= HOME ================= -->
+<div class="topbar">
+ <div class="topTitle">DOOM AI / CREATIVE INTELLIGENCE SYSTEM</div>
+ <div class="apiState" id="apiState">● LOCAL MODE</div>
+</div>
+
+<!-- HOME -->
 <section id="home" class="page active">
-
  <div class="hero">
-  <div>
-   <span class="badge">● UNIVERSAL CREATIVE INTELLIGENCE</span>
-
-   <h1>
-    DOOM<br>
-    <span class="gradient">AI</span>
-   </h1>
-
-   <p>
-    One futuristic workspace for intelligence, images, video,
-    coding, music, design and creative exploration.
-   </p>
-
-   <div class="actions">
-    <button class="btn primary" onclick="showPage('chat')">
-     Launch DOOM AI →
-    </button>
-    <button class="btn" onclick="showPage('explore')">
-     Explore System
-    </button>
-   </div>
+  <div class="eyebrow">NEXT GENERATION CREATIVE ENGINE</div>
+  <h1>DOOM AI</h1>
+  <p>
+   One futuristic interface for conversation, images, video, coding,
+   music, design and a world-through-time knowledge engine.
+  </p>
+  <div class="heroBtns">
+   <button class="btn primary" onclick="go('chat')">START AI</button>
+   <button class="btn" onclick="go('temporal')">EXPLORE TIME</button>
+   <button class="btn" onclick="go('settings')">CONNECT API</button>
   </div>
-
-  <div class="core"></div>
  </div>
 
- <div class="section-title">
-  <h2>Creative Intelligence Stack</h2>
-  <p>Everything starts from one interface.</p>
+ <div class="sectionTitle">
+  <h2>Everything in one place</h2>
+  <p>Backend-ready modules. Add your provider APIs later.</p>
  </div>
 
  <div class="grid">
+  <div class="card" onclick="go('chat')"><div class="cardIcon">◉</div><h3>DOOM AI CHAT</h3><p>Ask, research, brainstorm, write and build through your backend AI.</p></div>
+  <div class="card" onclick="go('photo')"><div class="cardIcon">◈</div><h3>DOOM PHOTO</h3><p>Prompt-based image generation interface with aspect ratio and style controls.</p></div>
+  <div class="card" onclick="go('video')"><div class="cardIcon">▶</div><h3>CREATE DOOM VIDEO</h3><p>Video generation interface ready for your backend video provider.</p></div>
+  <div class="card" onclick="go('coding')"><div class="cardIcon">⌘</div><h3>CODING MAKER</h3><p>Generate, explain, fix and refactor code through your API.</p></div>
+  <div class="card" onclick="go('song')"><div class="cardIcon">♫</div><h3>SONG MAKER</h3><p>Create lyrics or connect your music/audio generation backend.</p></div>
+  <div class="card" onclick="go('ghibli')"><div class="cardIcon">✦</div><h3>DOOM GIBLI</h3><p>Character, world and cinematic scene creation workflow.</p></div>
+  <div class="card" onclick="go('design')"><div class="cardIcon">◆</div><h3>DESIGN EVERYTHING</h3><p>Websites, logos, posters, app UI and presentation concepts.</p></div>
+  <div class="card" onclick="go('temporal')"><div class="cardIcon">◷</div><h3>TEMPORAL ENGINE</h3><p>Explore Earth, dinosaurs, humans, civilizations and empires across time.</p></div>
+ </div>
 
-  <div class="card">
-   <div class="icon">🧠</div>
-   <h3>DOOM AI CHAT</h3>
-   <p>Ask, research, brainstorm, write, plan and build.</p>
-   <button class="btn open" onclick="showPage('chat')">Open Chat</button>
-  </div>
-
-  <div class="card">
-   <div class="icon">📸</div>
-   <h3>DOOM PHOTO</h3>
-   <p>Create cinematic and photorealistic image generations.</p>
-   <button class="btn open" onclick="showPage('photo')">Create Photo</button>
-  </div>
-
-  <div class="card">
-   <div class="icon">🎬</div>
-   <h3>CREATE DOOM VIDEO</h3>
-   <p>Prepare cinematic video-generation jobs from prompts.</p>
-   <button class="btn open" onclick="showPage('video')">Create Video</button>
-  </div>
-
-  <div class="card">
-   <div class="icon">💻</div>
-   <h3>DOOM CODING MAKER</h3>
-   <p>Generate, explain, fix and refactor code.</p>
-   <button class="btn open" onclick="showPage('coding')">Open Coding</button>
-  </div>
-
-  <div class="card">
-   <div class="icon">🎵</div>
-   <h3>DOOM SONG MAKER</h3>
-   <p>Create lyrics and connect your audio-generation backend.</p>
-   <button class="btn open" onclick="showPage('song')">Make Song</button>
-  </div>
-
-  <div class="card">
-   <div class="icon">🌌</div>
-   <h3>DOOM GIBLI</h3>
-   <p>Build animated fantasy worlds and character concepts.</p>
-   <button class="btn open" onclick="showPage('ghibli')">Open Ghibli</button>
-  </div>
-
-  <div class="card">
-   <div class="icon">🎨</div>
-   <h3>DESIGN EVERYTHING</h3>
-   <p>Websites, logos, posters, UI and creative concepts.</p>
-   <button class="btn open" onclick="showPage('design')">Open Design</button>
-  </div>
-
-  <div class="card">
-   <div class="icon">🔐</div>
-   <h3>ENCRYPTED CHAT</h3>
-   <p>Browser-to-browser encrypted room demonstration.</p>
-   <button class="btn open" onclick="showPage('encrypted')">Open Secure Chat</button>
-  </div>
-
-  <div class="card">
-   <div class="icon">🌍</div>
-   <h3>EXPLORE</h3>
-   <p>Explore creative workflows and system modules.</p>
-   <button class="btn open" onclick="showPage('explore')">Explore</button>
-  </div>
-
+ <div class="stats">
+  <div class="stat"><strong>7+</strong><span>Creative Tools</span></div>
+  <div class="stat"><strong>4.5B</strong><span>Years Timeline</span></div>
+  <div class="stat"><strong>API</strong><span>Backend Ready</span></div>
+  <div class="stat"><strong>1</strong><span>Unified Interface</span></div>
  </div>
 </section>
 
-
-<!-- ================= CHAT ================= -->
+<!-- CHAT -->
 <section id="chat" class="page">
-
- <div class="section-title">
-  <h2>DOOM AI Chat</h2>
-  <p>Your main intelligence interface.</p>
+ <div class="sectionTitle">
+  <h2>DOOM AI CHAT</h2>
+  <p>Universal AI conversation interface.</p>
  </div>
 
  <div class="panel">
-  <div id="chatbox" class="chatbox">
-   <div class="msg ai">
-    DOOM AI online. Ask me anything.
-   </div>
+  <div id="chatBox" class="chatBox">
+   <div class="msg ai">DOOM AI ready. Connect your backend API to enable live intelligence.</div>
   </div>
 
-  <div class="chat-input">
-   <textarea id="chatInput"
-    placeholder="Ask DOOM AI anything..."
-    onkeydown="chatKey(event)"></textarea>
-
-   <button class="btn primary" onclick="sendChat()">Send</button>
-  </div>
-
-  <div class="actions" style="margin-top:12px">
-   <button class="btn" onclick="clearChat()">Clear</button>
-   <button class="btn" onclick="exportChat()">Export Chat</button>
+  <div class="chatInput">
+   <textarea id="chatInput" placeholder="Ask DOOM AI anything..."></textarea>
+   <button class="btn primary" onclick="sendChat()">SEND</button>
   </div>
  </div>
 </section>
 
-
-<!-- ================= PHOTO ================= -->
+<!-- PHOTO -->
 <section id="photo" class="page">
-
- <div class="section-title">
-  <h2>DOOM Photo</h2>
-  <p>Image-generation frontend with secure backend API support.</p>
+ <div class="sectionTitle">
+  <h2>DOOM PHOTO</h2>
+  <p>Image generation frontend.</p>
  </div>
 
- <div class="workspace">
-
-  <div class="panel">
-   <label>Prompt</label>
-   <textarea id="photoPrompt"
-    placeholder="A futuristic city above the clouds..."></textarea>
-
-   <div class="row">
-    <div>
-     <label>Aspect Ratio</label>
-     <select id="photoRatio">
-      <option>16:9</option>
-      <option>1:1</option>
-      <option>9:16</option>
-     </select>
-    </div>
-
-    <div>
-     <label>Quality</label>
-     <select id="photoQuality">
-      <option>High</option>
-      <option>Ultra</option>
-     </select>
-    </div>
-   </div>
-
-   <label>Style</label>
-   <select id="photoStyle">
-    <option>Cinematic</option>
-    <option>Photorealistic</option>
-    <option>Fantasy</option>
-    <option>Concept Art</option>
-    <option>Anime</option>
-   </select>
-
-   <button class="btn primary full" onclick="generatePhoto()">
-    Generate Photo
-   </button>
+ <div class="panel">
+  <div class="field">
+   <label>IMAGE PROMPT</label>
+   <textarea id="photoPrompt" placeholder="A futuristic city floating above Earth..."></textarea>
   </div>
 
-  <div class="panel">
-   <div id="photoPreview" class="preview">
-    <div class="placeholder">
-     <h3>PHOTO OUTPUT</h3>
-     <p>Your generated image will appear here.</p>
-    </div>
+  <div class="row3">
+   <div class="field"><label>ASPECT RATIO</label>
+    <select id="photoRatio"><option>16:9</option><option>1:1</option><option>9:16</option></select>
+   </div>
+   <div class="field"><label>STYLE</label>
+    <select id="photoStyle"><option>Cinematic</option><option>Photorealistic</option><option>Fantasy</option><option>Concept Art</option></select>
+   </div>
+   <div class="field"><label>QUALITY</label>
+    <select id="photoQuality"><option>High</option><option>Ultra</option></select>
    </div>
   </div>
 
+  <button class="btn primary" onclick="generatePhoto()">GENERATE PHOTO</button>
+  <div id="photoOutput" class="output">Waiting for request...</div>
+  <div id="photoMedia" class="mediaResult"></div>
  </div>
 </section>
 
-
-<!-- ================= VIDEO ================= -->
+<!-- VIDEO -->
 <section id="video" class="page">
-
- <div class="section-title">
-  <h2>Create DOOM Video</h2>
-  <p>Frontend ready for your video-generation backend.</p>
+ <div class="sectionTitle">
+  <h2>CREATE DOOM VIDEO</h2>
+  <p>Backend-ready video generation interface.</p>
  </div>
 
- <div class="workspace">
-
-  <div class="panel">
-
-   <label>Video Prompt</label>
-   <textarea id="videoPrompt"
-    placeholder="A cinematic spaceship entering a black hole..."></textarea>
-
-   <div class="row">
-    <div>
-     <label>Duration</label>
-     <select id="videoDuration">
-      <option value="5">5 seconds</option>
-      <option value="10">10 seconds</option>
-      <option value="20">20 seconds</option>
-     </select>
-    </div>
-
-    <div>
-     <label>Aspect Ratio</label>
-     <select id="videoRatio">
-      <option>16:9</option>
-      <option>9:16</option>
-      <option>1:1</option>
-     </select>
-    </div>
-   </div>
-
-   <label>Camera</label>
-   <select id="videoCamera">
-    <option>Cinematic</option>
-    <option>Handheld</option>
-    <option>Drone</option>
-    <option>Tracking</option>
-   </select>
-
-   <button class="btn primary full" onclick="generateVideo()">
-    Generate Video
-   </button>
-
+ <div class="panel">
+  <div class="field">
+   <label>VIDEO PROMPT</label>
+   <textarea id="videoPrompt" placeholder="A cinematic spacecraft travels through a beautiful nebula..."></textarea>
   </div>
 
-  <div class="panel">
-   <div id="videoOutput" class="output">
-    <div class="placeholder">
-     <h3>VIDEO OUTPUT</h3>
-     <p>Backend video URL will appear here.</p>
-    </div>
+  <div class="row3">
+   <div class="field"><label>DURATION</label>
+    <select id="videoDuration"><option value="5">5 seconds</option><option value="10">10 seconds</option><option value="20">20 seconds</option></select>
+   </div>
+   <div class="field"><label>ASPECT RATIO</label>
+    <select id="videoRatio"><option>16:9</option><option>9:16</option><option>1:1</option></select>
+   </div>
+   <div class="field"><label>CAMERA</label>
+    <select id="videoCamera"><option>Cinematic</option><option>Handheld</option><option>Drone</option></select>
    </div>
   </div>
 
+  <button class="btn primary" onclick="generateVideo()">GENERATE VIDEO</button>
+  <div id="videoOutput" class="output">Waiting for request...</div>
+  <div id="videoMedia" class="mediaResult"></div>
  </div>
 </section>
 
-
-<!-- ================= CODING ================= -->
+<!-- CODING -->
 <section id="coding" class="page">
-
- <div class="section-title">
-  <h2>DOOM Coding Maker</h2>
-  <p>Generate, explain, fix and refactor code.</p>
+ <div class="sectionTitle">
+  <h2>DOOM CODING MAKER</h2>
+  <p>Generate, explain, fix or refactor code.</p>
  </div>
 
- <div class="workspace">
-
-  <div class="panel">
-
-   <label>What do you want to build?</label>
-   <textarea id="codePrompt"
-    placeholder="Build a responsive landing page..."></textarea>
-
-   <label>Language</label>
-   <select id="codeLanguage">
-    <option>HTML</option>
-    <option>CSS</option>
-    <option>JavaScript</option>
-    <option>Python</option>
-    <option>React</option>
-    <option>Node.js</option>
-    <option>C++</option>
-   </select>
-
-   <label>Action</label>
-   <select id="codeAction">
-    <option>Generate</option>
-    <option>Explain</option>
-    <option>Fix</option>
-    <option>Refactor</option>
-   </select>
-
-   <button class="btn primary full" onclick="generateCode()">
-    Run Coding AI
-   </button>
-
+ <div class="panel">
+  <div class="field">
+   <label>CODING REQUEST</label>
+   <textarea id="codePrompt" placeholder="Create a futuristic landing page..."></textarea>
   </div>
 
-  <div class="panel">
-
-   <div class="actions">
-    <button class="btn" onclick="copyCode()">Copy</button>
-    <button class="btn" onclick="downloadCode()">Download</button>
+  <div class="row">
+   <div class="field"><label>LANGUAGE</label>
+    <select id="codeLanguage">
+     <option>HTML</option><option>CSS</option><option>JavaScript</option>
+     <option>Python</option><option>React</option><option>Node.js</option><option>C++</option>
+    </select>
    </div>
-
-   <div id="codeOutput" class="output" style="margin-top:12px">
-    <pre>// DOOM CODING OUTPUT</pre>
+   <div class="field"><label>ACTION</label>
+    <select id="codeAction"><option>Generate</option><option>Explain</option><option>Fix</option><option>Refactor</option></select>
    </div>
-
   </div>
 
+  <button class="btn primary" onclick="generateCode()">RUN CODING MAKER</button>
+  <div id="codeOutput" class="output">Code output will appear here.</div>
  </div>
 </section>
 
-
-<!-- ================= SONG ================= -->
+<!-- SONG -->
 <section id="song" class="page">
-
- <div class="section-title">
-  <h2>DOOM Song Maker</h2>
-  <p>Lyrics + audio-generation backend integration layer.</p>
+ <div class="sectionTitle">
+  <h2>DOOM SONG MAKER</h2>
+  <p>Lyrics/audio backend interface.</p>
  </div>
 
- <div class="workspace">
-
-  <div class="panel">
-
-   <label>Song Idea</label>
-   <textarea id="songPrompt"
-    placeholder="An epic dark futuristic song about humanity and AI..."></textarea>
-
-   <label>Genre</label>
-   <select id="songGenre">
-    <option>Cinematic</option>
-    <option>Pop</option>
-    <option>Rock</option>
-    <option>Electronic</option>
-    <option>Ambient</option>
-   </select>
-
-   <label>Mood</label>
-   <select id="songMood">
-    <option>Epic</option>
-    <option>Dark</option>
-    <option>Happy</option>
-    <option>Emotional</option>
-   </select>
-
-   <button class="btn primary full" onclick="generateSong()">
-    Generate Song
-   </button>
-
+ <div class="panel">
+  <div class="field">
+   <label>SONG IDEA</label>
+   <textarea id="songPrompt" placeholder="An epic dark cinematic song about humanity exploring space..."></textarea>
   </div>
 
-  <div class="panel">
-
-   <h3>Lyrics</h3>
-   <div id="lyricsOutput" class="output">
-    Your lyrics will appear here.
+  <div class="row">
+   <div class="field"><label>GENRE</label>
+    <select id="songGenre"><option>Cinematic</option><option>Pop</option><option>Rock</option><option>Electronic</option><option>Ambient</option></select>
    </div>
-
-   <div id="audioBox" style="margin-top:15px"></div>
-
+   <div class="field"><label>MOOD</label>
+    <select id="songMood"><option>Epic</option><option>Dark</option><option>Happy</option><option>Emotional</option></select>
+   </div>
   </div>
 
+  <button class="btn primary" onclick="generateSong()">CREATE SONG</button>
+  <div id="songOutput" class="output">Waiting for request...</div>
+  <div id="songMedia" class="mediaResult"></div>
  </div>
 </section>
 
-
-<!-- ================= GHIBLI ================= -->
+<!-- GHIBLI -->
 <section id="ghibli" class="page">
-
- <div class="section-title">
-  <h2>DOOM Ghibli</h2>
-  <p>Fantasy character and world creation interface.</p>
+ <div class="sectionTitle">
+  <h2>DOOM GIBLI</h2>
+  <p>Character, world and scene creation.</p>
  </div>
 
- <div class="workspace">
-
-  <div class="panel">
-
-   <label>Character / World / Scene</label>
-   <textarea id="ghibliPrompt"
-    placeholder="A magical village floating above an ancient forest..."></textarea>
-
-   <label>Style</label>
-   <select id="ghibliStyle">
-    <option>Ghibli Inspired</option>
-    <option>Anime Fantasy</option>
-    <option>Dreamlike</option>
-    <option>Magical Storybook</option>
-   </select>
-
-   <label>Ratio</label>
-   <select id="ghibliRatio">
-    <option>16:9</option>
-    <option>1:1</option>
-    <option>9:16</option>
-   </select>
-
-   <button class="btn primary full" onclick="generateGhibli()">
-    Create World
-   </button>
-
+ <div class="panel">
+  <div class="field">
+   <label>CHARACTER / WORLD / SCENE</label>
+   <textarea id="ghibliPrompt" placeholder="A young explorer walking through a magical forest city..."></textarea>
   </div>
-
-  <div class="panel">
-   <div id="ghibliPreview" class="preview">
-    <div class="placeholder">GHIBLI OUTPUT</div>
-   </div>
-  </div>
-
+  <button class="btn primary" onclick="generateGhibli()">CREATE</button>
+  <div id="ghibliOutput" class="output">Waiting for request...</div>
+  <div id="ghibliMedia" class="mediaResult"></div>
  </div>
 </section>
 
-
-<!-- ================= DESIGN ================= -->
+<!-- DESIGN -->
 <section id="design" class="page">
-
- <div class="section-title">
-  <h2>Design Everything</h2>
-  <p>Turn ideas into structured design concepts.</p>
+ <div class="sectionTitle">
+  <h2>DESIGN EVERYTHING</h2>
+  <p>Universal design creation workspace.</p>
  </div>
 
- <div class="workspace">
-
-  <div class="panel">
-
-   <label>Design Brief</label>
-   <textarea id="designPrompt"
-    placeholder="Create a futuristic AI startup website..."></textarea>
-
-   <label>Design Type</label>
-   <select id="designType">
-    <option>Website</option>
-    <option>Logo</option>
-    <option>Poster</option>
-    <option>App UI</option>
-    <option>Presentation</option>
-    <option>Social Media</option>
-   </select>
-
-   <label>Style</label>
-   <select id="designStyle">
-    <option>Futuristic</option>
-    <option>Minimal</option>
-    <option>Cinematic</option>
-    <option>Luxury</option>
-   </select>
-
-   <button class="btn primary full" onclick="generateDesign()">
-    Generate Design
-   </button>
-
+ <div class="panel">
+  <div class="field">
+   <label>DESIGN BRIEF</label>
+   <textarea id="designPrompt" placeholder="Design a premium futuristic AI website..."></textarea>
   </div>
 
-  <div class="panel">
-   <div id="designOutput" class="output">
-    Design specification will appear here.
+  <div class="row">
+   <div class="field"><label>TYPE</label>
+    <select id="designType"><option>Website</option><option>Logo</option><option>Poster</option><option>App UI</option><option>Presentation</option><option>Social Media</option></select>
+   </div>
+   <div class="field"><label>STYLE</label>
+    <select id="designStyle"><option>Futuristic</option><option>Minimal</option><option>Cinematic</option><option>Luxury</option></select>
    </div>
   </div>
 
+  <button class="btn primary" onclick="generateDesign()">GENERATE DESIGN</button>
+  <div id="designOutput" class="output">Waiting for request...</div>
+  <div id="designMedia" class="mediaResult"></div>
  </div>
 </section>
 
+<!-- TEMPORAL ENGINE -->
+<section id="temporal" class="page">
 
-<!-- ================= ENCRYPTED CHAT ================= -->
+ <div class="temporalHero">
+  <div class="eyebrow">DOOM AI TEMPORAL ENGINE</div>
+  <h1>WORLD THROUGH TIME</h1>
+  <p>Explore Earth, life, humans, civilizations and empires from deep time to 2026.</p>
+ </div>
+
+ <div class="panel">
+  <div class="field">
+   <label>SEARCH THE TIMELINE</label>
+   <input id="timeSearch" placeholder="Try: dinosaurs, Roman, India, Earth, humans...">
+  </div>
+
+  <div class="row3">
+   <div class="field">
+    <label>YEAR</label>
+    <input id="timeYear" type="number" value="2026">
+   </div>
+   <div class="field">
+    <label>MODE</label>
+    <select id="timeMode">
+     <option value="timeline">Timeline</option>
+     <option value="history">History</option>
+     <option value="deep">Deep Time</option>
+     <option value="country">Country</option>
+     <option value="empire">Empire</option>
+     <option value="continent">Continent</option>
+    </select>
+   </div>
+   <div class="field">
+    <label>EXPLANATION</label>
+    <select id="timeVerse">
+     <option value="kid">Kid</option>
+     <option value="student">Student</option>
+     <option value="deep">Deep</option>
+     <option value="timeline">Timeline</option>
+     <option value="compare">Compare</option>
+    </select>
+   </div>
+  </div>
+
+  <div class="actions">
+   <button class="btn primary" onclick="exploreTime()">EXPLORE TIME</button>
+   <button class="btn" onclick="findTime()">FIND BY YEAR</button>
+   <button class="btn" onclick="clearTemporal()">CLEAR</button>
+  </div>
+
+  <div class="quick">
+   <button onclick="quickTime('Earth')">🌍 Earth</button>
+   <button onclick="quickTime('Dinosaurs')">🦖 Dinosaurs</button>
+   <button onclick="quickTime('Homo sapiens')">🧬 Homo sapiens</button>
+   <button onclick="quickTime('Ancient')">🏺 Ancient World</button>
+   <button onclick="quickTime('medieval')">🏰 Medieval World</button>
+   <button onclick="quickTime('today')">🌐 Today</button>
+  </div>
+
+  <div class="timelineWrap">
+   <input id="timelineSlider" type="range" min="-4500000000" max="2026" value="2026" oninput="sliderTime(this.value)">
+   <div class="timelineBar">
+    <div id="timelineDot" class="timelineDot" style="left:100%"></div>
+   </div>
+   <div class="timeLabel">
+    <span>−4.5 Billion</span>
+    <span id="sliderLabel">2026</span>
+    <span>2026</span>
+   </div>
+  </div>
+ </div>
+
+ <div id="temporalResults" style="margin-top:18px"></div>
+
+ <div class="sectionTitle" style="margin-top:30px">
+  <h2>WORLD COMPARISON</h2>
+  <p>Compare two historical worlds.</p>
+ </div>
+
+ <div class="compare">
+  <div class="compareBox">
+   <h3>🏛️ Roman Empire</h3>
+   <p class="muted">27 BCE → 476 CE</p>
+   <button class="btn" style="margin-top:12px" onclick="showCompare('roman')">Explore</button>
+  </div>
+  <div class="compareBox">
+   <h3>👑 Mughal Empire</h3>
+   <p class="muted">1526 → 1857</p>
+   <button class="btn" style="margin-top:12px" onclick="showCompare('mughal')">Explore</button>
+  </div>
+ </div>
+
+ <div id="compareOutput" class="output" style="margin-top:15px"></div>
+</section>
+
+<!-- ENCRYPTED -->
 <section id="encrypted" class="page">
-
- <div class="section-title">
-  <h2>Encrypted Chat</h2>
-  <p>Client-side AES-GCM demonstration. No server message storage required.</p>
+ <div class="sectionTitle">
+  <h2>🔐 DOOM SECURE CHAT</h2>
+  <p>Browser-side AES-GCM encryption demo.</p>
  </div>
 
  <div class="panel">
-
-  <div class="notice">
-   This is a browser-side encrypted-chat demo. For real multi-device
-   communication you still need WebRTC signaling infrastructure.
+  <div class="field">
+   <label>MESSAGE</label>
+   <textarea id="secureMessage" placeholder="Write a message..."></textarea>
   </div>
 
-  <label>Room Secret</label>
-  <input id="secureSecret" type="password"
-   placeholder="Create the same secret on both devices">
-
-  <label>Message</label>
-  <textarea id="secureMessage"
-   placeholder="Encrypted message..."></textarea>
-
-  <div class="actions" style="margin-top:12px">
-   <button class="btn primary" onclick="encryptMessage()">
-    Encrypt
-   </button>
-   <button class="btn" onclick="decryptMessage()">
-    Decrypt
-   </button>
+  <div class="field">
+   <label>SECRET PASSPHRASE</label>
+   <input id="secureKey" type="password" placeholder="Enter secret">
   </div>
 
-  <label>Encrypted Data</label>
-  <textarea id="secureOutput"></textarea>
+  <div class="actions">
+   <button class="btn primary" onclick="encryptMessage()">ENCRYPT</button>
+   <button class="btn" onclick="decryptMessage()">DECRYPT</button>
+  </div>
 
+  <div id="secureOutput" class="output">Encrypted result will appear here.</div>
  </div>
 </section>
 
-
-<!-- ================= EXPLORE ================= -->
+<!-- EXPLORE -->
 <section id="explore" class="page">
-
- <div class="section-title">
-  <h2>Explore DOOM</h2>
-  <p>Creative workflows available inside the system.</p>
+ <div class="sectionTitle">
+  <h2>EXPLORE</h2>
+  <p>DOOM AI creative universe.</p>
  </div>
 
  <div class="grid">
-
-  <div class="card">
-   <div class="icon">⚡</div>
-   <h3>Idea → Website</h3>
-   <p>Idea se complete website architecture generate karo.</p>
-  </div>
-
-  <div class="card">
-   <div class="icon">🧠</div>
-   <h3>Prompt Engineering</h3>
-   <p>Better prompts ke liye structured creative workflow.</p>
-  </div>
-
-  <div class="card">
-   <div class="icon">🚀</div>
-   <h3>Rapid Prototyping</h3>
-   <p>Concept ko quickly working prototype mein convert karo.</p>
-  </div>
-
-  <div class="card">
-   <div class="icon">🎨</div>
-   <h3>Visual Creation</h3>
-   <p>Photo, Ghibli aur design workflows.</p>
-  </div>
-
-  <div class="card">
-   <div class="icon">💻</div>
-   <h3>Code Engineering</h3>
-   <p>Generate, debug aur improve code.</p>
-  </div>
-
-  <div class="card">
-   <div class="icon">🌐</div>
-   <h3>Global Ready</h3>
-   <p>Backend ke through multiple APIs connect ki ja sakti hain.</p>
-  </div>
-
+  <div class="card"><div class="cardIcon">🔥</div><h3>Trending Images</h3><p>Connect your image backend to display generated or featured visuals.</p></div>
+  <div class="card"><div class="cardIcon">🌐</div><h3>Featured Websites</h3><p>Showcase projects created through DOOM AI.</p></div>
+  <div class="card"><div class="cardIcon">💡</div><h3>Popular Prompts</h3><p>Build your own prompt discovery system later.</p></div>
+  <div class="card"><div class="cardIcon">🚀</div><h3>DOOM SPACE 3D</h3><p>Reserved for a future 3D space experience.</p></div>
  </div>
 </section>
 
-
-<!-- ================= PRICING ================= -->
+<!-- PRICING -->
 <section id="pricing" class="page">
-
- <div class="section-title">
-  <h2>DOOM Plans</h2>
-  <p>Pricing backend/business model ke according configure ki ja sakti hai.</p>
+ <div class="sectionTitle">
+  <h2>DOOM AI PLANS</h2>
+  <p>Frontend pricing display. Configure billing later.</p>
  </div>
 
  <div class="grid">
-
-  <div class="card price">
+  <div class="card">
+   <div class="cardIcon">◇</div>
    <h3>FREE</h3>
-   <strong>$0</strong>
-   <ul>
-    <li>AI Chat</li>
-    <li>Basic Creative Tools</li>
-    <li>Limited Generations</li>
-    <li>Community Access</li>
-   </ul>
-   <button class="btn full" onclick="showPage('chat')">Start Free</button>
+   <h2>$0</h2>
+   <p>Basic access and limited generation according to your backend rules.</p>
+   <button class="btn primary" style="margin-top:15px">CURRENT</button>
   </div>
-
-  <div class="card price pro">
+  <div class="card">
+   <div class="cardIcon">⚡</div>
    <h3>PRO</h3>
-   <strong>$9</strong>
-   <ul>
-    <li>Higher Limits</li>
-    <li>Advanced Models</li>
-    <li>Priority Generation</li>
-    <li>Creative Tools</li>
-   </ul>
-   <button class="btn primary full">Choose Pro</button>
+   <h2>$9</h2>
+   <p>Higher limits and premium features when your billing backend is connected.</p>
+   <button class="btn" style="margin-top:15px">COMING</button>
   </div>
-
-  <div class="card price">
+  <div class="card">
+   <div class="cardIcon">♛</div>
    <h3>CREATOR</h3>
-   <strong>$29</strong>
-   <ul>
-    <li>Creator Workflows</li>
-    <li>High Generation Limits</li>
-    <li>Advanced Creative APIs</li>
-    <li>Priority Processing</li>
-   </ul>
-   <button class="btn full">Choose Creator</button>
+   <h2>$29</h2>
+   <p>Advanced creator limits and premium workflows.</p>
+   <button class="btn" style="margin-top:15px">COMING</button>
   </div>
-
  </div>
 </section>
 
-
-<!-- ================= SETTINGS ================= -->
+<!-- SETTINGS -->
 <section id="settings" class="page">
-
- <div class="section-title">
-  <h2>DOOM System Settings</h2>
-  <p>Backend connection configuration.</p>
+ <div class="sectionTitle">
+  <h2>⚙ API CONFIGURATION</h2>
+  <p>Set your backend URL and route names. Never place provider secret keys here.</p>
  </div>
 
  <div class="panel">
 
-  <div class="notice">
-   🔐 <b>IMPORTANT:</b> API keys ko yahan mat daalna.
-   Real secret keys backend ke environment variables / GitHub Secrets
-   mein rakho. Browser ko sirf tumhare backend endpoint se baat karni chahiye.
-  </div>
-
-  <label>Backend Base URL</label>
-  <input id="apiBase"
-   placeholder="https://your-backend.example.com">
-
-  <div class="row">
-
-   <div>
-    <label>Chat Route</label>
-    <input id="routeChat" value="/api/chat">
-   </div>
-
-   <div>
-    <label>Image Route</label>
-    <input id="routeImage" value="/api/image">
-   </div>
-
+  <div class="field">
+   <label>BACKEND BASE URL</label>
+   <input id="cfgBase" placeholder="Leave empty for same website, e.g. https://api.example.com">
   </div>
 
   <div class="row">
-
-   <div>
-    <label>Video Route</label>
-    <input id="routeVideo" value="/api/video">
-   </div>
-
-   <div>
-    <label>Audio Route</label>
-    <input id="routeAudio" value="/api/audio">
-   </div>
-
+   <div class="field"><label>CHAT ROUTE</label><input id="cfgChat" value="/api/chat"></div>
+   <div class="field"><label>IMAGE ROUTE</label><input id="cfgImage" value="/api/image"></div>
   </div>
 
   <div class="row">
-
-   <div>
-    <label>Code Route</label>
-    <input id="routeCode" value="/api/code">
-   </div>
-
-   <div>
-    <label>Design Route</label>
-    <input id="routeDesign" value="/api/design">
-   </div>
-
+   <div class="field"><label>VIDEO ROUTE</label><input id="cfgVideo" value="/api/video"></div>
+   <div class="field"><label>AUDIO ROUTE</label><input id="cfgAudio" value="/api/audio"></div>
   </div>
 
   <div class="row">
-
-   <div>
-    <label>Request Timeout (ms)</label>
-    <input id="timeout" type="number" value="60000">
-   </div>
-
-   <div>
-    <label>Frontend Version</label>
-    <input value="DOOM-AI v1.0" disabled>
-   </div>
-
+   <div class="field"><label>CODE ROUTE</label><input id="cfgCode" value="/api/code"></div>
+   <div class="field"><label>DESIGN ROUTE</label><input id="cfgDesign" value="/api/design"></div>
   </div>
 
-  <div class="actions" style="margin-top:18px">
-   <button class="btn primary" onclick="saveSettings()">
-    Save Configuration
-   </button>
-
-   <button class="btn good" onclick="testBackend()">
-    Test Backend
-   </button>
-
-   <button class="btn danger" onclick="resetSettings()">
-    Reset
-   </button>
+  <div class="actions">
+   <button class="btn primary" onclick="saveConfig()">SAVE CONFIG</button>
+   <button class="btn good" onclick="testHealth()">TEST /api/health</button>
+   <button class="btn danger" onclick="resetConfig()">RESET</button>
   </div>
 
-  <div id="settingsStatus" style="margin-top:15px"></div>
+  <div id="settingsOutput" class="output">
+   API keys stay on the backend.
+  </div>
 
+  <div class="card" style="margin-top:15px">
+   <h3>Recommended backend structure</h3>
+   <p>
+    Your frontend calls routes such as
+    <b>/api/chat</b>, <b>/api/image</b>, <b>/api/video</b>,
+    <b>/api/audio</b>, <b>/api/code</b> and <b>/api/design</b>.
+    Your backend should hold the actual provider API keys.
+   </p>
+  </div>
  </div>
 </section>
-
-</main>
-
 
 <footer>
- <div>
-  <b>DOOM AI</b><br>
-  Universal Creative Intelligence
- </div>
-
- <div>
-  Built for experimentation, creativity & engineering.
- </div>
-
- <div>
-  Contact:
-  <a href="mailto:meenasaurbh108@gmail.com">
-   meenasaurbh108@gmail.com
-  </a>
- </div>
+ DOOM AI — Universal Intelligence • Temporal Engine • Creative Intelligence
 </footer>
 
+</main>
+</div>
 
 <script>
 /* =========================================================
-   DOOM AI FRONTEND ENGINE
-   IMPORTANT:
-   NO REAL API SECRET IS STORED HERE.
-   KEYS MUST LIVE ON YOUR BACKEND.
-========================================================= */
+   DOOM AI — SINGLE FILE FRONTEND
+   ========================================================= */
 
-const DEFAULT_CONFIG={
- apiBase:"",
- routes:{
-  chat:"/api/chat",
-  image:"/api/image",
-  video:"/api/video",
-  audio:"/api/audio",
-  code:"/api/code",
-  design:"/api/design"
- },
- timeout:60000
+const $ = id => document.getElementById(id);
+
+const DEFAULT_CONFIG = {
+ base:"",
+ chat:"/api/chat",
+ image:"/api/image",
+ video:"/api/video",
+ audio:"/api/audio",
+ code:"/api/code",
+ design:"/api/design"
 };
 
-let config=loadConfig();
-
-
-/* ================= NAVIGATION ================= */
-
-function showPage(id){
-
- document.querySelectorAll(".page").forEach(p=>{
-  p.classList.remove("active");
- });
-
- const page=document.getElementById(id);
-
- if(page) page.classList.add("active");
-
- document.querySelectorAll("nav button").forEach(b=>{
-  b.classList.toggle("active",b.dataset.page===id);
- });
-
- window.scrollTo({top:0,behavior:"smooth"});
-
- document.getElementById("nav").classList.remove("open");
-}
-
-document.querySelectorAll("nav button").forEach(btn=>{
- btn.addEventListener("click",()=>{
-  showPage(btn.dataset.page);
- });
-});
-
-function toggleMenu(){
- document.getElementById("nav").classList.toggle("open");
-}
-
-
-/* ================= CONFIG ================= */
+let CONFIG = loadConfig();
 
 function loadConfig(){
-
  try{
-  const saved=localStorage.getItem("doom_ai_config");
-
-  if(!saved) return structuredClone(DEFAULT_CONFIG);
-
-  const data=JSON.parse(saved);
-
-  return {
-   ...DEFAULT_CONFIG,
-   ...data,
-   routes:{
-    ...DEFAULT_CONFIG.routes,
-    ...(data.routes||{})
-   }
-  };
-
+  return {...DEFAULT_CONFIG,...JSON.parse(localStorage.getItem("doom_config")||"{}")};
  }catch(e){
-  return structuredClone(DEFAULT_CONFIG);
+  return {...DEFAULT_CONFIG};
  }
 }
 
 function saveConfig(){
-
- localStorage.setItem(
-  "doom_ai_config",
-  JSON.stringify(config)
- );
-}
-
-function fillSettings(){
-
- document.getElementById("apiBase").value=config.apiBase;
- document.getElementById("routeChat").value=config.routes.chat;
- document.getElementById("routeImage").value=config.routes.image;
- document.getElementById("routeVideo").value=config.routes.video;
- document.getElementById("routeAudio").value=config.routes.audio;
- document.getElementById("routeCode").value=config.routes.code;
- document.getElementById("routeDesign").value=config.routes.design;
- document.getElementById("timeout").value=config.timeout;
-}
-
-function saveSettings(){
-
- config={
-  apiBase:document.getElementById("apiBase").value.trim().replace(/\/$/,""),
-  routes:{
-   chat:document.getElementById("routeChat").value.trim(),
-   image:document.getElementById("routeImage").value.trim(),
-   video:document.getElementById("routeVideo").value.trim(),
-   audio:document.getElementById("routeAudio").value.trim(),
-   code:document.getElementById("routeCode").value.trim(),
-   design:document.getElementById("routeDesign").value.trim()
-  },
-  timeout:Number(document.getElementById("timeout").value)||60000
+ CONFIG = {
+  base:$("cfgBase").value.trim(),
+  chat:$("cfgChat").value.trim()||"/api/chat",
+  image:$("cfgImage").value.trim()||"/api/image",
+  video:$("cfgVideo").value.trim()||"/api/video",
+  audio:$("cfgAudio").value.trim()||"/api/audio",
+  code:$("cfgCode").value.trim()||"/api/code",
+  design:$("cfgDesign").value.trim()||"/api/design"
  };
 
- saveConfig();
-
- statusMessage(
-  "settingsStatus",
-  "Configuration saved locally. No API secret is stored in this page.",
-  true
- );
+ localStorage.setItem("doom_config",JSON.stringify(CONFIG));
+ $("settingsOutput").innerHTML='<span class="success">Configuration saved.</span>';
+ updateApiState();
 }
 
-function resetSettings(){
-
- localStorage.removeItem("doom_ai_config");
-
- config=structuredClone(DEFAULT_CONFIG);
-
- fillSettings();
-
- statusMessage(
-  "settingsStatus",
-  "Settings reset.",
-  true
- );
+function resetConfig(){
+ CONFIG={...DEFAULT_CONFIG};
+ localStorage.removeItem("doom_config");
+ fillConfig();
+ $("settingsOutput").innerHTML="Configuration reset.";
+ updateApiState();
 }
 
-
-/* ================= API ENGINE ================= */
-
-function endpoint(route){
-
- let base=(config.apiBase||"").replace(/\/$/,"");
-
- if(!route.startsWith("/")) route="/"+route;
-
- return base+route;
+function fillConfig(){
+ $("cfgBase").value=CONFIG.base;
+ $("cfgChat").value=CONFIG.chat;
+ $("cfgImage").value=CONFIG.image;
+ $("cfgVideo").value=CONFIG.video;
+ $("cfgAudio").value=CONFIG.audio;
+ $("cfgCode").value=CONFIG.code;
+ $("cfgDesign").value=CONFIG.design;
 }
 
-async function request(route,body={}){
+function apiURL(route){
+ const base=(CONFIG.base||"").replace(/\/+$/,"");
+ if(/^https?:\/\//i.test(route)) return route;
+ return base + (route.startsWith("/")?route:"/"+route);
+}
 
- const controller=new AbortController();
+function updateApiState(){
+ $("apiState").textContent=CONFIG.base ? "● BACKEND CONFIGURED" : "● SAME-ORIGIN API";
+}
 
- const timer=setTimeout(
-  ()=>controller.abort(),
-  config.timeout
- );
+function go(page){
+ document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+ const target=$(page);
+ if(target) target.classList.add("active");
 
- try{
+ document.querySelectorAll(".nav button").forEach(b=>{
+  b.classList.toggle("active",b.dataset.page===page);
+ });
 
-  const response=await fetch(endpoint(route),{
-   method:"POST",
-   headers:{
-    "Content-Type":"application/json",
-    "Accept":"application/json,text/plain,*/*"
-   },
-   body:JSON.stringify(body),
-   signal:controller.signal
-  });
+ window.scrollTo({top:0,behavior:"smooth"});
+}
 
-  const text=await response.text();
+document.querySelectorAll(".nav button").forEach(btn=>{
+ btn.addEventListener("click",()=>go(btn.dataset.page));
+});
 
-  let data;
+function escapeHTML(value){
+ return String(value??"")
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
+}
 
-  try{
-   data=JSON.parse(text);
-  }catch{
-   data={text};
-  }
+async function request(route,payload,options={}){
+ const method=options.method||"POST";
 
-  if(!response.ok){
+ const response=await fetch(apiURL(route),{
+  method,
+  headers:{
+   ...(method!=="GET"?{"Content-Type":"application/json"}:{}),
+   ...(options.headers||{})
+  },
+  body:method==="GET"?undefined:JSON.stringify(payload)
+ });
 
-   throw new Error(
-    data.error ||
-    data.message ||
-    data.text ||
-    `HTTP ${response.status}`
-   );
-  }
+ const text=await response.text();
 
-  return data;
+ let data;
+ try{data=JSON.parse(text)}
+ catch{data={text:text}}
 
- }catch(error){
-
-  if(error.name==="AbortError"){
-   throw new Error("Request timed out.");
-  }
-
-  throw error;
-
- }finally{
-
-  clearTimeout(timer);
+ if(!response.ok){
+  throw new Error(
+   data.error ||
+   data.message ||
+   `Backend error ${response.status}`
+  );
  }
+
+ return data;
 }
-
-
-/* ================= RESPONSE PARSER ================= */
 
 function extractText(data){
+ if(data==null)return "";
 
- if(data==null) return "";
+ if(typeof data==="string")return data;
 
- if(typeof data==="string") return data;
+ const keys=[
+  "text","message","response","output",
+  "content","result","answer","lyrics"
+ ];
 
- return (
-  data.text ||
-  data.message ||
-  data.response ||
-  data.output ||
-  data.content ||
-  data.result ||
-  data.answer ||
-  data.data?.text ||
-  data.data?.output ||
-  data.choices?.[0]?.message?.content ||
-  data.choices?.[0]?.text ||
-  ""
- );
-}
-
-function extractUrl(data){
-
- if(!data) return "";
-
- if(typeof data==="string"){
-
-  if(/^https?:\/\//i.test(data)) return data;
-
-  return "";
+ for(const k of keys){
+  if(typeof data[k]==="string")return data[k];
  }
 
- return (
-  data.url ||
-  data.image_url ||
-  data.imageUrl ||
-  data.video_url ||
-  data.videoUrl ||
-  data.audio_url ||
-  data.audioUrl ||
-  data.data?.url ||
-  data.data?.image_url ||
-  data.data?.video_url ||
-  data.data?.audio_url ||
-  data.result?.url ||
-  ""
- );
+ if(data.data){
+  const nested=extractText(data.data);
+  if(nested)return nested;
+ }
+
+ return JSON.stringify(data,null,2);
 }
 
+function extractURL(data){
+ if(!data)return "";
 
-/* ================= CHAT ================= */
+ const keys=[
+  "url","image_url","video_url",
+  "audio_url","file_url","download_url"
+ ];
 
-function chatKey(event){
-
- if(event.key==="Enter" && !event.shiftKey){
-
-  event.preventDefault();
-
-  sendChat();
+ for(const k of keys){
+  if(typeof data[k]==="string" && /^https?:\/\//i.test(data[k])){
+   return data[k];
+  }
  }
+
+ if(data.data){
+  return extractURL(data.data);
+ }
+
+ return "";
+}
+
+/* =========================================================
+   CHAT
+   ========================================================= */
+
+function addChat(type,text){
+ const box=$("chatBox");
+ const div=document.createElement("div");
+ div.className="msg "+type;
+ div.textContent=text;
+ box.appendChild(div);
+ box.scrollTop=box.scrollHeight;
 }
 
 async function sendChat(){
+ const input=$("chatInput");
+ const prompt=input.value.trim();
+ if(!prompt)return;
 
- const input=document.getElementById("chatInput");
- const text=input.value.trim();
-
- if(!text) return;
-
- addMessage(text,"user");
-
+ addChat("user",prompt);
  input.value="";
 
- const loading=addMessage("DOOM AI is thinking...","ai");
+ addChat("ai","DOOM is thinking...");
+
+ const last= $("chatBox").lastElementChild;
 
  try{
-
-  const data=await request(
-   config.routes.chat,
-   {
-    message:text,
-    prompt:text,
-    history:getChatHistory()
-   }
-  );
-
-  loading.textContent=extractText(data)||"No response received.";
-
-  saveChatMessage("user",text);
-  saveChatMessage("ai",loading.textContent);
-
- }catch(error){
-
-  loading.textContent=
-   "Backend error: "+error.message+
-   "\n\nCheck Settings → Backend Base URL and route.";
-
-  loading.style.borderColor="#ef444455";
+  const data=await request(CONFIG.chat,{message:prompt,prompt});
+  last.textContent=extractText(data)||"Backend returned no text.";
+ }catch(err){
+  last.textContent="API connection failed: "+err.message;
  }
 }
 
-function addMessage(text,type){
+$("chatInput").addEventListener("keydown",e=>{
+ if(e.key==="Enter"&&!e.shiftKey){
+  e.preventDefault();
+  sendChat();
+ }
+});
 
- const box=document.getElementById("chatbox");
-
- const div=document.createElement("div");
-
- div.className="msg "+type;
-
- div.textContent=text;
-
- box.appendChild(div);
-
- box.scrollTop=box.scrollHeight;
-
- return div;
-}
-
-function saveChatMessage(role,text){
-
- const history=JSON.parse(
-  localStorage.getItem("doom_chat_history")||"[]"
- );
-
- history.push({role,text,time:Date.now()});
-
- localStorage.setItem(
-  "doom_chat_history",
-  JSON.stringify(history.slice(-100))
- );
-}
-
-function getChatHistory(){
-
- return JSON.parse(
-  localStorage.getItem("doom_chat_history")||"[]"
- );
-}
-
-function clearChat(){
-
- localStorage.removeItem("doom_chat_history");
-
- document.getElementById("chatbox").innerHTML=
-  `<div class="msg ai">DOOM AI online. Ask me anything.</div>`;
-}
-
-function exportChat(){
-
- const history=getChatHistory();
-
- const text=history.map(x=>
-  `[${x.role.toUpperCase()}]\n${x.text}`
- ).join("\n\n");
-
- downloadFile(
-  "doom-chat.txt",
-  text||"No chat history."
- );
-}
-
-
-/* ================= PHOTO ================= */
+/* =========================================================
+   PHOTO
+   ========================================================= */
 
 async function generatePhoto(){
-
- const prompt=document.getElementById("photoPrompt").value.trim();
-
+ const prompt=$("photoPrompt").value.trim();
  if(!prompt){
-  alert("Photo prompt likho.");
+  $("photoOutput").textContent="Enter an image prompt.";
   return;
  }
 
- const preview=document.getElementById("photoPreview");
-
- preview.innerHTML=
-  `<div class="placeholder">
-    <div class="status"><span class="dot"></span>Generating...</div>
-   </div>`;
+ $("photoOutput").textContent="Generating...";
+ $("photoMedia").innerHTML="";
 
  try{
+  const data=await request(CONFIG.image,{
+   prompt,
+   aspect_ratio:$("photoRatio").value,
+   style:$("photoStyle").value,
+   quality:$("photoQuality").value
+  });
 
-  const data=await request(
-   config.routes.image,
-   {
-    prompt,
-    aspect_ratio:document.getElementById("photoRatio").value,
-    style:document.getElementById("photoStyle").value,
-    quality:document.getElementById("photoQuality").value
-   }
-  );
+  const url=extractURL(data);
 
-  const url=extractUrl(data);
+  $("photoOutput").textContent=extractText(data)||"Image generated.";
 
   if(url){
-
-   preview.innerHTML=
-    `<img src="${escapeAttr(url)}"
-          alt="DOOM AI generated image">`;
-
-   saveActivity("photo",prompt);
-
-  }else{
-
-   preview.innerHTML=
-    `<div class="placeholder">
-      <h3>Backend response received</h3>
-      <pre>${escapeHtml(JSON.stringify(data,null,2))}</pre>
-     </div>`;
+   $("photoMedia").innerHTML=
+    `<img src="${escapeHTML(url)}" alt="Generated image">`;
   }
-
- }catch(error){
-
-  preview.innerHTML=
-   `<div class="placeholder">
-     <div class="error">${escapeHtml(error.message)}</div>
-    </div>`;
+ }catch(err){
+  $("photoOutput").innerHTML=
+   `<span class="error">${escapeHTML(err.message)}</span>`;
  }
 }
 
-
-/* ================= VIDEO ================= */
+/* =========================================================
+   VIDEO
+   ========================================================= */
 
 async function generateVideo(){
-
- const prompt=document.getElementById("videoPrompt").value.trim();
+ const prompt=$("videoPrompt").value.trim();
 
  if(!prompt){
-  alert("Video prompt likho.");
+  $("videoOutput").textContent="Enter a video prompt.";
   return;
  }
 
- const output=document.getElementById("videoOutput");
-
- output.innerHTML=
-  `<div class="status">
-   <span class="dot"></span>
-   Video job starting...
-  </div>`;
+ $("videoOutput").textContent="Sending video generation request...";
+ $("videoMedia").innerHTML="";
 
  try{
+  const data=await request(CONFIG.video,{
+   prompt,
+   duration:Number($("videoDuration").value),
+   aspect_ratio:$("videoRatio").value,
+   camera:$("videoCamera").value
+  });
 
-  const data=await request(
-   config.routes.video,
-   {
-    prompt,
-    duration:Number(document.getElementById("videoDuration").value),
-    aspect_ratio:document.getElementById("videoRatio").value,
-    camera:document.getElementById("videoCamera").value
-   }
-  );
+  const url=extractURL(data);
 
-  const url=extractUrl(data);
+  $("videoOutput").textContent=
+   extractText(data)||"Video request accepted.";
 
   if(url){
-
-   output.innerHTML=
-    `<video controls playsinline style="max-width:100%;border-radius:14px">
-      <source src="${escapeAttr(url)}">
-     </video>`;
-
-   saveActivity("video",prompt);
-
-  }else{
-
-   output.innerHTML=
-    `<pre>${escapeHtml(JSON.stringify(data,null,2))}</pre>`;
+   $("videoMedia").innerHTML=
+    `<video controls playsinline src="${escapeHTML(url)}"></video>`;
   }
-
- }catch(error){
-
-  output.innerHTML=
-   `<div class="error">${escapeHtml(error.message)}</div>`;
+ }catch(err){
+  $("videoOutput").innerHTML=
+   `<span class="error">${escapeHTML(err.message)}</span>`;
  }
 }
 
-
-/* ================= CODING ================= */
+/* =========================================================
+   CODING
+   ========================================================= */
 
 async function generateCode(){
-
- const prompt=document.getElementById("codePrompt").value.trim();
+ const prompt=$("codePrompt").value.trim();
 
  if(!prompt){
-  alert("Coding prompt likho.");
+  $("codeOutput").textContent="Enter a coding request.";
   return;
  }
 
- const output=document.getElementById("codeOutput");
-
- output.innerHTML="<pre>DOOM Coding AI working...</pre>";
+ $("codeOutput").textContent="Generating code...";
 
  try{
+  const data=await request(CONFIG.code,{
+   prompt,
+   language:$("codeLanguage").value,
+   action:$("codeAction").value
+  });
 
-  const data=await request(
-   config.routes.code,
-   {
-    prompt,
-    language:document.getElementById("codeLanguage").value,
-    action:document.getElementById("codeAction").value
-   }
-  );
-
-  const text=extractText(data);
-
-  output.innerHTML=
-   `<pre id="generatedCode">${escapeHtml(
-    text||JSON.stringify(data,null,2)
-   )}</pre>`;
-
-  saveActivity("coding",prompt);
-
- }catch(error){
-
-  output.innerHTML=
-   `<div class="error">${escapeHtml(error.message)}</div>`;
+  $("codeOutput").textContent=extractText(data)||"No output.";
+ }catch(err){
+  $("codeOutput").innerHTML=
+   `<span class="error">${escapeHTML(err.message)}</span>`;
  }
 }
 
-function copyCode(){
-
- const code=document.getElementById("generatedCode");
-
- if(!code){
-  alert("Pehle code generate karo.");
-  return;
- }
-
- navigator.clipboard.writeText(code.textContent)
-  .then(()=>alert("Code copied."));
-}
-
-function downloadCode(){
-
- const code=document.getElementById("generatedCode");
-
- if(!code){
-  alert("Pehle code generate karo.");
-  return;
- }
-
- downloadFile(
-  "doom-generated-code.txt",
-  code.textContent
- );
-}
-
-
-/* ================= SONG ================= */
+/* =========================================================
+   SONG
+   ========================================================= */
 
 async function generateSong(){
-
- const prompt=document.getElementById("songPrompt").value.trim();
+ const prompt=$("songPrompt").value.trim();
 
  if(!prompt){
-  alert("Song idea likho.");
+  $("songOutput").textContent="Enter a song idea.";
   return;
  }
 
- const lyrics=document.getElementById("lyricsOutput");
- const audio=document.getElementById("audioBox");
-
- lyrics.textContent="Generating lyrics...";
- audio.innerHTML="";
+ $("songOutput").textContent="Creating song...";
+ $("songMedia").innerHTML="";
 
  try{
+  const data=await request(CONFIG.audio,{
+   prompt,
+   genre:$("songGenre").value,
+   mood:$("songMood").value
+  });
 
-  const data=await request(
-   config.routes.audio,
-   {
-    prompt,
-    genre:document.getElementById("songGenre").value,
-    mood:document.getElementById("songMood").value,
-    type:"song"
-   }
-  );
+  $("songOutput").textContent=extractText(data)||"Audio request accepted.";
 
-  const text=extractText(data);
-  const url=extractUrl(data);
-
-  lyrics.textContent=text||
-   "Backend returned no lyrics.";
+  const url=extractURL(data);
 
   if(url){
-
-   audio.innerHTML=
-    `<audio controls style="width:100%">
-      <source src="${escapeAttr(url)}">
-     </audio>`;
+   $("songMedia").innerHTML=
+    `<audio controls src="${escapeHTML(url)}"></audio>`;
   }
-
-  saveActivity("song",prompt);
-
- }catch(error){
-
-  lyrics.innerHTML=
-   `<div class="error">${escapeHtml(error.message)}</div>`;
+ }catch(err){
+  $("songOutput").innerHTML=
+   `<span class="error">${escapeHTML(err.message)}</span>`;
  }
 }
 
-
-/* ================= GHIBLI ================= */
+/* =========================================================
+   GHIBLI
+   ========================================================= */
 
 async function generateGhibli(){
-
- const prompt=document.getElementById("ghibliPrompt").value.trim();
+ const prompt=$("ghibliPrompt").value.trim();
 
  if(!prompt){
-  alert("Ghibli prompt likho.");
+  $("ghibliOutput").textContent="Enter a scene prompt.";
   return;
  }
 
- const preview=document.getElementById("ghibliPreview");
-
- preview.innerHTML=
-  `<div class="placeholder">
-   <div class="status"><span class="dot"></span>Creating world...</div>
-  </div>`;
+ $("ghibliOutput").textContent="Creating...";
+ $("ghibliMedia").innerHTML="";
 
  try{
+  const data=await request(CONFIG.image,{
+   prompt,
+   style:"Ghibli-inspired",
+   mode:"character-world-scene"
+  });
 
-  const data=await request(
-   config.routes.image,
-   {
-    prompt,
-    style:document.getElementById("ghibliStyle").value,
-    aspect_ratio:document.getElementById("ghibliRatio").value,
-    mode:"ghibli"
-   }
-  );
+  $("ghibliOutput").textContent=extractText(data)||"Creation complete.";
 
-  const url=extractUrl(data);
+  const url=extractURL(data);
 
   if(url){
-
-   preview.innerHTML=
-    `<img src="${escapeAttr(url)}"
-      alt="DOOM fantasy image">`;
-
-  }else{
-
-   preview.innerHTML=
-    `<pre>${escapeHtml(JSON.stringify(data,null,2))}</pre>`;
+   $("ghibliMedia").innerHTML=
+    `<img src="${escapeHTML(url)}" alt="Generated scene">`;
   }
-
- }catch(error){
-
-  preview.innerHTML=
-   `<div class="error">${escapeHtml(error.message)}</div>`;
+ }catch(err){
+  $("ghibliOutput").innerHTML=
+   `<span class="error">${escapeHTML(err.message)}</span>`;
  }
 }
 
-
-/* ================= DESIGN ================= */
+/* =========================================================
+   DESIGN
+   ========================================================= */
 
 async function generateDesign(){
-
- const prompt=document.getElementById("designPrompt").value.trim();
+ const prompt=$("designPrompt").value.trim();
 
  if(!prompt){
-  alert("Design brief likho.");
+  $("designOutput").textContent="Enter a design brief.";
   return;
  }
 
- const output=document.getElementById("designOutput");
-
- output.textContent="Design intelligence working...";
+ $("designOutput").textContent="Generating design...";
 
  try{
+  const data=await request(CONFIG.design,{
+   prompt,
+   type:$("designType").value,
+   style:$("designStyle").value
+  });
 
-  const data=await request(
-   config.routes.design,
-   {
-    prompt,
-    type:document.getElementById("designType").value,
-    style:document.getElementById("designStyle").value
-   }
-  );
+  $("designOutput").textContent=extractText(data)||"Design request accepted.";
 
-  output.innerHTML=
-   `<pre>${escapeHtml(
-    extractText(data)||JSON.stringify(data,null,2)
-   )}</pre>`;
+  const url=extractURL(data);
 
-  saveActivity("design",prompt);
-
- }catch(error){
-
-  output.innerHTML=
-   `<div class="error">${escapeHtml(error.message)}</div>`;
- }
-}
-
-
-/* ================= BACKEND TEST ================= */
-
-async function testBackend(){
-
- const status=document.getElementById("settingsStatus");
-
- status.innerHTML=
-  `<div class="status">
-   <span class="dot"></span>Testing backend...
-  </div>`;
-
- try{
-
-  /*
-    Backend ko ideally:
-    GET /health
-    ya POST /api/health
-    provide karna chahiye.
-
-    Yahan GET request ki ja rahi hai.
-  */
-
-  const base=(config.apiBase||"").replace(/\/$/,"");
-
-  if(!base){
-
-   throw new Error(
-    "Backend Base URL empty hai."
-   );
+  if(url){
+   $("designMedia").innerHTML=
+    `<img src="${escapeHTML(url)}" alt="Generated design">`;
   }
-
-  const controller=new AbortController();
-
-  const timer=setTimeout(
-   ()=>controller.abort(),
-   10000
-  );
-
-  const response=await fetch(
-   base+"/health",
-   {
-    method:"GET",
-    signal:controller.signal
-   }
-  );
-
-  clearTimeout(timer);
-
-  if(!response.ok){
-   throw new Error("Health endpoint returned HTTP "+response.status);
-  }
-
-  status.innerHTML=
-   `<div class="success">
-    ✓ Backend connected successfully.
-   </div>`;
-
- }catch(error){
-
-  status.innerHTML=
-   `<div class="error">
-    Backend connection failed: ${escapeHtml(error.message)}
-   </div>`;
+ }catch(err){
+  $("designOutput").innerHTML=
+   `<span class="error">${escapeHTML(err.message)}</span>`;
  }
 }
 
+/* =========================================================
+   TEMPORAL ENGINE
+   ========================================================= */
 
-/* ================= ACTIVITY ================= */
+const DATA=[
+ {
+  name:"Earth",
+  type:"Deep Time",
+  start:-4500000000,
+  end:2026,
+  icon:"🌍",
+  description:"Earth formed roughly 4.5 billion years ago and continues to evolve today."
+ },
+ {
+  name:"Dinosaurs",
+  type:"Deep Time",
+  start:-230000000,
+  end:-66000000,
+  icon:"🦖",
+  description:"Non-avian dinosaurs dominated many terrestrial ecosystems for more than 160 million years before the end-Cretaceous extinction."
+ },
+ {
+  name:"Homo sapiens",
+  type:"Human History",
+  start:-300000,
+  end:2026,
+  icon:"🧬",
+  description:"Homo sapiens emerged in Africa roughly 300,000 years ago and eventually spread across the planet."
+ },
+ {
+  name:"Indus Civilization",
+  type:"Civilization",
+  start:-3300,
+  end:-1300,
+  icon:"🏺",
+  description:"The Indus Civilization developed major urban settlements and extensive trade networks in South Asia."
+ },
+ {
+  name:"Ancient Egypt",
+  type:"Civilization",
+  start:-3100,
+  end:-30,
+  icon:"🏺",
+  description:"Ancient Egyptian civilization developed along the Nile and lasted for thousands of years."
+ },
+ {
+  name:"Roman Empire",
+  type:"Empire",
+  start:-27,
+  end:476,
+  icon:"🏛️",
+  description:"The Roman Empire began conventionally in 27 BCE and the western imperial structure ended in 476 CE."
+ },
+ {
+  name:"Mongol Empire",
+  type:"Empire",
+  start:1206,
+  end:1368,
+  icon:"🐎",
+  description:"The Mongol Empire began under Genghis Khan and became the largest contiguous land empire in history."
+ },
+ {
+  name:"Mughal Empire",
+  type:"Empire",
+  start:1526,
+  end:1857,
+  icon:"👑",
+  description:"The Mughal Empire was a major South Asian empire founded in 1526 and formally ended in 1857."
+ },
+ {
+  name:"Modern World",
+  type:"Present",
+  start:1900,
+  end:2026,
+  icon:"🌐",
+  description:"The modern era has seen rapid industrial, scientific, technological and social transformation."
+ }
+];
 
-function saveActivity(type,text){
+function formatYear(y){
+ y=Number(y);
 
- const data=JSON.parse(
-  localStorage.getItem("doom_activity")||"[]"
- );
+ if(y<0){
+  const n=Math.abs(y);
 
- data.unshift({
-  type,
-  text,
-  time:new Date().toISOString()
- });
+  if(n>=1000000000)
+   return (n/1000000000).toFixed(n%1000000000===0?0:2)+" billion BCE";
 
- localStorage.setItem(
-  "doom_activity",
-  JSON.stringify(data.slice(0,50))
- );
+  if(n>=1000000)
+   return (n/1000000).toFixed(n%1000000===0?0:2)+" million BCE";
+
+  if(n>=1000)
+   return Math.round(n).toLocaleString()+" BCE";
+
+  return Math.round(n)+" BCE";
+ }
+
+ return Math.round(y).toLocaleString()+" CE";
 }
 
-
-/* ================= SECURE DEMO ================= */
-
-async function deriveKey(secret){
-
- const encoder=new TextEncoder();
-
- const material=
-  await crypto.subtle.importKey(
-   "raw",
-   encoder.encode(secret),
-   "PBKDF2",
-   false,
-   ["deriveKey"]
-  );
-
- return crypto.subtle.deriveKey(
-  {
-   name:"PBKDF2",
-   salt:encoder.encode("DOOM-AI-SECURE-ROOM-v1"),
-   iterations:120000,
-   hash:"SHA-256"
-  },
-  material,
-  {
-   name:"AES-GCM",
-   length:256
-  },
-  false,
-  ["encrypt","decrypt"]
- );
+function isActiveAt(item,year){
+ return year>=item.start && year<=item.end;
 }
 
-function bytesToBase64(bytes){
-
- let binary="";
-
- bytes.forEach(b=>{
-  binary+=String.fromCharCode(b);
- });
-
- return btoa(binary);
+function childExplanation(item){
+ return `${item.icon} ${item.name}: ${item.description}`;
 }
 
-function base64ToBytes(str){
-
- const binary=atob(str);
-
- return Uint8Array.from(
-  binary,
-  c=>c.charCodeAt(0)
- );
+function studentExplanation(item){
+ return `${item.name} (${formatYear(item.start)} – ${formatYear(item.end)}): ${item.description}`;
 }
 
-async function encryptMessage(){
+function deepExplanation(item){
+ return `${item.name}\n\nPeriod: ${formatYear(item.start)} → ${formatYear(item.end)}\nCategory: ${item.type}\n\n${item.description}`;
+}
 
- const secret=document.getElementById("secureSecret").value;
+function renderTemporal(items,title){
+ const box=$("temporalResults");
 
- const message=document.getElementById("secureMessage").value;
-
- if(!secret||!message){
-  alert("Secret aur message dono bharo.");
+ if(!items.length){
+  box.innerHTML=`
+   <div class="resultCard">
+    <h3>No matching timeline records</h3>
+    <p class="muted">
+     The current built-in dataset is an educational prototype.
+     Connect a larger historical database through your backend later.
+    </p>
+   </div>`;
   return;
  }
 
- try{
+ const verse=$("timeVerse").value;
 
-  const key=await deriveKey(secret);
+ box.innerHTML=
+  `<div class="sectionTitle"><h2>${escapeHTML(title)}</h2></div>`+
+  items.map(item=>{
+   let text;
 
-  const iv=crypto.getRandomValues(
-   new Uint8Array(12)
-  );
+   if(verse==="kid")text=childExplanation(item);
+   else if(verse==="deep")text=deepExplanation(item);
+   else if(verse==="student")text=studentExplanation(item);
+   else if(verse==="timeline")
+    text=`${item.name}: ${formatYear(item.start)} → ${formatYear(item.end)}`;
+   else
+    text=item.description;
 
-  const encrypted=
-   await crypto.subtle.encrypt(
-    {name:"AES-GCM",iv},
-    key,
-    new TextEncoder().encode(message)
-   );
-
-  const payload={
-   iv:bytesToBase64(iv),
-   data:bytesToBase64(
-    new Uint8Array(encrypted)
-   )
-  };
-
-  document.getElementById("secureOutput").value=
-   btoa(JSON.stringify(payload));
-
- }catch(error){
-
-  alert(error.message);
- }
-}
-
-async function decryptMessage(){
-
- const secret=document.getElementById("secureSecret").value;
-
- const encoded=document.getElementById("secureOutput").value;
-
- if(!secret||!encoded){
-  alert("Secret aur encrypted data dono chahiye.");
-  return;
- }
-
- try{
-
-  const payload=
-   JSON.parse(atob(encoded));
-
-  const key=await deriveKey(secret);
-
-  const decrypted=
-   await crypto.subtle.decrypt(
-    {
-     name:"AES-GCM",
-     iv:base64ToBytes(payload.iv)
-    },
-    key,
-    base64ToBytes(payload.data)
-   );
-
-  document.getElementById("secureMessage").value=
-   new TextDecoder().decode(decrypted);
-
- }catch(error){
-
-  alert("Decryption failed. Secret ya data galat hai.");
- }
-}
-
-
-/* ================= HELPERS ================= */
-
-function statusMessage(id,message,success){
-
- document.getElementById(id).innerHTML=
-  `<div class="${success?"success":"error"}">
-   ${escapeHtml(message)}
-  </div>`;
-}
-
-function escapeHtml(value){
-
- return String(value)
-  .replaceAll("&","&amp;")
-  .replaceAll("<","&lt;")
-  .replaceAll(">","&gt;")
-  .replaceAll('"',"&quot;")
-  .replaceAll("'","&#039;");
-}
-
-function escapeAttr(value){
-
- return String(value)
-  .replaceAll("&","&amp;")
-  .replaceAll('"',"&quot;")
-  .replaceAll("<","&lt;")
-  .replaceAll(">","&gt;");
-}
-
-function downloadFile(filename,text){
-
- const blob=new Blob(
-  [text],
-  {type:"text/plain;charset=utf-8"}
- );
-
- const url=URL.createObjectURL(blob);
-
- const a=document.createElement("a");
-
- a.href=url;
- a.download=filename;
-
- document.body.appendChild(a);
- a.click();
- a.remove();
-
- URL.revokeObjectURL(url);
-}
-
-
-/* ================= STARTUP ================= */
-
-fillSettings();
-
-console.log(
- "%cDOOM AI frontend initialized.",
- "font-size:20px;font-weight:bold"
-);
-
-console.log(
- "API secrets must remain on the backend."
-);
-
-</script>
-
-</body>
-   </html>
+   return `
+    <div class="resultCard">
+     <h3>${escapeHTML(item.icon+" "+item.name)}</h3>
+     <div>
+      <span class="badge">${escapeHTML(item.type)}</span>
+      <span class="badge">${escapeHTML(formatYear(item.s
