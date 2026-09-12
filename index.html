@@ -1,1830 +1,1247 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#05050b">
-<meta name="description" content="DOOM AI — Universal Creative Intelligence">
-<title>DOOM AI — Universal Intelligence</title>
-
-<style>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070711">
+<meta name="description" content="DOOM AI — Interactive Creative Intelligence Portfolio by Saurbh Meena">
+<meta property="og:title" content="DOOM AI — Creative Intelligence">
+<meta property="og:description" content="DOOM AI — Interactive Creative Intelligence Portfolio by Saurbh Meena">
+<meta name="author" content="Saurbh Meena">
+<title>DOOM AI — Creative Intelligence</title><style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
- --bg:#05050b;
- --panel:#0b0d16;
- --panel2:#111421;
- --line:#ffffff14;
- --text:#f7f8ff;
- --muted:#9298ad;
- --a:#8b5cf6;
- --b:#06d6ff;
- --c:#ff3cac;
- --good:#38e8a5;
- --danger:#ff5577;
+--bg:#05050b;--bg2:#080812;--panel:#0d0d1a;
+--line:rgba(255,255,255,.11);--text:#f8f9ff;--muted:#9298ad;
+--purple:#8b5cf6;--cyan:#06d6ff;--pink:#ff3cac;--green:#45f6a8;
+--shadow:0 30px 90px rgba(0,0,0,.45)
 }
 html{scroll-behavior:smooth}
 body{
- background:
- radial-gradient(circle at 10% 10%,#8b5cf620,transparent 30%),
- radial-gradient(circle at 90% 15%,#06d6ff18,transparent 28%),
- radial-gradient(circle at 50% 100%,#ff3cac12,transparent 35%),
- var(--bg);
- color:var(--text);
- font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
- min-height:100vh;
- overflow-x:hidden;
+font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.5
 }
+body:before{
+content:"";position:fixed;inset:0;z-index:-3;
+background:
+radial-gradient(circle at 10% 10%,rgba(124,58,237,.25),transparent 27%),
+radial-gradient(circle at 90% 15%,rgba(6,214,255,.17),transparent 25%),
+radial-gradient(circle at 55% 85%,rgba(255,60,172,.13),transparent 30%)
+}
+body:after{
+content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.12;
+background-image:
+linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+background-size:55px 55px;
+mask-image:linear-gradient(to bottom,#000,transparent 85%)
+}
+a{text-decoration:none;color:inherit}
 button,input,textarea,select{font:inherit}
 button{cursor:pointer}
+.wrap{width:min(1180px,92%);margin:auto}
+section{padding:110px 0;position:relative}
 
-.app{
- min-height:100vh;
- display:flex;
+/* NAV */
+nav{
+position:fixed;top:0;left:0;right:0;z-index:100;
+display:flex;justify-content:space-between;align-items:center;
+padding:16px 5%;background:rgba(5,5,11,.72);
+border-bottom:1px solid var(--line);backdrop-filter:blur(22px)
 }
-
-.sidebar{
- position:fixed;
- left:0;
- top:0;
- bottom:0;
- width:250px;
- padding:22px 16px;
- border-right:1px solid var(--line);
- background:#070811dd;
- backdrop-filter:blur(25px);
- z-index:50;
- overflow:auto;
-}
-
 .logo{
- font-size:25px;
- font-weight:950;
- letter-spacing:4px;
- margin:4px 10px 28px;
- background:linear-gradient(90deg,var(--a),var(--b),var(--c));
- -webkit-background-clip:text;
- color:transparent;
+font-size:23px;font-weight:1000;letter-spacing:5px;
+text-shadow:0 0 30px rgba(6,214,255,.25)
 }
+.logo span{color:var(--cyan)}
+.links{display:flex;gap:24px;color:#aeb4c8;font-size:13px}
+.links a{transition:.2s}
+.links a:hover{color:#fff}
+.menu{display:none;background:none;border:0;color:#fff;font-size:25px}
+nav.open .links{display:flex}
 
-.logo small{
- display:block;
- color:var(--muted);
- font-size:9px;
- letter-spacing:2px;
- margin-top:5px;
-}
-
-.nav{
- display:flex;
- flex-direction:column;
- gap:7px;
-}
-
-.nav button{
- border:1px solid transparent;
- background:transparent;
- color:#aeb4c9;
- padding:13px 14px;
- border-radius:13px;
- text-align:left;
- transition:.2s;
-}
-
-.nav button:hover,
-.nav button.active{
- color:#fff;
- background:#ffffff0b;
- border-color:#ffffff12;
- transform:translateX(3px);
-}
-
-.nav button.active{
- box-shadow:inset 3px 0 var(--b);
-}
-
-.nav-icon{
- width:25px;
- display:inline-block;
-}
-
-.sidebar-bottom{
- position:absolute;
- left:16px;
- right:16px;
- bottom:18px;
-}
-
-.status{
- border:1px solid #ffffff12;
- background:#ffffff06;
- border-radius:14px;
- padding:12px;
- color:#9fa7bd;
- font-size:11px;
-}
-
-.status-dot{
- display:inline-block;
- width:7px;
- height:7px;
- background:var(--good);
- border-radius:50%;
- box-shadow:0 0 12px var(--good);
- margin-right:7px;
-}
-
-.main{
- margin-left:250px;
- width:calc(100% - 250px);
- min-height:100vh;
-}
-
-.topbar{
- height:72px;
- padding:0 32px;
- display:flex;
- align-items:center;
- justify-content:space-between;
- border-bottom:1px solid var(--line);
- background:#05050bcc;
- backdrop-filter:blur(20px);
- position:sticky;
- top:0;
- z-index:30;
-}
-
-.mobile-menu{
- display:none;
-}
-
-.badge{
- padding:7px 11px;
- border-radius:30px;
- border:1px solid #ffffff16;
- background:#ffffff07;
- color:#b9bfd2;
- font-size:11px;
-}
-
-.content{
- max-width:1250px;
- margin:auto;
- padding:40px 30px 90px;
-}
-
-.page{display:none}
-.page.active{display:block;animation:fade .35s ease}
-
-@keyframes fade{
- from{opacity:0;transform:translateY(8px)}
- to{opacity:1;transform:none}
-}
-
+/* HERO */
 .hero{
- min-height:450px;
- display:flex;
- align-items:center;
- justify-content:center;
- text-align:center;
- padding:45px 10px;
+min-height:100vh;display:grid;place-items:center;
+padding-top:120px;overflow:hidden
 }
-
-.hero h1{
- font-size:clamp(55px,10vw,125px);
- line-height:.9;
- letter-spacing:-6px;
- font-weight:1000;
- background:linear-gradient(100deg,#fff,var(--b),var(--a),var(--c));
- -webkit-background-clip:text;
- color:transparent;
+.hero:before{
+content:"";position:absolute;width:500px;height:500px;border-radius:50%;
+background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(6,214,255,.08));
+filter:blur(60px);animation:orb 8s ease-in-out infinite alternate
 }
-
+@keyframes orb{to{transform:translate(80px,-40px) scale(1.2)}}
+.heroBox{text-align:center;position:relative;z-index:1}
+.kicker{
+display:inline-flex;align-items:center;gap:9px;
+padding:8px 14px;border:1px solid rgba(255,255,255,.13);
+border-radius:99px;background:rgba(255,255,255,.045);
+color:#a8fbe0;font-size:11px;letter-spacing:.7px;
+margin-bottom:25px;box-shadow:0 0 30px rgba(69,246,168,.05)
+}
+.dot{
+width:7px;height:7px;border-radius:50%;background:var(--green);
+box-shadow:0 0 15px var(--green);animation:pulse 1.8s infinite
+}
+@keyframes pulse{50%{opacity:.35;transform:scale(.7)}}
+h1{
+font-size:clamp(58px,10vw,125px);line-height:.84;
+letter-spacing:-7px;font-weight:950
+}
+.gradient{
+background:linear-gradient(100deg,#fff 0%,#b9a0ff 35%,#22d3ee 65%,#ff55bc 100%);
+-webkit-background-clip:text;background-clip:text;color:transparent
+}
 .hero p{
- max-width:700px;
- margin:25px auto;
- color:var(--muted);
- font-size:17px;
- line-height:1.7;
+max-width:750px;margin:30px auto;color:var(--muted);
+font-size:17px;line-height:1.8
 }
-
-.hero-actions{
- display:flex;
- justify-content:center;
- gap:12px;
- flex-wrap:wrap;
-}
-
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
 .btn{
- border:1px solid #ffffff18;
- background:#ffffff09;
- color:#fff;
- padding:13px 20px;
- border-radius:12px;
- transition:.2s;
+display:inline-flex;align-items:center;justify-content:center;
+gap:8px;padding:13px 20px;border-radius:13px;
+border:1px solid var(--line);background:rgba(255,255,255,.045);
+color:#fff;transition:.25s;min-height:46px
 }
-
 .btn:hover{
- transform:translateY(-2px);
- border-color:#ffffff30;
+transform:translateY(-3px);border-color:rgba(255,255,255,.3);
+box-shadow:0 12px 35px rgba(0,0,0,.3)
 }
-
-.btn.primary{
- border:0;
- background:linear-gradient(100deg,var(--a),var(--b));
- color:#fff;
- font-weight:800;
+.primary{
+border:0;background:linear-gradient(100deg,var(--purple),var(--cyan));
+font-weight:850;box-shadow:0 12px 40px rgba(6,214,255,.12)
 }
+.secondary:hover{background:rgba(255,255,255,.09)}
 
-.btn.danger{
- background:#ff557714;
- border-color:#ff557733;
+/* TITLES */
+.sectionTitle{text-align:center;margin-bottom:45px}
+.sectionTitle h2{
+font-size:clamp(34px,5vw,58px);letter-spacing:-3px;line-height:1
 }
+.sectionTitle p{color:var(--muted);margin:14px auto 0;max-width:650px}
 
-.section-title{
- margin-bottom:20px;
-}
-
-.section-title h2{
- font-size:28px;
- margin-bottom:6px;
-}
-
-.section-title p{
- color:var(--muted);
- font-size:13px;
-}
-
+/* CARDS */
 .grid{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:15px;
+display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px
 }
-
 .card{
- border:1px solid var(--line);
- background:linear-gradient(145deg,#ffffff08,#ffffff03);
- border-radius:20px;
- padding:23px;
- min-height:175px;
- transition:.25s;
- position:relative;
- overflow:hidden;
+background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
+border:1px solid var(--line);border-radius:22px;padding:25px;
+position:relative;overflow:hidden;transition:.35s
 }
-
 .card:before{
- content:"";
- position:absolute;
- width:130px;
- height:130px;
- right:-70px;
- top:-70px;
- background:var(--a);
- filter:blur(50px);
- opacity:.18;
+content:"";position:absolute;width:180px;height:100px;
+left:-70px;top:-70px;background:rgba(139,92,246,.18);
+filter:blur(45px)
 }
-
 .card:hover{
- transform:translateY(-5px);
- border-color:#ffffff28;
- box-shadow:0 20px 70px #0008;
+transform:translateY(-8px);border-color:rgba(255,255,255,.28);
+box-shadow:var(--shadow)
+}
+.icon{font-size:34px;margin-bottom:16px}
+.card h3{font-size:19px;margin-bottom:9px}
+.muted{color:var(--muted);font-size:13px;line-height:1.7}
+.tag{
+display:inline-block;padding:5px 9px;margin:4px 3px 0 0;
+border-radius:8px;background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.06);
+color:#c3c9dc;font-size:10px
 }
 
-.card-icon{
- font-size:30px;
- margin-bottom:15px;
+/* STATS */
+.stats{
+display:grid;grid-template-columns:repeat(4,1fr);
+gap:15px;margin-top:20px
+}
+.stat{
+padding:26px;text-align:center;border:1px solid var(--line);
+border-radius:18px;background:rgba(255,255,255,.035)
+}
+.stat b{display:block;font-size:34px}
+.stat span{font-size:10px;color:var(--muted);letter-spacing:1px}
+
+/* PROJECT */
+.project{
+min-height:260px;display:flex;flex-direction:column;justify-content:space-between
+}
+.projectTop{display:flex;justify-content:space-between;align-items:start}
+.status{
+font-size:9px;color:var(--green);
+border:1px solid rgba(69,246,168,.25);
+background:rgba(69,246,168,.06);
+padding:5px 9px;border-radius:99px
+}
+.projectLink{
+display:inline-flex;margin-top:18px;color:#aeb4c8;font-size:12px
+}
+.projectLink:hover{color:#fff}
+
+/* SKILLS */
+.skillBox{display:flex;flex-wrap:wrap;gap:8px}
+.skill{
+padding:9px 12px;border:1px solid var(--line);
+border-radius:10px;background:rgba(255,255,255,.04);
+font-size:12px;color:#cbd2e5
 }
 
-.card h3{
- font-size:17px;
- margin-bottom:8px;
+/* ARCHITECTURE */
+.arch{
+display:grid;grid-template-columns:1fr 45px 1fr 45px 1fr;
+gap:10px;align-items:center
 }
-
-.card p{
- color:var(--muted);
- font-size:12px;
- line-height:1.6;
+.node{
+padding:21px 10px;text-align:center;border:1px solid var(--line);
+border-radius:16px;background:rgba(255,255,255,.045);
+font-size:12px;letter-spacing:.5px
 }
+.node strong{display:block;margin-bottom:4px;color:#fff}
+.arrow{text-align:center;color:var(--cyan);font-size:23px}
 
-.tool{
- max-width:900px;
- margin:auto;
+/* DEMO */
+.demo{
+background:rgba(8,9,20,.82);border:1px solid var(--line);
+border-radius:25px;padding:22px;box-shadow:0 25px 90px rgba(0,0,0,.35)
 }
-
-.tool-head{
- margin-bottom:25px;
+.tabs{
+display:flex;gap:8px;overflow-x:auto;margin-bottom:20px;padding-bottom:3px
 }
-
-.tool-head .tool-icon{
- font-size:42px;
- margin-bottom:12px;
+.tab{
+white-space:nowrap;padding:10px 14px;border:1px solid var(--line);
+background:rgba(255,255,255,.04);color:#aab0c4;border-radius:11px;
+transition:.2s
 }
-
-.tool-head h1{
- font-size:38px;
- margin-bottom:8px;
+.tab:hover{color:#fff}
+.tab.on{background:rgba(139,92,246,.2);color:#fff;border-color:rgba(139,92,246,.4)}
+.demoPage{display:none}
+.demoPage.on{display:block}
+textarea,input,select{
+width:100%;padding:13px 14px;border:1px solid var(--line);
+border-radius:12px;background:#03040a;color:#fff;
+outline:none;margin:7px 0
 }
-
-.tool-head p{
- color:var(--muted);
- line-height:1.6;
-}
-
-.panel{
- background:#ffffff05;
- border:1px solid var(--line);
- border-radius:20px;
- padding:22px;
- margin-top:18px;
-}
-
-label{
- display:block;
- color:#aeb5ca;
- font-size:12px;
- margin-bottom:8px;
-}
-
-textarea,
-input,
-select{
- width:100%;
- border:1px solid #ffffff14;
- outline:none;
- background:#03050a;
- color:#fff;
- border-radius:13px;
- padding:14px;
- transition:.2s;
-}
-
-textarea{
- min-height:160px;
- resize:vertical;
- line-height:1.6;
-}
-
-textarea:focus,
-input:focus,
-select:focus{
- border-color:#06d6ff66;
- box-shadow:0 0 0 3px #06d6ff0d;
-}
-
-.row{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:14px;
- margin-top:15px;
-}
-
-.actions{
- display:flex;
- gap:10px;
- flex-wrap:wrap;
- margin-top:15px;
-}
-
+textarea{min-height:145px;resize:vertical}
+textarea:focus,input:focus,select:focus{border-color:rgba(6,214,255,.55);box-shadow:0 0 0 3px rgba(6,214,255,.07)}
 .output{
- margin-top:18px;
- min-height:100px;
- border:1px solid #ffffff12;
- background:#020309;
- border-radius:15px;
- padding:17px;
- color:#cbd1e2;
- white-space:pre-wrap;
- line-height:1.65;
- font-size:13px;
+margin-top:12px;padding:17px;min-height:100px;
+white-space:pre-wrap;overflow:auto;border-radius:14px;
+background:#03040a;border:1px solid rgba(255,255,255,.08);
+color:#cbd2e5;font-size:13px;line-height:1.7
 }
+.demoActions{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+.demoActions .btn{flex:0 0 auto}
 
-.output.empty{
- color:#666d81;
+/* TERMINAL */
+.terminal{
+border:1px solid rgba(255,255,255,.1);border-radius:18px;
+background:#020308;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3)
 }
-
-.chat{
- height:530px;
- display:flex;
- flex-direction:column;
+.termTop{
+display:flex;gap:7px;align-items:center;padding:11px 14px;
+border-bottom:1px solid var(--line);background:#090a12
 }
+.termDot{width:9px;height:9px;border-radius:50%;background:#555}
+.termBody{padding:20px;color:#8fffd0;font-family:monospace;font-size:12px;min-height:170px}
+.termLine{margin:7px 0}
 
-.messages{
- flex:1;
- overflow:auto;
- padding:5px;
- display:flex;
- flex-direction:column;
- gap:12px;
+/* TIMELINE */
+.timeline{display:grid;gap:15px;max-width:800px;margin:auto}
+.timeItem{
+display:grid;grid-template-columns:90px 1fr;gap:20px;
+padding:18px;border:1px solid var(--line);border-radius:15px;
+background:rgba(255,255,255,.03)
 }
+.timeYear{color:var(--cyan);font-weight:800}
 
-.message{
- max-width:82%;
- padding:12px 15px;
- border-radius:15px;
- line-height:1.55;
- font-size:13px;
- white-space:pre-wrap;
+/* CONTACT */
+.contact{text-align:center}
+.email{
+display:inline-block;margin-top:18px;color:#9eeeff;
+font-weight:700
 }
+.email:hover{text-decoration:underline}
+.socials{margin-top:22px}
 
-.message.user{
- align-self:flex-end;
- background:linear-gradient(100deg,#8b5cf633,#06d6ff22);
- border:1px solid #ffffff14;
-}
-
-.message.ai{
- align-self:flex-start;
- background:#ffffff07;
- border:1px solid #ffffff10;
-}
-
-.chat-input{
- display:flex;
- gap:8px;
- margin-top:12px;
-}
-
-.chat-input input{
- flex:1;
-}
-
-.feature-list{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:12px;
- margin-top:25px;
-}
-
-.feature{
- border:1px solid var(--line);
- background:#ffffff05;
- border-radius:15px;
- padding:15px;
- color:#b9bfd0;
- font-size:12px;
-}
-
-.feature b{
- color:#fff;
- display:block;
- margin-bottom:5px;
-}
-
-.pricing{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:16px;
-}
-
-.price{
- border:1px solid var(--line);
- background:#ffffff05;
- border-radius:20px;
- padding:25px;
-}
-
-.price.featured{
- border-color:#8b5cf655;
- box-shadow:0 0 50px #8b5cf612;
-}
-
-.price h3{
- font-size:19px;
-}
-
-.price-number{
- font-size:38px;
- font-weight:900;
- margin:12px 0 20px;
-}
-
-.price ul{
- list-style:none;
- color:var(--muted);
- font-size:12px;
- line-height:2;
-}
-
-.price li:before{
- content:"✓";
- color:var(--good);
- margin-right:8px;
-}
-
-.footer{
- text-align:center;
- color:#5e6578;
- font-size:11px;
- padding:30px 0;
-}
-
+/* TOAST */
 .toast{
- position:fixed;
- right:20px;
- bottom:20px;
- padding:13px 17px;
- border-radius:13px;
- background:#111522;
- border:1px solid #ffffff18;
- box-shadow:0 15px 50px #0008;
- transform:translateY(100px);
- opacity:0;
- transition:.3s;
- z-index:100;
- font-size:12px;
+position:fixed;right:20px;bottom:20px;z-index:200;
+padding:13px 17px;border:1px solid var(--line);
+border-radius:12px;background:#10111c;color:#fff;
+box-shadow:var(--shadow);transform:translateY(100px);
+opacity:0;pointer-events:none;transition:.3s;font-size:12px
+}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* SCROLL BUTTON */
+.topBtn{
+position:fixed;right:18px;bottom:18px;z-index:90;
+width:42px;height:42px;border-radius:50%;border:1px solid var(--line);
+background:#10111c;color:#fff;display:none
+}
+.topBtn.show{display:block}
+
+/* MOBILE */
+@media(max-width:800px){
+.links{display:none}
+.menu{display:block}
+nav.open .links{
+display:flex;position:absolute;top:63px;left:0;right:0;
+padding:20px 6%;background:#080810;
+border-bottom:1px solid var(--line);flex-direction:column;gap:18px
+}
+h1{letter-spacing:-4px}
+.stats{grid-template-columns:repeat(2,1fr)}
+.arch{grid-template-columns:1fr}
+.arrow{transform:rotate(90deg)}
+.timeItem{grid-template-columns:1fr;gap:5px}
+}
+@media(max-width:500px){
+section{padding:85px 0}
+.hero{padding-top:100px}
+.hero p{font-size:14px}
+.stats{grid-template-columns:1fr 1fr}
+.stat{padding:18px 8px}
+.stat b{font-size:27px}
+.demo{padding:14px}
 }
 
-.toast.show{
- transform:none;
- opacity:1;
+/* REDUCED MOTION */
+@media(prefers-reduced-motion:reduce){
+*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
 }
+</style></head><body><nav id="nav">
+<a class="logo" href="#home">DOOM<span>AI</span></a><div class="links">
+<a href="#about">About</a>
+<a href="#projects">Projects</a>
+<a href="#skills">Skills</a>
+<a href="#architecture">Architecture</a>
+<a href="#demo">Live Demo</a>
+<a href="/knowledge.html" style="color:var(--cyan)">Knowledge Engine ↗</a>
+<a href="#contact">Contact</a>
+</div><button class="menu" aria-label="Open menu"
+onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
 
-.loading{
- display:inline-flex;
- gap:5px;
- align-items:center;
-}
-
-.loading span{
- width:6px;
- height:6px;
- border-radius:50%;
- background:#fff;
- animation:bounce .8s infinite alternate;
-}
-
-.loading span:nth-child(2){animation-delay:.2s}
-.loading span:nth-child(3){animation-delay:.4s}
-
-@keyframes bounce{
- to{opacity:.2;transform:translateY(-4px)}
-}
-
-@media(max-width:900px){
- .sidebar{
-  transform:translateX(-100%);
-  transition:.25s;
-  width:270px;
- }
- .sidebar.open{transform:none}
- .main{
-  margin-left:0;
-  width:100%;
- }
- .mobile-menu{
-  display:block;
-  border:0;
-  background:none;
-  color:#fff;
-  font-size:23px;
- }
- .grid{grid-template-columns:repeat(2,1fr)}
- .topbar{padding:0 18px}
- .content{padding:25px 17px 70px}
-}
-
-@media(max-width:600px){
- .grid,
- .pricing,
- .feature-list,
- .row{
-  grid-template-columns:1fr;
- }
- .hero h1{
-  font-size:65px;
-  letter-spacing:-4px;
- }
- .hero{min-height:390px}
- .tool-head h1{font-size:30px}
- .message{max-width:92%}
-}
-</style>
-</head>
-
-<body>
-
-<div class="app">
-
-<aside class="sidebar" id="sidebar">
-
-<div class="logo">
-DOOM
-<small>UNIVERSAL INTELLIGENCE</small>
+</nav><main><!-- HERO --><section class="hero" id="home">
+<div class="wrap">
+<div class="heroBox"><div class="kicker">
+<i class="dot"></i>
+AVAILABLE FOR INTERNSHIP & COLLABORATION
+</div><h1>
+<span class="gradient">BUILD.</span><br>
+CREATE.<br>
+<span class="gradient">DOOM.</span>
+</h1><p>
+I design ambitious digital experiences where AI concepts,
+creative tools, interactive interfaces and product thinking meet.
+This portfolio turns one big idea into a working browser prototype.
+</p><div class="actions">
+<a class="btn primary" href="#projects">EXPLORE MY WORK →</a>
+<a class="btn secondary" href="#demo">TRY LIVE DEMO</a>
+<a class="btn" href="#contact">CONTACT ME</a>
+</div></div>
 </div>
-
-<nav class="nav">
-
-<button class="active" data-page="home">
-<span class="nav-icon">⌂</span> Home
-</button>
-
-<button data-page="chat">
-<span class="nav-icon">◉</span> DOOM AI CHAT
-</button>
-
-<button data-page="photo">
-<span class="nav-icon">◈</span> DOOM PHOTO
-</button>
-
-<button data-page="video">
-<span class="nav-icon">▶</span> CREATE DOOM VIDEO
-</button>
-
-<button data-page="coding">
-<span class="nav-icon">⌘</span> DOOM CODING MAKER
-</button>
-
-<button data-page="song">
-<span class="nav-icon">♫</span> DOOM SONG MAKER
-</button>
-
-<button data-page="ghibli">
-<span class="nav-icon">✦</span> DOOM GIBLI
-</button>
-
-<button data-page="design">
-<span class="nav-icon">◇</span> DESIGN EVERYTHING
-</button>
-
-<button data-page="explore">
-<span class="nav-icon">◎</span> Explore
-</button>
-
-<button data-page="pricing">
-<span class="nav-icon">◆</span> Pricing
-</button>
-
-</nav>
-
-<div class="sidebar-bottom">
-<div class="status">
-<span class="status-dot"></span>
-DOOM SYSTEM READY
-</div>
-</div>
-
-</aside>
-
-<main class="main">
-
-<header class="topbar">
-<button class="mobile-menu" onclick="toggleMenu()">☰</button>
-<div></div>
-<div class="badge">DOOM AI v1.0</div>
-</header>
-
-<div class="content">
-
-<!-- HOME -->
-
-<section class="page active" id="home">
-
-<div class="hero">
-<div>
-<h1>DOOM</h1>
-
+</section><!-- ABOUT --><section id="about">
+<div class="wrap"><div class="sectionTitle">
+<h2>More Than A <span class="gradient">Concept.</span></h2>
 <p>
-One creative intelligence for conversation, knowledge,
-images, video, coding, music, worlds and design.
+DOOM AI is an interactive portfolio prototype built to demonstrate
+product thinking, frontend engineering and AI-oriented UX.
 </p>
-
-<div class="hero-actions">
-<button class="btn primary" onclick="openPage('chat')">
-Launch DOOM AI
-</button>
-
-<button class="btn" onclick="openPage('explore')">
-Explore System
-</button>
-</div>
-</div>
-</div>
-
-<div class="section-title">
-<h2>Everything in one intelligence</h2>
-<p>Choose a DOOM engine and start creating.</p>
-</div>
-
-<div class="grid">
-
-<div class="card" onclick="openPage('chat')">
-<div class="card-icon">◉</div>
-<h3>DOOM AI CHAT</h3>
-<p>Ask, research, brainstorm, write, explain and build.</p>
-</div>
-
-<div class="card" onclick="openPage('photo')">
-<div class="card-icon">◈</div>
-<h3>DOOM PHOTO</h3>
-<p>Create cinematic visual concepts from natural language.</p>
-</div>
-
-<div class="card" onclick="openPage('video')">
-<div class="card-icon">▶</div>
-<h3>CREATE DOOM VIDEO</h3>
-<p>Build video concepts with duration, camera and framing.</p>
-</div>
-
-<div class="card" onclick="openPage('coding')">
-<div class="card-icon">⌘</div>
-<h3>DOOM CODING MAKER</h3>
-<p>Generate, explain, fix and refactor code.</p>
-</div>
-
-<div class="card" onclick="openPage('song')">
-<div class="card-icon">♫</div>
-<h3>DOOM SONG MAKER</h3>
-<p>Design songs around genre, mood and creative direction.</p>
-</div>
-
-<div class="card" onclick="openPage('ghibli')">
-<div class="card-icon">✦</div>
-<h3>DOOM GIBLI</h3>
-<p>Create imaginative characters, worlds and scenes.</p>
-</div>
-
-<div class="card" onclick="openPage('design')">
-<div class="card-icon">◇</div>
-<h3>DESIGN EVERYTHING</h3>
-<p>Websites, logos, posters, apps, presentations and social designs.</p>
-</div>
-
-</div>
-
-</section>
-
-
-<!-- CHAT -->
-
-<section class="page" id="chat">
-
-<div class="tool">
-
-<div class="tool-head">
-<div class="tool-icon">◉</div>
-<h1>DOOM AI CHAT</h1>
-<p>Ask anything. Research ideas, solve problems, write content or build concepts.</p>
-</div>
-
-<div class="panel chat">
-
-<div class="messages" id="messages">
-<div class="message ai">
-Welcome to DOOM AI.
-
-Ask me anything and I will try to help.
-</div>
-</div>
-
-<div class="chat-input">
-<input id="chatInput" placeholder="Ask DOOM AI anything..." onkeydown="if(event.key==='Enter')sendChat()">
-<button class="btn primary" onclick="sendChat()">Send</button>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- PHOTO -->
-
-<section class="page" id="photo">
-
-<div class="tool">
-
-<div class="tool-head">
-<div class="tool-icon">◈</div>
-<h1>DOOM PHOTO</h1>
-<p>Turn your imagination into a detailed image-generation request.</p>
-</div>
-
-<div class="panel">
-
-<label>What do you want to create?</label>
-<textarea id="photoPrompt" placeholder="Example: futuristic Indian city at night, cinematic lighting, flying vehicles..."></textarea>
-
-<div class="row">
-
+</div><div class="grid"><div class="card">
+<div class="icon">🧠</div>
+<h3>AI Product Thinking</h3>
+<p class="muted">
+I structure AI experiences around clear inputs, useful workflows,
+validation and human-friendly interfaces.
+</p>
+</div><div class="card">
+<div class="icon">⚡</div>
+<h3>Frontend Engineering</h3>
+<p class="muted">
+Responsive layouts, browser APIs, interactive state,
+local storage and clean single-page application patterns.
+</p>
+</div><div class="card">
+<div class="icon">🎯</div>
+<h3>Problem Solving</h3>
+<p class="muted">
+Large ideas become smaller modules that can be demonstrated,
+tested and improved independently.
+</p>
+</div><div class="card">
+<div class="icon">🚀</div>
+<h3>Product Vision</h3>
+<p class="muted">
+A portfolio should not only describe an idea. It should let the
+reviewer interact with it.
+</p>
+</div></div><div class="stats">
+<div class="stat"><b data-count="10">0+</b><span>PRODUCT MODULES</span></div>
+<div class="stat"><b data-count="4">0</b><span>INTERACTIVE DEMOS</span></div>
+<div class="stat"><b data-count="100">0%</b><span>FRONTEND DEMONSTRATION</span></div>
+<div class="stat"><b>∞</b><span>ROOM TO SCALE</span></div>
+</div></div>
+</section><!-- PROJECTS --><section id="projects">
+<div class="wrap"><div class="sectionTitle">
+<h2>Featured <span class="gradient">Projects.</span></h2>
+<p>Concepts designed to show different dimensions of product development.</p>
+</div><div class="grid"><div class="card project">
 <div>
-<label>Aspect Ratio</label>
-<select id="photoRatio">
-<option>16:9</option>
-<option>1:1</option>
-<option>9:16</option>
-</select>
+<div class="projectTop">
+<div class="icon">🤖</div>
+<span class="status">LIVE PROTOTYPE</span>
 </div>
-
+<h3>DOOM AI</h3>
+<p class="muted">
+A unified AI workspace concept for conversation, creative prompting,
+coding architecture and local file inspection.
+</p>
+</div>
 <div>
-<label>Style</label>
-<select id="photoStyle">
+<span class="tag">HTML5</span>
+<span class="tag">CSS3</span>
+<span class="tag">JavaScript</span>
+<span class="tag">AI UX</span>
+<span class="tag">Browser APIs</span>
+</div>
+<a class="projectLink" href="/knowledge.html" style="color:var(--cyan);font-weight:700;margin-top:12px;display:inline-flex;align-items:center;gap:4px">LAUNCH OPEN KNOWLEDGE ENGINE →</a>
+</div><div class="card project">
+<div>
+<div class="projectTop">
+<div class="icon">🎬</div>
+<span class="status">PROTOTYPE</span>
+</div>
+<h3>Creative Studio</h3>
+<p class="muted">
+A prompt-driven creative workflow concept for visual,
+video and music ideation.
+</p>
+</div>
+<div>
+<span class="tag">UI/UX</span>
+<span class="tag">Creative AI</span>
+<span class="tag">Prompt Design</span>
+</div>
+</div><div class="card project">
+<div>
+<div class="projectTop">
+<div class="icon">⚖️</div>
+<span class="status">CONCEPT</span>
+</div>
+<h3>Legal Research Hub</h3>
+<p class="muted">
+A structured research interface concept focused on organizing
+questions, sources, evidence and workflows.
+</p>
+</div>
+<div>
+<span class="tag">Research UX</span>
+<span class="tag">Workflow</span>
+<span class="tag">Information Design</span>
+</div>
+</div><div class="card project">
+<div>
+<div class="projectTop">
+<div class="icon">🧩</div>
+<span class="status">EXPERIMENT</span>
+</div>
+<h3>Universal Workspace</h3>
+<p class="muted">
+One interface pattern for moving between different creative
+and technical tasks without losing context.
+</p>
+</div>
+<div>
+<span class="tag">Product Design</span>
+<span class="tag">UX Systems</span>
+</div>
+</div></div>
+</div>
+</section><!-- SKILLS --><section id="skills">
+<div class="wrap"><div class="sectionTitle">
+<h2>Technology <span class="gradient">Stack.</span></h2>
+<p>Core technologies and concepts represented in the project.</p>
+</div><div class="grid"><div class="card">
+<div class="icon">🌐</div>
+<h3>Frontend</h3>
+<div class="skillBox">
+<span class="skill">HTML5</span>
+<span class="skill">CSS3</span>
+<span class="skill">JavaScript</span>
+<span class="skill">Responsive UI</span>
+<span class="skill">Accessibility</span>
+<span class="skill">Semantic HTML</span>
+</div>
+</div><div class="card">
+<div class="icon">⚙️</div>
+<h3>Browser Engineering</h3>
+<div class="skillBox">
+<span class="skill">DOM</span>
+<span class="skill">LocalStorage</span>
+<span class="skill">File API</span>
+<span class="skill">Clipboard API</span>
+<span class="skill">Events</span>
+<span class="skill">State</span>
+</div>
+</div><div class="card">
+<div class="icon">🤝</div>
+<h3>AI Concepts</h3>
+<div class="skillBox">
+<span class="skill">Prompt Engineering</span>
+<span class="skill">AI UX</span>
+<span class="skill">API Architecture</span>
+<span class="skill">Validation</span>
+<span class="skill">Automation</span>
+</div>
+</div></div>
+</div>
+</section><!-- ARCHITECTURE --><section id="architecture">
+<div class="wrap"><div class="sectionTitle">
+<h2>System <span class="gradient">Architecture.</span></h2>
+<p>
+A practical direction for evolving the browser prototype into
+a real AI-powered application.
+</p>
+</div><div class="arch">
+<div class="node"><strong>USER</strong>INPUT</div>
+<div class="arrow">→</div>
+<div class="node"><strong>DOOM</strong>FRONTEND</div>
+<div class="arrow">→</div>
+<div class="node"><strong>SECURE</strong>BACKEND</div>
+</div><div class="arch" style="margin-top:12px">
+<div class="node"><strong>AI MODEL</strong>RESPONSE</div>
+<div class="arrow">←</div>
+<div class="node"><strong>VALIDATION</strong>SECURITY</div>
+<div class="arrow">←</div>
+<div class="node"><strong>DATABASE</strong>STORAGE</div>
+</div><div class="terminal" style="margin-top:28px">
+<div class="termTop">
+<span class="termDot"></span>
+<span class="termDot"></span>
+<span class="termDot"></span>
+<span style="margin-left:8px;color:#777;font-size:11px">doom-system</span>
+</div>
+<div class="termBody" id="terminal">
+<div class="termLine">$ initialize DOOM_AI</div>
+<div class="termLine">✓ interface loaded</div>
+<div class="termLine">✓ browser modules ready</div>
+<div class="termLine">✓ local demo engine ready</div>
+<div class="termLine">✓ security boundary identified</div>
+<div class="termLine">→ waiting for user interaction...</div>
+</div>
+</div></div>
+</section><!-- DEMO --><section id="demo">
+<div class="wrap"><div class="sectionTitle">
+<h2>Interactive <span class="gradient">Demo.</span></h2>
+<p>
+No API key is required for this portfolio demonstration.
+The tools below run locally in your browser.
+</p>
+</div><div class="demo"><div class="tabs">
+<button class="tab on" onclick="tab('chat',this)">🧠 AI Chat</button>
+<button class="tab" onclick="tab('image',this)">🎨 Image Prompt</button>
+<button class="tab" onclick="tab('code',this)">💻 Code Architect</button>
+<button class="tab" onclick="tab('file',this)">📁 File Inspector</button>
+<button class="tab" onclick="tab('aboutDemo',this)">ℹ️ How It Works</button>
+</div><!-- CHAT --><div id="chat" class="demoPage on"><div class="output" id="messages">DOOM AI — LOCAL DEMO ENGINESystem online.
+
+Try:
+• /plan build a portfolio
+• /code ecommerce website
+• /idea AI startup
+• /skills
+• /about
+• /clear
+
+Or ask a normal question.</div>
+
+<div class="demoActions">
+<input id="q"
+placeholder="Ask DOOM something..."
+autocomplete="off"
+onkeydown="if(event.key==='Enter')ask()">
+<button class="btn primary" onclick="ask()">SEND →</button>
+<button class="btn" onclick="clearChat()">CLEAR</button>
+</div></div><!-- IMAGE --><div id="image" class="demoPage"><textarea id="ip"
+placeholder="Describe the image you want to create..."></textarea><select id="style">
 <option>Cinematic</option>
 <option>Photorealistic</option>
+<option>Cyberpunk</option>
+<option>3D CGI</option>
 <option>Fantasy</option>
-<option>Concept Art</option>
-<option>Anime</option>
-<option>Futuristic</option>
-</select>
+<option>Minimalist</option>
+<option>Futuristic Product</option>
+</select><div class="demoActions">
+<button class="btn primary" onclick="imagePrompt()">BUILD PROMPT</button>
+<button class="btn" onclick="copyOutput('io')">COPY</button>
+</div><div class="output" id="io">Your generated visual prompt will appear here.</div></div><!-- CODE --><div id="code" class="demoPage"><textarea id="cp"
+placeholder="Describe the application you want to architect..."></textarea><div class="demoActions">
+<button class="btn primary" onclick="codePlan()">ARCHITECT →</button>
+<button class="btn" onclick="copyOutput('co')">COPY</button>
+</div><div class="output" id="co">Your architecture plan will appear here.</div></div><!-- FILE --><div id="file" class="demoPage"><input type="file" id="fileInput"><div class="output" id="fo">
+Choose a text-readable file to inspect it locally.
+Maximum demo size: 5 MB.
+</div></div><!-- ABOUT DEMO --><div id="aboutDemo" class="demoPage"><div class="grid"><div class="card">
+<div class="icon">🔒</div>
+<h3>Private by Design</h3>
+<p class="muted">
+The file inspector reads the selected file inside your browser.
+This demo does not upload the file to a server.
+</p>
+</div><div class="card">
+<div class="icon">⚡</div>
+<h3>Instant Interaction</h3>
+<p class="muted">
+The demonstration uses client-side JavaScript so the interface
+works even without a backend.
+</p>
+</div><div class="card">
+<div class="icon">🚀</div>
+<h3>Ready to Scale</h3>
+<p class="muted">
+A production version can connect the same interface to a secure
+backend and an authenticated AI service.
+</p>
+</div></div></div></div>
 </div>
-
-</div>
-
-<div class="row">
-
+</section><!-- PROCESS --><section>
+<div class="wrap"><div class="sectionTitle">
+<h2>How I <span class="gradient">Build.</span></h2>
+<p>A simple product-development mindset behind the project.</p>
+</div><div class="timeline"><div class="timeItem">
+<div class="timeYear">01 / DEFINE</div>
 <div>
-<label>Quality</label>
-<select id="photoQuality">
-<option>High</option>
-<option>Ultra</option>
-</select>
+<h3>Understand the problem</h3>
+<p class="muted">Identify the user, goal, constraints and useful outcome.</p>
 </div>
-
+</div><div class="timeItem">
+<div class="timeYear">02 / DESIGN</div>
 <div>
-<label>Lighting</label>
-<select id="photoLighting">
-<option>Cinematic</option>
-<option>Natural</option>
-<option>Neon</option>
-<option>Studio</option>
-</select>
+<h3>Create the workflow</h3>
+<p class="muted">Turn a complex product idea into clear screens and interactions.</p>
 </div>
-
-</div>
-
-<div class="actions">
-<button class="btn primary" onclick="runTool('photo')">Generate Photo</button>
-<button class="btn" onclick="clearTool('photo')">Clear</button>
-</div>
-
-<div class="output empty" id="photoOutput">Your generated result will appear here.</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- VIDEO -->
-
-<section class="page" id="video">
-
-<div class="tool">
-
-<div class="tool-head">
-<div class="tool-icon">▶</div>
-<h1>CREATE DOOM VIDEO</h1>
-<p>Create a structured cinematic video request.</p>
-</div>
-
-<div class="panel">
-
-<label>Video Prompt</label>
-<textarea id="videoPrompt" placeholder="Describe the scene, characters, movement and atmosphere..."></textarea>
-
-<div class="row">
-
+</div><div class="timeItem">
+<div class="timeYear">03 / BUILD</div>
 <div>
-<label>Duration</label>
-<select id="videoDuration">
-<option>5 seconds</option>
-<option>10 seconds</option>
-<option>20 seconds</option>
-</select>
+<h3>Make the prototype real</h3>
+<p class="muted">Use web technologies to build something the reviewer can actually interact with.</p>
 </div>
-
+</div><div class="timeItem">
+<div class="timeYear">04 / IMPROVE</div>
 <div>
-<label>Aspect Ratio</label>
-<select id="videoRatio">
-<option>16:9</option>
-<option>9:16</option>
-<option>1:1</option>
-</select>
+<h3>Test and iterate</h3>
+<p class="muted">Find friction, fix bugs and improve clarity instead of stopping at the first version.</p>
 </div>
-
+</div></div>
 </div>
+</section><!-- CONTACT --><section id="contact" class="contact">
+<div class="wrap"><div class="sectionTitle">
+<h2>Let's Build <span class="gradient">Something.</span></h2>
+<p>
+I'm open to internship opportunities, learning opportunities,
+collaboration and feedback.
+</p>
+</div><div class="actions"><a class="btn primary"
+href="mailto:meenasaurbh108@gmail.com?subject=DOOM%20AI%20Portfolio%20Opportunity">
+📧 EMAIL ME
+</a>
 
-<div class="row">
+<button class="btn" onclick="copyEmail()">COPY EMAIL</button>
 
-<div>
-<label>Camera</label>
-<select id="videoCamera">
-<option>Cinematic</option>
-<option>Handheld</option>
-<option>Drone</option>
-<option>Tracking Shot</option>
-<option>Close Up</option>
-</select>
+</div><a class="email"
+href="mailto:meenasaurbh108@gmail.com">
+meenasaurbh108@gmail.com
+</a>
+
+<div class="socials actions"><a class="btn"
+href="https://github.com/"
+target="_blank"
+rel="noopener noreferrer">
+GitHub ↗
+</a>
+
+<a class="btn"
+href="https://www.linkedin.com/"
+target="_blank"
+rel="noopener noreferrer">
+LinkedIn ↗
+</a>
+
+</div><p class="muted" style="margin-top:18px">
+GitHub and LinkedIn buttons are ready for your profile URL.
+</p></div>
+</section></main><footer>
+<div class="wrap">
+© 2026 DOOM AI • Portfolio Project • Built with HTML, CSS & JavaScript
+<br>
+<span style="display:inline-block;margin-top:8px">
+Designed & developed as an interactive portfolio prototype.
+</span>
 </div>
-
-<div>
-<label>Motion</label>
-<select id="videoMotion">
-<option>Dynamic</option>
-<option>Slow Motion</option>
-<option>Realistic</option>
-<option>Epic</option>
-</select>
-</div>
-
-</div>
-
-<div class="actions">
-<button class="btn primary" onclick="runTool('video')">Create Video</button>
-<button class="btn" onclick="clearTool('video')">Clear</button>
-</div>
-
-<div class="output empty" id="videoOutput">Your video generation request will appear here.</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- CODING -->
-
-<section class="page" id="coding">
-
-<div class="tool">
-
-<div class="tool-head">
-<div class="tool-icon">⌘</div>
-<h1>DOOM CODING MAKER</h1>
-<p>Generate, explain, fix and refactor software ideas.</p>
-</div>
-
-<div class="panel">
-
-<label>Describe your coding task</label>
-<textarea id="codePrompt" placeholder="Example: Build a responsive landing page with a dark futuristic design..."></textarea>
-
-<div class="row">
-
-<div>
-<label>Language</label>
-<select id="codeLanguage">
-<option>HTML</option>
-<option>CSS</option>
-<option>JavaScript</option>
-<option>Python</option>
-<option>React</option>
-<option>Node.js</option>
-<option>C++</option>
-<option>Java</option>
-<option>PHP</option>
-</select>
-</div>
-
-<div>
-<label>Action</label>
-<select id="codeAction">
-<option>Generate</option>
-<option>Explain</option>
-<option>Fix</option>
-<option>Refactor</option>
-<option>Optimize</option>
-</select>
-</div>
-
-</div>
-
-<div class="actions">
-<button class="btn primary" onclick="runTool('coding')">Run DOOM Coding</button>
-<button class="btn" onclick="copyOutput('codeOutput')">Copy Result</button>
-<button class="btn" onclick="clearTool('coding')">Clear</button>
-</div>
-
-<div class="output empty" id="codeOutput">Your coding result will appear here.</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- SONG -->
-
-<section class="page" id="song">
-
-<div class="tool">
-
-<div class="tool-head">
-<div class="tool-icon">♫</div>
-<h1>DOOM SONG MAKER</h1>
-<p>Create music concepts, lyrics direction and production prompts.</p>
-</div>
-
-<div class="panel">
-
-<label>Song idea</label>
-<textarea id="songPrompt" placeholder="Describe your song, story, theme or lyrics idea..."></textarea>
-
-<div class="row">
-
-<div>
-<label>Genre</label>
-<select id="songGenre">
-<option>Cinematic</option>
-<option>Pop</option>
-<option>Rock</option>
-<option>Electronic</option>
-<option>Ambient</option>
-<option>Hip-Hop</option>
-<option>Classical</option>
-</select>
-</div>
-
-<div>
-<label>Mood</label>
-<select id="songMood">
-<option>Epic</option>
-<option>Dark</option>
-<option>Happy</option>
-<option>Emotional</option>
-<option>Peaceful</option>
-<option>Energetic</option>
-</select>
-</div>
-
-</div>
-
-<div class="actions">
-<button class="btn primary" onclick="runTool('song')">Create Song Concept</button>
-<button class="btn" onclick="clearTool('song')">Clear</button>
-</div>
-
-<div class="output empty" id="songOutput">Your song concept will appear here.</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- GIBLI -->
-
-<section class="page" id="ghibli">
-
-<div class="tool">
-
-<div class="tool-head">
-<div class="tool-icon">✦</div>
-<h1>DOOM GIBLI</h1>
-<p>Build imaginative animated characters, worlds and cinematic scenes.</p>
-</div>
-
-<div class="panel">
-
-<label>Character / world / scene</label>
-<textarea id="ghibliPrompt" placeholder="Describe your character, magical world or scene..."></textarea>
-
-<div class="row">
-
-<div>
-<label>Scene Type</label>
-<select id="ghibliScene">
-<option>Character</option>
-<option>Magical World</option>
-<option>Adventure</option>
-<option>Village</option>
-<option>Forest</option>
-<option>Fantasy City</option>
-</select>
-</div>
-
-<div>
-<label>Atmosphere</label>
-<select id="ghibliMood">
-<option>Dreamy</option>
-<option>Magical</option>
-<option>Emotional</option>
-<option>Mysterious</option>
-<option>Peaceful</option>
-</select>
-</div>
-
-</div>
-
-<div class="actions">
-<button class="btn primary" onclick="runTool('ghibli')">Create World</button>
-<button class="btn" onclick="clearTool('ghibli')">Clear</button>
-</div>
-
-<div class="output empty" id="ghibliOutput">Your creative world will appear here.</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- DESIGN -->
-
-<section class="page" id="design">
-
-<div class="tool">
-
-<div class="tool-head">
-<div class="tool-icon">◇</div>
-<h1>DESIGN EVERYTHING</h1>
-<p>Turn an idea into a structured design brief.</p>
-</div>
-
-<div class="panel">
-
-<label>What should DOOM design?</label>
-<textarea id="designPrompt" placeholder="Example: premium futuristic AI company website for a global audience..."></textarea>
-
-<div class="row">
-
-<div>
-<label>Design Type</label>
-<select id="designType">
-<option>Website</option>
-<option>Logo</option>
-<option>Poster</option>
-<option>App UI</option>
-<option>Presentation</option>
-<option>Social Media</option>
-<option>Brand Identity</option>
-</select>
-</div>
-
-<div>
-<label>Visual Direction</label>
-<select id="designStyle">
-<option>Futuristic</option>
-<option>Minimal</option>
-<option>Cinematic</option>
-<option>Luxury</option>
-<option>Dark Tech</option>
-<option>Professional</option>
-</select>
-</div>
-
-</div>
-
-<div class="actions">
-<button class="btn primary" onclick="runTool('design')">Design with DOOM</button>
-<button class="btn" onclick="clearTool('design')">Clear</button>
-</div>
-
-<div class="output empty" id="designOutput">Your design brief will appear here.</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- EXPLORE -->
-
-<section class="page" id="explore">
-
-<div class="section-title">
-<h2>Explore DOOM</h2>
-<p>Creative starting points for the intelligence engine.</p>
-</div>
-
-<div class="grid">
-
-<div class="card" onclick="usePrompt('Create a futuristic AI city floating above Earth at night')">
-<div class="card-icon">🌌</div>
-<h3>Future Earth</h3>
-<p>Imagine tomorrow's cities, technology and civilization.</p>
-</div>
-
-<div class="card" onclick="usePrompt('Create an epic cinematic space exploration concept')">
-<div class="card-icon">🚀</div>
-<h3>Space</h3>
-<p>Explore planets, spacecraft and unknown worlds.</p>
-</div>
-
-<div class="card" onclick="usePrompt('Design a world-class futuristic AI website')">
-<div class="card-icon">⚡</div>
-<h3>Future Web</h3>
-<p>Design next-generation digital experiences.</p>
-</div>
-
-<div class="card" onclick="usePrompt('Create a powerful original cinematic story concept')">
-<div class="card-icon">🎬</div>
-<h3>Stories</h3>
-<p>Characters, worlds, plots and cinematic concepts.</p>
-</div>
-
-<div class="card" onclick="usePrompt('Create a futuristic game world with characters and missions')">
-<div class="card-icon">🎮</div>
-<h3>Game Worlds</h3>
-<p>Build characters, environments and game concepts.</p>
-</div>
-
-<div class="card" onclick="usePrompt('Create an innovative invention that could improve everyday life')">
-<div class="card-icon">💡</div>
-<h3>Innovation</h3>
-<p>Turn impossible ideas into structured concepts.</p>
-</div>
-
-</div>
-
-</section>
-
-
-<!-- PRICING -->
-
-<section class="page" id="pricing">
-
-<div class="section-title">
-<h2>DOOM Plans</h2>
-<p>Free-first architecture with room for future premium capabilities.</p>
-</div>
-
-<div class="pricing">
-
-<div class="price">
-<h3>FREE</h3>
-<div class="price-number">$0</div>
-<ul>
-<li>DOOM AI Chat</li>
-<li>Creative tools</li>
-<li>Basic coding</li>
-<li>Prompt generation</li>
-<li>Explore</li>
-</ul>
-</div>
-
-<div class="price featured">
-<h3>PRO</h3>
-<div class="price-number">$9</div>
-<ul>
-<li>Higher usage limits</li>
-<li>Advanced creative tools</li>
-<li>Priority generation</li>
-<li>Advanced coding</li>
-<li>Future AI models</li>
-</ul>
-</div>
-
-<div class="price">
-<h3>CREATOR</h3>
-<div class="price-number">$29</div>
-<ul>
-<li>High creative limits</li>
-<li>Professional workflows</li>
-<li>Advanced media tools</li>
-<li>Priority processing</li>
-<li>Creator features</li>
-</ul>
-</div>
-
-</div>
-
-</section>
-
-
-<div class="footer">
-DOOM AI — Universal Intelligence · Creative Intelligence Portfolio
-</div>
-
-</div>
-</main>
-</div>
-
-<div class="toast" id="toast"></div>
-
+</footer><div class="toast" id="toast">Copied!</div><button class="topBtn" id="topBtn"
+onclick="window.scrollTo({top:0,behavior:'smooth'})"
+aria-label="Back to top">↑</button>
 
 <script>
-/*
-==========================================================
-DOOM AI FRONTEND
-==========================================================
+"use strict";
 
-SECURITY:
-No API key is stored in this public frontend.
+/* =========================
+   CORE HELPERS
+========================= */
 
-If a compatible backend is deployed, this frontend
-automatically tries these server routes:
+const $ = id => document.getElementById(id);
 
-POST /api/chat
-POST /api/image
-POST /api/video
-POST /api/audio
-POST /api/code
-POST /api/design
-
-If no backend is available, the interface remains usable
-in local/demo mode instead of pretending that an API call
-succeeded.
-==========================================================
-*/
-
-const BACKEND_ROUTES={
- chat:"/api/chat",
- image:"/api/image",
- video:"/api/video",
- audio:"/api/audio",
- code:"/api/code",
- design:"/api/design"
-};
-
-function openPage(id){
- document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
- const page=document.getElementById(id);
- if(page) page.classList.add("active");
-
- document.querySelectorAll(".nav button").forEach(b=>{
-  b.classList.toggle("active",b.dataset.page===id);
- });
-
- document.getElementById("sidebar").classList.remove("open");
- window.scrollTo({top:0,behavior:"smooth"});
+function safe(value){
+return String(value ?? "").replace(/[&<>"']/g,char=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#39;"
+}[char]));
 }
-
-function toggleMenu(){
- document.getElementById("sidebar").classList.toggle("open");
-}
-
-document.querySelectorAll(".nav button").forEach(button=>{
- button.addEventListener("click",()=>{
-  openPage(button.dataset.page);
- });
-});
 
 function toast(message){
- const t=document.getElementById("toast");
- t.textContent=message;
- t.classList.add("show");
- clearTimeout(window.__toast);
- window.__toast=setTimeout(()=>t.classList.remove("show"),2600);
+const el=$("toast");
+el.textContent=message;
+el.classList.add("show");
+clearTimeout(window.__toastTimer);
+window.__toastTimer=setTimeout(()=>el.classList.remove("show"),2200);
 }
 
-function loadingHTML(){
- return '<span class="loading">DOOM is processing <span></span><span></span><span></span></span>';
+
+/* =========================
+   NAVIGATION
+========================= */
+
+document.querySelectorAll(".links a").forEach(link=>{
+link.addEventListener("click",()=>{
+$("nav").classList.remove("open");
+});
+});
+
+window.addEventListener("scroll",()=>{
+const top=$("topBtn");
+if(window.scrollY>500)top.classList.add("show");
+else top.classList.remove("show");
+},{passive:true});
+
+
+/* =========================
+   TABS
+========================= */
+
+function tab(id,button){
+
+document.querySelectorAll(".demoPage")
+.forEach(page=>page.classList.remove("on"));
+
+document.querySelectorAll(".tab")
+.forEach(btn=>btn.classList.remove("on"));
+
+const page=$(id);
+
+if(page){
+page.classList.add("on");
+button.classList.add("on");
+}
 }
 
-async function callBackend(route,payload){
 
- try{
+/* =========================
+   LOCAL AI ENGINE
+========================= */
 
-  const response=await fetch(route,{
-   method:"POST",
-   headers:{
-    "Content-Type":"application/json"
-   },
-   body:JSON.stringify(payload)
-  });
+const chatIntro=
+"DOOM AI — LOCAL DEMO ENGINE\n\nSystem online.";
 
-  if(!response.ok) throw new Error("Backend unavailable");
-
-  const data=await response.json();
-
-  return {
-   ok:true,
-   data:data
-  };
-
- }catch(error){
-
-  return {
-   ok:false,
-   error:error
-  };
-
- }
+function clearChat(){
+$("messages").textContent=
+chatIntro+
+"\n\nTry /plan, /code, /idea, /skills, /about or ask a question.";
+$("q").value="";
+toast("Chat cleared");
 }
 
-function textFromResponse(data){
+function ask(){
 
- if(typeof data==="string") return data;
+const input=$("q");
+const question=input.value.trim();
 
- if(data?.response) return data.response;
- if(data?.result) return data.result;
- if(data?.text) return data.text;
- if(data?.message) return data.message;
- if(data?.content) return data.content;
-
- try{
-  return JSON.stringify(data,null,2);
- }catch{
-  return String(data);
- }
+if(!question){
+toast("Type a message first");
+return;
 }
 
-async function sendChat(){
+const response=localAI(question);
 
- const input=document.getElementById("chatInput");
- const text=input.value.trim();
+const old=$("messages").textContent;
 
- if(!text) return;
+$("messages").textContent=
+old+
+"\n\nYOU: "+question+
+"\nDOOM: "+response;
 
- addMessage(text,"user");
- input.value="";
+input.value="";
+$("messages").scrollTop=$("messages").scrollHeight;
 
- const aiMessage=addMessage("", "ai");
- aiMessage.innerHTML=loadingHTML();
-
- const result=await callBackend(BACKEND_ROUTES.chat,{
-  message:text,
-  prompt:text,
-  source:"DOOM-AI",
-  version:"1.0"
- });
-
- if(result.ok){
-
-  aiMessage.textContent=textFromResponse(result.data);
-
- }else{
-
-  aiMessage.textContent=
-`DOOM AI local mode
-
-I received your request:
-
-"${text}"
-
-The public interface is ready, but no compatible backend is currently connected to this deployment.
-
-Your secret API keys should be connected on the server side, not inside this HTML file.`;
-
- }
-
+saveHistory(question,response);
 }
 
-function addMessage(text,type){
+function localAI(question){
 
- const box=document.getElementById("messages");
+const q=question.toLowerCase().trim();
 
- const div=document.createElement("div");
- div.className="message "+type;
- div.textContent=text;
-
- box.appendChild(div);
- box.scrollTop=box.scrollHeight;
-
- return div;
+if(q==="/clear"){
+clearChat();
+return"";
 }
 
-function usePrompt(prompt){
-
- openPage("chat");
-
- setTimeout(()=>{
-  const input=document.getElementById("chatInput");
-  input.value=prompt;
-  input.focus();
- },300);
+if(q.startsWith("/plan")){
+return[
+"DOOM PRODUCT PLAN",
+"",
+"01 — Define the user and problem",
+"02 — Map the core workflow",
+"03 — Design the interface",
+"04 — Build the MVP",
+"05 — Add validation + error states",
+"06 — Test on mobile and desktop",
+"07 — Connect secure backend services",
+"08 — Measure and iterate"
+].join("\n");
 }
 
-async function runTool(type){
-
- const configs={
-
-  photo:{
-   prompt:document.getElementById("photoPrompt").value.trim(),
-   ratio:document.getElementById("photoRatio").value,
-   style:document.getElementById("photoStyle").value,
-   quality:document.getElementById("photoQuality").value,
-   lighting:document.getElementById("photoLighting").value,
-   route:BACKEND_ROUTES.image,
-   output:"photoOutput"
-  },
-
-  video:{
-   prompt:document.getElementById("videoPrompt").value.trim(),
-   duration:document.getElementById("videoDuration").value,
-   ratio:document.getElementById("videoRatio").value,
-   camera:document.getElementById("videoCamera").value,
-   motion:document.getElementById("videoMotion").value,
-   route:BACKEND_ROUTES.video,
-   output:"videoOutput"
-  },
-
-  coding:{
-   prompt:document.getElementById("codePrompt").value.trim(),
-   language:document.getElementById("codeLanguage").value,
-   action:document.getElementById("codeAction").value,
-   route:BACKEND_ROUTES.code,
-   output:"codeOutput"
-  },
-
-  song:{
-   prompt:document.getElementById("songPrompt").value.trim(),
-   genre:document.getElementById("songGenre").value,
-   mood:document.getElementById("songMood").value,
-   route:BACKEND_ROUTES.audio,
-   output:"songOutput"
-  },
-
-  ghibli:{
-   prompt:document.getElementById("ghibliPrompt").value.trim(),
-   scene:document.getElementById("ghibliScene").value,
-   mood:document.getElementById("ghibliMood").value,
-   route:BACKEND_ROUTES.image,
-   output:"ghibliOutput"
-  },
-
-  design:{
-   prompt:document.getElementById("designPrompt").value.trim(),
-   type:document.getElementById("designType").value,
-   style:document.getElementById("designStyle").value,
-   route:BACKEND_ROUTES.design,
-   output:"designOutput"
-  }
-
- };
-
- const config=configs[type];
-
- if(!config.prompt){
-  toast("Pehle apna idea likho.");
-  return;
- }
-
- const output=document.getElementById(config.output);
-
- output.classList.remove("empty");
- output.innerHTML=loadingHTML();
-
- const result=await callBackend(config.route,{
-  ...config,
-  source:"DOOM-AI",
-  version:"1.0"
- });
-
- if(result.ok){
-
-  output.textContent=textFromResponse(result.data);
-
- }else{
-
-  output.textContent=createLocalResult(type,config);
-
- }
-
+if(q.startsWith("/code")){
+return[
+"CODE ARCHITECT MODE",
+"",
+"Frontend",
+"→ Semantic HTML",
+"→ Responsive CSS",
+"→ JavaScript state",
+"",
+"Application layer",
+"→ Input validation",
+"→ Error handling",
+"→ Loading states",
+"",
+"Backend direction",
+"→ Authentication",
+"→ API gateway",
+"→ Server-side secrets",
+"→ Rate limiting",
+"",
+"Data layer",
+"→ Database",
+"→ User history",
+"→ Audit / logging",
+"",
+"Quality",
+"→ Accessibility",
+"→ Testing",
+"→ Security review"
+].join("\n");
 }
 
-function createLocalResult(type,data){
-
- if(type==="photo"){
-
-  return `DOOM PHOTO — CREATIVE PROMPT
-
-Subject:
-${data.prompt}
-
-Style:
-${data.style}
-
-Aspect Ratio:
-${data.ratio}
-
-Quality:
-${data.quality}
-
-Lighting:
-${data.lighting}
-
-Production direction:
-Create a highly detailed, visually coherent image with strong composition,
-professional lighting, depth, atmosphere and subject consistency.
-
-Backend status:
-No image-generation backend is connected to this deployment yet.`;
-
- }
-
- if(type==="video"){
-
-  return `DOOM VIDEO — VIDEO GENERATION BRIEF
-
-Scene:
-${data.prompt}
-
-Duration:
-${data.duration}
-
-Aspect Ratio:
-${data.ratio}
-
-Camera:
-${data.camera}
-
-Motion:
-${data.motion}
-
-Production direction:
-Build a cinematic sequence with consistent subjects,
-natural movement, strong composition and controlled camera motion.
-
-Backend status:
-No video-generation backend is connected to this deployment yet.`;
-
- }
-
- if(type==="coding"){
-
-  return `DOOM CODING MAKER
-
-Language:
-${data.language}
-
-Action:
-${data.action}
-
-Task:
-${data.prompt}
-
-Recommended workflow:
-1. Understand the requested functionality.
-2. Define the architecture.
-3. Generate the implementation.
-4. Validate edge cases.
-5. Test the result.
-6. Refactor for reliability and security.
-
-Backend status:
-No coding AI backend is connected to this deployment yet.`;
-
- }
-
- if(type==="song"){
-
-  return `DOOM SONG MAKER
-
-Idea:
-${data.prompt}
-
-Genre:
-${data.genre}
-
-Mood:
-${data.mood}
-
-Creative direction:
-Create an original musical concept with a clear structure,
-instrumentation, rhythm, vocal direction and emotional progression.
-
-Backend status:
-No audio-generation backend is connected to this deployment yet.`;
-
- }
-
- if(type==="ghibli"){
-
-  return `DOOM GIBLI — CREATIVE WORLD BRIEF
-
-Concept:
-${data.prompt}
-
-Scene:
-${data.scene}
-
-Atmosphere:
-${data.mood}
-
-Visual direction:
-Whimsical hand-crafted animation feeling, expressive characters,
-rich environments, atmospheric lighting and imaginative world-building.
-
-Backend status:
-No image-generation backend is connected to this deployment yet.`;
-
- }
-
- if(type==="design"){
-
-  return `DOOM DESIGN EVERYTHING
-
-Design:
-${data.type}
-
-Direction:
-${data.style}
-
-Brief:
-${data.prompt}
-
-Design system:
-• Strong visual hierarchy
-• Responsive layout
-• Consistent typography
-• Clear interaction states
-• Accessible contrast
-• Modern visual language
-• Mobile-first structure
-• Production-ready component planning
-
-Backend status:
-No design-generation backend is connected to this deployment yet.`;
-
- }
-
- return "DOOM is ready.";
+if(q.startsWith("/idea")){
+return[
+"IDEA MODE",
+"",
+"Find one painful problem.",
+"Identify the exact user.",
+"Remove unnecessary steps.",
+"Automate the repetitive part.",
+"Build the smallest useful prototype.",
+"Measure whether it actually helps.",
+"Then scale."
+].join("\n");
 }
 
-function clearTool(type){
+if(q==="/skills" || q.includes("skills")){
+return[
+"SKILL MATRIX",
+"",
+"Frontend → HTML / CSS / JavaScript",
+"UI/UX → responsive product interfaces",
+"Browser → DOM / File API / LocalStorage",
+"AI → prompt design / AI UX / API architecture",
+"Product → problem solving / prototyping / iteration"
+].join("\n");
+}
 
- const ids={
-  photo:["photoPrompt","photoOutput"],
-  video:["videoPrompt","videoOutput"],
-  coding:["codePrompt","codeOutput"],
-  song:["songPrompt","songOutput"],
-  ghibli:["ghibliPrompt","ghibliOutput"],
-  design:["designPrompt","designOutput"]
- };
+if(q==="/about" || q.includes("what is doom")){
+return[
+"DOOM AI",
+"",
+"An interactive portfolio prototype.",
+"It demonstrates how a large AI-product idea can",
+"be represented through a practical browser experience.",
+"",
+"Current demo modules:",
+"Chat • Image Prompt • Code Architect • File Inspector"
+].join("\n");
+}
 
- const pair=ids[type];
+if(q.includes("internship") || q.includes("job")){
+return[
+"INTERNSHIP MODE",
+"",
+"Show what YOU built.",
+"Explain why you made each design decision.",
+"Demonstrate the live prototype.",
+"Be honest about what is prototype vs production.",
+"Keep your code understandable.",
+"Be ready to explain one bug you solved."
+].join("\n");
+}
 
- if(!pair)return;
+if(q.includes("hello") || q.includes("hi") || q.includes("namaste")){
+return"Hello! 👋 Welcome to DOOM AI. Try /plan, /code, /idea or /skills.";
+}
 
- document.getElementById(pair[0]).value="";
- document.getElementById(pair[1]).textContent=
- "Your generated result will appear here.";
- document.getElementById(pair[1]).classList.add("empty");
+if(q.includes("portfolio")){
+return[
+"PORTFOLIO REVIEW",
+"",
+"Strong portfolio =",
+"clear story + visual hierarchy + working demo +",
+"technical explanation + honest project scope.",
+"",
+"DOOM AI is designed around those five principles."
+].join("\n");
+}
+
+return[
+"DOOM LOCAL RESPONSE",
+"",
+"I received:",
+question,
+"",
+"This browser-only demo does not pretend to be a remote",
+"AI model. For real model responses, this interface can",
+"be connected to a secure backend/API.",
+"",
+"Try /plan, /code, /idea or /skills."
+].join("\n");
+}
+
+
+/* =========================
+   HISTORY
+========================= */
+
+function saveHistory(question,response){
+
+try{
+
+const history=JSON.parse(
+localStorage.getItem("doom_chat_history")||"[]"
+);
+
+history.push({
+question,
+response,
+time:new Date().toISOString()
+});
+
+localStorage.setItem(
+"doom_chat_history",
+JSON.stringify(history.slice(-20))
+);
+
+}catch(error){
+console.warn("History unavailable",error);
+}
+}
+
+
+/* =========================
+   IMAGE PROMPT BUILDER
+========================= */
+
+function imagePrompt(){
+
+const description=$("ip").value.trim()||
+"futuristic AI workspace";
+
+const style=$("style").value;
+
+const prompt=[
+"VISUAL PROMPT",
+"",
+description,
+"",
+"STYLE: "+style,
+"",
+"Professional art direction, cinematic composition,",
+"controlled depth of field, sophisticated lighting,",
+"high visual detail, atmospheric depth, clean subject",
+"separation, coherent perspective, polished final render.",
+"",
+"NEGATIVE DIRECTION:",
+"blurry, distorted anatomy, unwanted text, low detail,",
+"poor composition, artifacts, oversaturation."
+].join("\n");
+
+$("io").textContent=prompt;
+toast("Prompt created");
+}
+
+
+/* =========================
+   CODE ARCHITECT
+========================= */
+
+function codePlan(){
+
+const project=$("cp").value.trim()||
+"modern web application";
+
+const architecture=[
+"CODE ARCHITECTURE",
+"",
+"PROJECT",
+project,
+"",
+"1. PRODUCT LAYER",
+"→ User goals",
+"→ Core workflow",
+"→ Responsive interface",
+"",
+"2. FRONTEND",
+"→ Components",
+"→ State management",
+"→ Forms",
+"→ Loading / empty / error states",
+"",
+"3. API LAYER",
+"→ Request validation",
+"→ Authentication",
+"→ Error handling",
+"→ Rate limiting",
+"",
+"4. BACKEND",
+"→ Secure server",
+"→ Business logic",
+"→ AI service integration",
+"→ Server-side secrets",
+"",
+"5. DATA",
+"→ Database",
+"→ User records",
+"→ History",
+"→ Backups",
+"",
+"6. QUALITY",
+"✓ Accessibility",
+"✓ Responsive design",
+"✓ Input validation",
+"✓ Security review",
+"✓ Testing",
+"✓ Performance",
+"✓ Deployment plan"
+].join("\n");
+
+$("co").textContent=architecture;
+toast("Architecture generated");
+}
+
+
+/* =========================
+   COPY
+========================= */
+
+async function copyText(text){
+
+try{
+await navigator.clipboard.writeText(text);
+toast("Copied to clipboard");
+}catch(error){
+
+const area=document.createElement("textarea");
+area.value=text;
+document.body.appendChild(area);
+area.select();
+
+try{
+document.execCommand("copy");
+toast("Copied to clipboard");
+}catch{
+toast("Copy unavailable");
+}
+
+area.remove();
+}
 }
 
 function copyOutput(id){
 
- const el=document.getElementById(id);
- const text=el.innerText;
+const el=$(id);
 
- if(!text || el.classList.contains("empty")){
-  toast("Copy karne ke liye result nahi hai.");
-  return;
- }
-
- navigator.clipboard.writeText(text)
- .then(()=>toast("Result copied."))
- .catch(()=>toast("Copy unavailable."));
+if(!el || !el.textContent.trim()){
+toast("Nothing to copy");
+return;
 }
 
-window.addEventListener("keydown",e=>{
- if(e.key==="Escape"){
-  document.getElementById("sidebar").classList.remove("open");
- }
-});
+copyText(el.textContent);
+}
 
-/*
-==========================================================
-DOOM LOCAL STORAGE
-Only harmless interface preferences are stored.
-No API secret is ever stored.
-==========================================================
-*/
+function copyEmail(){
+copyText("meenasaurbh108@gmail.com");
+}
+
+
+/* =========================
+   FILE INSPECTOR
+========================= */
+
+$("fileInput").addEventListener("change",async event=>{
+
+const file=event.target.files?.[0];
+
+if(!file)return;
+
+const output=$("fo");
+
+if(file.size>5*1024*1024){
+output.textContent=
+"FILE TOO LARGE\n\nMaximum demo size: 5 MB.";
+return;
+}
 
 try{
 
- const savedPage=localStorage.getItem("doom_page");
+const text=await file.text();
 
- if(savedPage && document.getElementById(savedPage)){
-  openPage(savedPage);
- }
+const preview=text.slice(0,12000);
 
-}catch(e){}
+output.textContent=
+"FILE INSPECTION\n\n"+
+"NAME: "+file.name+"\n"+
+"TYPE: "+(file.type||"unknown")+"\n"+
+"SIZE: "+file.size.toLocaleString()+" bytes\n"+
+"CHARACTERS: "+text.length.toLocaleString()+"\n"+
+"\nPREVIEW\n\n"+
+preview+
+(text.length>12000?
+"\n\n… preview truncated at 12,000 characters."
+:"");
 
-const originalOpenPage=openPage;
+toast("File inspected locally");
 
-window.openPage=function(id){
+}catch(error){
 
- try{
-  localStorage.setItem("doom_page",id);
- }catch(e){}
+output.textContent=
+"Unable to read this file as text.\n\n"+
+"Please choose a text-readable file.";
 
- originalOpenPage(id);
-};
-
-/*
-==========================================================
-DOOM SERVICE WORKER
-Optional offline shell support.
-No secrets or API credentials are stored.
-==========================================================
-*/
-
-if("serviceWorker" in navigator && location.protocol==="https:"){
-
- const sw=`
- self.addEventListener("install",e=>self.skipWaiting());
- self.addEventListener("activate",e=>self.clients.claim());
- `;
-
- try{
-
-  const blob=new Blob([sw],{type:"text/javascript"});
-  const url=URL.createObjectURL(blob);
-
-  navigator.serviceWorker.register(url).catch(()=>{});
-
- }catch(e){}
-
+toast("File could not be read");
 }
-</script>
+});
 
-</body>
- </html>
+
+/* =========================
+   ANIMATED STATS
+========================= */
+
+function animateStats(){
+
+document.querySelectorAll("[data-count]").forEach(el=>{
+
+const target=Number(el.dataset.count);
+const suffix=el.textContent.includes("%")?"%":"+";
+let start=0;
+const duration=1000;
+const startTime=performance.now();
+
+function update(now){
+
+const progress=Math.min(
+(now-startTime)/duration,1
+);
+
+const eased=1-Math.pow(1-progress,3);
+const value=Math.round(start+(target-start)*eased);
+
+el.textContent=value+(suffix==="%"?"%":"+");
+
+if(progress<1){
+requestAnimationFrame(update);
+}
+}
+
+requestAnimationFrame(update);
+});
+}
+
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+animateStats();
+observer.disconnect();
+}
+});
+},{threshold:.35});
+
+const statsSection=document.querySelector(".stats");
+if(statsSection)observer.observe(statsSection);
+
+
+/* =========================
+   TERMINAL EFFECT
+========================= */
+
+const terminalLines=[
+"→ analyzing interface",
+"→ checking responsive layout",
+"→ validating browser modules",
+"→ local tools operational",
+"✓ portfolio ready"
+];
+
+let lineIndex=0;
+
+setInterval(()=>{
+
+const terminal=$("terminal");
+
+if(!terminal || lineIndex>=terminalLines.length)return;
+
+const line=document.createElement("div");
+line.className="termLine";
+line.textContent=terminalLines[lineIndex++];
+
+terminal.appendChild(line);
+
+},1800);
+
+
+/* =========================
+   KEYBOARD SHORTCUT
+========================= */
+
+document.addEventListener("keydown",event=>{
+
+if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==="k"){
+
+event.preventDefault();
+
+document.querySelector("#demo")
+.scrollIntoView({behavior:"smooth"});
+
+setTimeout(()=>$("q").focus(),500);
+}
+});
+
+
+/* =========================
+   INITIALIZATION
+========================= */
+
+console.log(
+"%cDOOM AI%c portfolio initialized.",
+"color:#06d6ff;font-weight:bold",
+"color:white"
+);
+
+</script></body>
+  </html>

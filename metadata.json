@@ -1,0 +1,6 @@
+{
+  "name": "DOOM AI — Creative Intelligence",
+  "description": "DOOM AI — Interactive Creative Intelligence Portfolio by Saurbh Meena",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
