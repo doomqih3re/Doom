@@ -1,1445 +1,2163 @@
-<!DOCTYPE html><html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#070711">
-<meta name="description" content="DOOM AI — Interactive Creative Intelligence Portfolio by Saurbh Meena">
-<meta name="author" content="Saurbh Meena">
-<title>DOOM AI — Creative Intelligence</title><style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
---bg:#05050b;--bg2:#080812;--panel:#0d0d1a;
---line:rgba(255,255,255,.11);--text:#f8f9ff;--muted:#9298ad;
---purple:#8b5cf6;--cyan:#06d6ff;--pink:#ff3cac;--green:#45f6a8;
---shadow:0 30px 90px rgba(0,0,0,.45)
-}
-html{scroll-behavior:smooth}
-body{
-font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.5
-}
-body:before{
-content:"";position:fixed;inset:0;z-index:-3;
-background:
-radial-gradient(circle at 10% 10%,rgba(124,58,237,.25),transparent 27%),
-radial-gradient(circle at 90% 15%,rgba(6,214,255,.17),transparent 25%),
-radial-gradient(circle at 55% 85%,rgba(255,60,172,.13),transparent 30%)
-}
-body:after{
-content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.12;
-background-image:
-linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
-linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
-background-size:55px 55px;
-mask-image:linear-gradient(to bottom,#000,transparent 85%)
-}
-a{text-decoration:none;color:inherit}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
-.wrap{width:min(1180px,92%);margin:auto}
-section{padding:110px 0;position:relative}
-
-/* NAV */
-nav{
-position:fixed;top:0;left:0;right:0;z-index:100;
-display:flex;justify-content:space-between;align-items:center;
-padding:16px 5%;background:rgba(5,5,11,.72);
-border-bottom:1px solid var(--line);backdrop-filter:blur(22px)
-}
-.logo{
-font-size:23px;font-weight:1000;letter-spacing:5px;
-text-shadow:0 0 30px rgba(6,214,255,.25)
-}
-.logo span{color:var(--cyan)}
-.links{display:flex;gap:24px;color:#aeb4c8;font-size:13px}
-.links a{transition:.2s}
-.links a:hover{color:#fff}
-.menu{display:none;background:none;border:0;color:#fff;font-size:25px}
-nav.open .links{display:flex}
-
-/* HERO */
-.hero{
-min-height:100vh;display:grid;place-items:center;
-padding-top:120px;overflow:hidden
-}
-.hero:before{
-content:"";position:absolute;width:500px;height:500px;border-radius:50%;
-background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(6,214,255,.08));
-filter:blur(60px);animation:orb 8s ease-in-out infinite alternate
-}
-@keyframes orb{to{transform:translate(80px,-40px) scale(1.2)}}
-.heroBox{text-align:center;position:relative;z-index:1}
-.kicker{
-display:inline-flex;align-items:center;gap:9px;
-padding:8px 14px;border:1px solid rgba(255,255,255,.13);
-border-radius:99px;background:rgba(255,255,255,.045);
-color:#a8fbe0;font-size:11px;letter-spacing:.7px;
-margin-bottom:25px;box-shadow:0 0 30px rgba(69,246,168,.05)
-}
-.dot{
-width:7px;height:7px;border-radius:50%;background:var(--green);
-box-shadow:0 0 15px var(--green);animation:pulse 1.8s infinite
-}
-@keyframes pulse{50%{opacity:.35;transform:scale(.7)}}
-h1{
-font-size:clamp(58px,10vw,125px);line-height:.84;
-letter-spacing:-7px;font-weight:950
-}
-.gradient{
-background:linear-gradient(100deg,#fff 0%,#b9a0ff 35%,#22d3ee 65%,#ff55bc 100%);
--webkit-background-clip:text;background-clip:text;color:transparent
-}
-.hero p{
-max-width:750px;margin:30px auto;color:var(--muted);
-font-size:17px;line-height:1.8
-}
-.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-.btn{
-display:inline-flex;align-items:center;justify-content:center;
-gap:8px;padding:13px 20px;border-radius:13px;
-border:1px solid var(--line);background:rgba(255,255,255,.045);
-color:#fff;transition:.25s;min-height:46px
-}
-.btn:hover{
-transform:translateY(-3px);border-color:rgba(255,255,255,.3);
-box-shadow:0 12px 35px rgba(0,0,0,.3)
-}
-.primary{
-border:0;background:linear-gradient(100deg,var(--purple),var(--cyan));
-font-weight:850;box-shadow:0 12px 40px rgba(6,214,255,.12)
-}
-.secondary:hover{background:rgba(255,255,255,.09)}
-
-/* TITLES */
-.sectionTitle{text-align:center;margin-bottom:45px}
-.sectionTitle h2{
-font-size:clamp(34px,5vw,58px);letter-spacing:-3px;line-height:1
-}
-.sectionTitle p{color:var(--muted);margin:14px auto 0;max-width:650px}
-
-/* CARDS */
-.grid{
-display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px
-}
-.card{
-background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
-border:1px solid var(--line);border-radius:22px;padding:25px;
-position:relative;overflow:hidden;transition:.35s
-}
-.card:before{
-content:"";position:absolute;width:180px;height:100px;
-left:-70px;top:-70px;background:rgba(139,92,246,.18);
-filter:blur(45px)
-}
-.card:hover{
-transform:translateY(-8px);border-color:rgba(255,255,255,.28);
-box-shadow:var(--shadow)
-}
-.icon{font-size:34px;margin-bottom:16px}
-.card h3{font-size:19px;margin-bottom:9px}
-.muted{color:var(--muted);font-size:13px;line-height:1.7}
-.tag{
-display:inline-block;padding:5px 9px;margin:4px 3px 0 0;
-border-radius:8px;background:rgba(255,255,255,.06);
-border:1px solid rgba(255,255,255,.06);
-color:#c3c9dc;font-size:10px
-}
-
-/* STATS */
-.stats{
-display:grid;grid-template-columns:repeat(4,1fr);
-gap:15px;margin-top:20px
-}
-.stat{
-padding:26px;text-align:center;border:1px solid var(--line);
-border-radius:18px;background:rgba(255,255,255,.035)
-}
-.stat b{display:block;font-size:34px}
-.stat span{font-size:10px;color:var(--muted);letter-spacing:1px}
-
-/* PROJECT */
-.project{
-min-height:260px;display:flex;flex-direction:column;justify-content:space-between
-}
-.projectTop{display:flex;justify-content:space-between;align-items:start}
-.status{
-font-size:9px;color:var(--green);
-border:1px solid rgba(69,246,168,.25);
-background:rgba(69,246,168,.06);
-padding:5px 9px;border-radius:99px
-}
-.projectLink{
-display:inline-flex;margin-top:18px;color:#aeb4c8;font-size:12px
-}
-.projectLink:hover{color:#fff}
-
-/* SKILLS */
-.skillBox{display:flex;flex-wrap:wrap;gap:8px}
-.skill{
-padding:9px 12px;border:1px solid var(--line);
-border-radius:10px;background:rgba(255,255,255,.04);
-font-size:12px;color:#cbd2e5
-}
-
-/* ARCHITECTURE */
-.arch{
-display:grid;grid-template-columns:1fr 45px 1fr 45px 1fr;
-gap:10px;align-items:center
-}
-.node{
-padding:21px 10px;text-align:center;border:1px solid var(--line);
-border-radius:16px;background:rgba(255,255,255,.045);
-font-size:12px;letter-spacing:.5px
-}
-.node strong{display:block;margin-bottom:4px;color:#fff}
-.arrow{text-align:center;color:var(--cyan);font-size:23px}
-
-/* DEMO */
-.demo{
-background:rgba(8,9,20,.82);border:1px solid var(--line);
-border-radius:25px;padding:22px;box-shadow:0 25px 90px rgba(0,0,0,.35)
-}
-.tabs{
-display:flex;gap:8px;overflow-x:auto;margin-bottom:20px;padding-bottom:3px
-}
-.tab{
-white-space:nowrap;padding:10px 14px;border:1px solid var(--line);
-background:rgba(255,255,255,.04);color:#aab0c4;border-radius:11px;
-transition:.2s
-}
-.tab:hover{color:#fff}
-.tab.on{background:rgba(139,92,246,.2);color:#fff;border-color:rgba(139,92,246,.4)}
-.demoPage{display:none}
-.demoPage.on{display:block}
-textarea,input,select{
-width:100%;padding:13px 14px;border:1px solid var(--line);
-border-radius:12px;background:#03040a;color:#fff;
-outline:none;margin:7px 0
-}
-textarea{min-height:145px;resize:vertical}
-textarea:focus,input:focus,select:focus{border-color:rgba(6,214,255,.55);box-shadow:0 0 0 3px rgba(6,214,255,.07)}
-.output{
-margin-top:12px;padding:17px;min-height:100px;
-white-space:pre-wrap;overflow:auto;border-radius:14px;
-background:#03040a;border:1px solid rgba(255,255,255,.08);
-color:#cbd2e5;font-size:13px;line-height:1.7
-}
-.demoActions{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
-.demoActions .btn{flex:0 0 auto}
-
-/* TERMINAL */
-.terminal{
-border:1px solid rgba(255,255,255,.1);border-radius:18px;
-background:#020308;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3)
-}
-.termTop{
-display:flex;gap:7px;align-items:center;padding:11px 14px;
-border-bottom:1px solid var(--line);background:#090a12
-}
-.termDot{width:9px;height:9px;border-radius:50%;background:#555}
-.termBody{padding:20px;color:#8fffd0;font-family:monospace;font-size:12px;min-height:170px}
-.termLine{margin:7px 0}
-
-/* TIMELINE */
-.timeline{display:grid;gap:15px;max-width:800px;margin:auto}
-.timeItem{
-display:grid;grid-template-columns:90px 1fr;gap:20px;
-padding:18px;border:1px solid var(--line);border-radius:15px;
-background:rgba(255,255,255,.03)
-}
-.timeYear{color:var(--cyan);font-weight:800}
-
-/* CONTACT */
-.contact{text-align:center}
-.email{
-display:inline-block;margin-top:18px;color:#9eeeff;
-font-weight:700
-}
-.email:hover{text-decoration:underline}
-.socials{margin-top:22px}
-
-/* TOAST */
-.toast{
-position:fixed;right:20px;bottom:20px;z-index:200;
-padding:13px 17px;border:1px solid var(--line);
-border-radius:12px;background:#10111c;color:#fff;
-box-shadow:var(--shadow);transform:translateY(100px);
-opacity:0;pointer-events:none;transition:.3s;font-size:12px
-}
-.toast.show{transform:translateY(0);opacity:1}
-
-/* SCROLL BUTTON */
-.topBtn{
-position:fixed;right:18px;bottom:18px;z-index:90;
-width:42px;height:42px;border-radius:50%;border:1px solid var(--line);
-background:#10111c;color:#fff;display:none
-}
-.topBtn.show{display:block}
-
-/* MOBILE */
-@media(max-width:800px){
-.links{display:none}
-.menu{display:block}
-nav.open .links{
-display:flex;position:absolute;top:63px;left:0;right:0;
-padding:20px 6%;background:#080810;
-border-bottom:1px solid var(--line);flex-direction:column;gap:18px
-}
-h1{letter-spacing:-4px}
-.stats{grid-template-columns:repeat(2,1fr)}
-.arch{grid-template-columns:1fr}
-.arrow{transform:rotate(90deg)}
-.timeItem{grid-template-columns:1fr;gap:5px}
-}
-@media(max-width:500px){
-section{padding:85px 0}
-.hero{padding-top:100px}
-.hero p{font-size:14px}
-.stats{grid-template-columns:1fr 1fr}
-.stat{padding:18px 8px}
-.stat b{font-size:27px}
-.demo{padding:14px}
-}
-
-/* REDUCED MOTION */
-@media(prefers-reduced-motion:reduce){
-*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
-}
-</style></head><body><nav id="nav">
-<a class="logo" href="#home">DOOM<span>AI</span></a><div class="links">
-<a href="#about">About</a>
-<a href="#projects">Projects</a>
-<a href="#skills">Skills</a>
-<a href="#architecture">Architecture</a>
-<a href="#demo">Live Demo</a>
-<a href="#contact">Contact</a>
-</div><button class="menu" aria-label="Open menu"
-onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
-
-</nav><main><!-- HERO --><section class="hero" id="home">
-<div class="wrap">
-<div class="heroBox"><div class="kicker">
-<i class="dot"></i>
-AVAILABLE FOR INTERNSHIP & COLLABORATION
-</div><h1>
-<span class="gradient">BUILD.</span><br>
-CREATE.<br>
-<span class="gradient">DOOM.</span>
-</h1><p>
-I design ambitious digital experiences where AI concepts,
-creative tools, interactive interfaces and product thinking meet.
-This portfolio turns one big idea into a working browser prototype.
-</p><div class="actions">
-<a class="btn primary" href="#projects">EXPLORE MY WORK →</a>
-<a class="btn secondary" href="#demo">TRY LIVE DEMO</a>
-<a class="btn" href="#contact">CONTACT ME</a>
-</div></div>
-</div>
-</section><!-- ABOUT --><section id="about">
-<div class="wrap"><div class="sectionTitle">
-<h2>More Than A <span class="gradient">Concept.</span></h2>
-<p>
-DOOM AI is an interactive portfolio prototype built to demonstrate
-product thinking, frontend engineering and AI-oriented UX.
-</p>
-</div><div class="grid"><div class="card">
-<div class="icon">🧠</div>
-<h3>AI Product Thinking</h3>
-<p class="muted">
-I structure AI experiences around clear inputs, useful workflows,
-validation and human-friendly interfaces.
-</p>
-</div><div class="card">
-<div class="icon">⚡</div>
-<h3>Frontend Engineering</h3>
-<p class="muted">
-Responsive layouts, browser APIs, interactive state,
-local storage and clean single-page application patterns.
-</p>
-</div><div class="card">
-<div class="icon">🎯</div>
-<h3>Problem Solving</h3>
-<p class="muted">
-Large ideas become smaller modules that can be demonstrated,
-tested and improved independently.
-</p>
-</div><div class="card">
-<div class="icon">🚀</div>
-<h3>Product Vision</h3>
-<p class="muted">
-A portfolio should not only describe an idea. It should let the
-reviewer interact with it.
-</p>
-</div></div><div class="stats">
-<div class="stat"><b data-count="10">0+</b><span>PRODUCT MODULES</span></div>
-<div class="stat"><b data-count="4">0</b><span>INTERACTIVE DEMOS</span></div>
-<div class="stat"><b data-count="100">0%</b><span>FRONTEND DEMONSTRATION</span></div>
-<div class="stat"><b>∞</b><span>ROOM TO SCALE</span></div>
-</div></div>
-</section><!-- PROJECTS --><section id="projects">
-<div class="wrap"><div class="sectionTitle">
-<h2>Featured <span class="gradient">Projects.</span></h2>
-<p>Concepts designed to show different dimensions of product development.</p>
-</div><div class="grid"><div class="card project">
-<div>
-<div class="projectTop">
-<div class="icon">🤖</div>
-<span class="status">LIVE PROTOTYPE</span>
-</div>
-<h3>DOOM AI</h3>
-<p class="muted">
-A unified AI workspace concept for conversation, creative prompting,
-coding architecture and local file inspection.
-</p>
-</div>
-<div>
-<span class="tag">HTML5</span>
-<span class="tag">CSS3</span>
-<span class="tag">JavaScript</span>
-<span class="tag">AI UX</span>
-<span class="tag">Browser APIs</span>
-</div>
-</div><div class="card project">
-<div>
-<div class="projectTop">
-<div class="icon">🎬</div>
-<span class="status">PROTOTYPE</span>
-</div>
-<h3>Creative Studio</h3>
-<p class="muted">
-A prompt-driven creative workflow concept for visual,
-video and music ideation.
-</p>
-</div>
-<div>
-<span class="tag">UI/UX</span>
-<span class="tag">Creative AI</span>
-<span class="tag">Prompt Design</span>
-</div>
-</div><div class="card project">
-<div>
-<div class="projectTop">
-<div class="icon">⚖️</div>
-<span class="status">CONCEPT</span>
-</div>
-<h3>Legal Research Hub</h3>
-<p class="muted">
-A structured research interface concept focused on organizing
-questions, sources, evidence and workflows.
-</p>
-</div>
-<div>
-<span class="tag">Research UX</span>
-<span class="tag">Workflow</span>
-<span class="tag">Information Design</span>
-</div>
-</div><div class="card project">
-<div>
-<div class="projectTop">
-<div class="icon">🧩</div>
-<span class="status">EXPERIMENT</span>
-</div>
-<h3>Universal Workspace</h3>
-<p class="muted">
-One interface pattern for moving between different creative
-and technical tasks without losing context.
-</p>
-</div>
-<div>
-<span class="tag">Product Design</span>
-<span class="tag">UX Systems</span>
-</div>
-</div></div>
-</div>
-</section><!-- SKILLS --><section id="skills">
-<div class="wrap"><div class="sectionTitle">
-<h2>Technology <span class="gradient">Stack.</span></h2>
-<p>Core technologies and concepts represented in the project.</p>
-</div><div class="grid"><div class="card">
-<div class="icon">🌐</div>
-<h3>Frontend</h3>
-<div class="skillBox">
-<span class="skill">HTML5</span>
-<span class="skill">CSS3</span>
-<span class="skill">JavaScript</span>
-<span class="skill">Responsive UI</span>
-<span class="skill">Accessibility</span>
-<span class="skill">Semantic HTML</span>
-</div>
-</div><div class="card">
-<div class="icon">⚙️</div>
-<h3>Browser Engineering</h3>
-<div class="skillBox">
-<span class="skill">DOM</span>
-<span class="skill">LocalStorage</span>
-<span class="skill">File API</span>
-<span class="skill">Clipboard API</span>
-<span class="skill">Events</span>
-<span class="skill">State</span>
-</div>
-</div><div class="card">
-<div class="icon">🤝</div>
-<h3>AI Concepts</h3>
-<div class="skillBox">
-<span class="skill">Prompt Engineering</span>
-<span class="skill">AI UX</span>
-<span class="skill">API Architecture</span>
-<span class="skill">Validation</span>
-<span class="skill">Automation</span>
-</div>
-</div></div>
-</div>
-</section><!-- ARCHITECTURE --><section id="architecture">
-<div class="wrap"><div class="sectionTitle">
-<h2>System <span class="gradient">Architecture.</span></h2>
-<p>
-A practical direction for evolving the browser prototype into
-a real AI-powered application.
-</p>
-</div><div class="arch">
-<div class="node"><strong>USER</strong>INPUT</div>
-<div class="arrow">→</div>
-<div class="node"><strong>DOOM</strong>FRONTEND</div>
-<div class="arrow">→</div>
-<div class="node"><strong>SECURE</strong>BACKEND</div>
-</div><div class="arch" style="margin-top:12px">
-<div class="node"><strong>AI MODEL</strong>RESPONSE</div>
-<div class="arrow">←</div>
-<div class="node"><strong>VALIDATION</strong>SECURITY</div>
-<div class="arrow">←</div>
-<div class="node"><strong>DATABASE</strong>STORAGE</div>
-</div><div class="terminal" style="margin-top:28px">
-<div class="termTop">
-<span class="termDot"></span>
-<span class="termDot"></span>
-<span class="termDot"></span>
-<span style="margin-left:8px;color:#777;font-size:11px">doom-system</span>
-</div>
-<div class="termBody" id="terminal">
-<div class="termLine">$ initialize DOOM_AI</div>
-<div class="termLine">✓ interface loaded</div>
-<div class="termLine">✓ browser modules ready</div>
-<div class="termLine">✓ local demo engine ready</div>
-<div class="termLine">✓ security boundary identified</div>
-<div class="termLine">→ waiting for user interaction...</div>
-</div>
-</div></div>
-</section><!-- DEMO --><section id="demo">
-<div class="wrap"><div class="sectionTitle">
-<h2>Interactive <span class="gradient">Demo.</span></h2>
-<p>
-No API key is required for this portfolio demonstration.
-The tools below run locally in your browser.
-</p>
-</div><div class="demo"><div class="tabs">
-<button class="tab on" onclick="tab('chat',this)">🧠 AI Chat</button>
-<button class="tab" onclick="tab('image',this)">🎨 Image Prompt</button>
-<button class="tab" onclick="tab('code',this)">💻 Code Architect</button>
-<button class="tab" onclick="tab('file',this)">📁 File Inspector</button>
-<button class="tab" onclick="tab('aboutDemo',this)">ℹ️ How It Works</button>
-</div><!-- CHAT --><div id="chat" class="demoPage on"><div class="output" id="messages">DOOM AI — LOCAL DEMO ENGINESystem online.
-
-Try:
-• /plan build a portfolio
-• /code ecommerce website
-• /idea AI startup
-• /skills
-• /about
-• /clear
-
-Or ask a normal question.</div>
-
-<div class="demoActions">
-<input id="q"
-placeholder="Ask DOOM something..."
-autocomplete="off"
-onkeydown="if(event.key==='Enter')ask()">
-<button class="btn primary" onclick="ask()">SEND →</button>
-<button class="btn" onclick="clearChat()">CLEAR</button>
-</div></div><!-- IMAGE --><div id="image" class="demoPage"><textarea id="ip"
-placeholder="Describe the image you want to create..."></textarea><select id="style">
-<option>Cinematic</option>
-<option>Photorealistic</option>
-<option>Cyberpunk</option>
-<option>3D CGI</option>
-<option>Fantasy</option>
-<option>Minimalist</option>
-<option>Futuristic Product</option>
-</select><div class="demoActions">
-<button class="btn primary" onclick="imagePrompt()">BUILD PROMPT</button>
-<button class="btn" onclick="copyOutput('io')">COPY</button>
-</div><div class="output" id="io">Your generated visual prompt will appear here.</div></div><!-- CODE --><div id="code" class="demoPage"><textarea id="cp"
-placeholder="Describe the application you want to architect..."></textarea><div class="demoActions">
-<button class="btn primary" onclick="codePlan()">ARCHITECT →</button>
-<button class="btn" onclick="copyOutput('co')">COPY</button>
-</div><div class="output" id="co">Your architecture plan will appear here.</div></div><!-- FILE --><div id="file" class="demoPage"><input type="file" id="fileInput"><div class="output" id="fo">
-Choose a text-readable file to inspect it locally.
-Maximum demo size: 5 MB.
-</div></div><!-- ABOUT DEMO --><div id="aboutDemo" class="demoPage"><div class="grid"><div class="card">
-<div class="icon">🔒</div>
-<h3>Private by Design</h3>
-<p class="muted">
-The file inspector reads the selected file inside your browser.
-This demo does not upload the file to a server.
-</p>
-</div><div class="card">
-<div class="icon">⚡</div>
-<h3>Instant Interaction</h3>
-<p class="muted">
-The demonstration uses client-side JavaScript so the interface
-works even without a backend.
-</p>
-</div><div class="card">
-<div class="icon">🚀</div>
-<h3>Ready to Scale</h3>
-<p class="muted">
-A production version can connect the same interface to a secure
-backend and an authenticated AI service.
-</p>
-</div></div></div></div>
-</div>
-</section><!-- PROCESS --><section>
-<div class="wrap"><div class="sectionTitle">
-<h2>How I <span class="gradient">Build.</span></h2>
-<p>A simple product-development mindset behind the project.</p>
-</div><div class="timeline"><div class="timeItem">
-<div class="timeYear">01 / DEFINE</div>
-<div>
-<h3>Understand the problem</h3>
-<p class="muted">Identify the user, goal, constraints and useful outcome.</p>
-</div>
-</div><div class="timeItem">
-<div class="timeYear">02 / DESIGN</div>
-<div>
-<h3>Create the workflow</h3>
-<p class="muted">Turn a complex product idea into clear screens and interactions.</p>
-</div>
-</div><div class="timeItem">
-<div class="timeYear">03 / BUILD</div>
-<div>
-<h3>Make the prototype real</h3>
-<p class="muted">Use web technologies to build something the reviewer can actually interact with.</p>
-</div>
-</div><div class="timeItem">
-<div class="timeYear">04 / IMPROVE</div>
-<div>
-<h3>Test and iterate</h3>
-<p class="muted">Find friction, fix bugs and improve clarity instead of stopping at the first version.</p>
-</div>
-</div></div>
-</div>
-</section><!-- CONTACT --><section id="contact" class="contact">
-<div class="wrap"><div class="sectionTitle">
-<h2>Let's Build <span class="gradient">Something.</span></h2>
-<p>
-I'm open to internship opportunities, learning opportunities,
-collaboration and feedback.
-</p>
-</div><div class="actions"><a class="btn primary"
-href="mailto:meenasaurbh108@gmail.com?subject=DOOM%20AI%20Portfolio%20Opportunity">
-📧 EMAIL ME
-</a>
-
-<button class="btn" onclick="copyEmail()">COPY EMAIL</button>
-
-</div><a class="email"
-href="mailto:meenasaurbh108@gmail.com">
-meenasaurbh108@gmail.com
-</a>
-
-<div class="socials actions"><a class="btn"
-href="https://github.com/"
-target="_blank"
-rel="noopener noreferrer">
-GitHub ↗
-</a>
-
-<a class="btn"
-href="https://www.linkedin.com/"
-target="_blank"
-rel="noopener noreferrer">
-LinkedIn ↗
-</a>
-
-</div><p class="muted" style="margin-top:18px">
-GitHub and LinkedIn buttons are ready for your profile URL.
-</p></div>
-</section></main><footer>
-<div class="wrap">
-© 2026 DOOM AI • Portfolio Project • Built with HTML, CSS & JavaScript
-<br>
-<span style="display:inline-block;margin-top:8px">
-Designed & developed as an interactive portfolio prototype.
-</span>
-</div>
-</footer><div class="toast" id="toast">Copied!</div><button class="topBtn" id="topBtn"
-onclick="window.scrollTo({top:0,behavior:'smooth'})"
-aria-label="Back to top">↑</button>
-
-<script>
-"use strict";
-
-/* =========================
-   CORE HELPERS
-========================= */
-
-const $ = id => document.getElementById(id);
-
-function safe(value){
-return String(value ?? "").replace(/[&<>"']/g,char=>({
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#39;"
-}[char]));
-}
-
-function toast(message){
-const el=$("toast");
-el.textContent=message;
-el.classList.add("show");
-clearTimeout(window.__toastTimer);
-window.__toastTimer=setTimeout(()=>el.classList.remove("show"),2200);
-}
-
-
-/* =========================
-   NAVIGATION
-========================= */
-
-document.querySelectorAll(".links a").forEach(link=>{
-link.addEventListener("click",()=>{
-$("nav").classList.remove("open");
-});
-});
-
-window.addEventListener("scroll",()=>{
-const top=$("topBtn");
-if(window.scrollY>500)top.classList.add("show");
-else top.classList.remove("show");
-},{passive:true});
-
-
-/* =========================
-   TABS
-========================= */
-
-function tab(id,button){
-
-document.querySelectorAll(".demoPage")
-.forEach(page=>page.classList.remove("on"));
-
-document.querySelectorAll(".tab")
-.forEach(btn=>btn.classList.remove("on"));
-
-const page=$(id);
-
-if(page){
-page.classList.add("on");
-button.classList.add("on");
-}
-}
-
-
-/* =========================
-   LOCAL AI ENGINE
-========================= */
-
-const chatIntro=
-"DOOM AI — LOCAL DEMO ENGINE\n\nSystem online.";
-
-function clearChat(){
-$("messages").textContent=
-chatIntro+
-"\n\nTry /plan, /code, /idea, /skills, /about or ask a question.";
-$("q").value="";
-toast("Chat cleared");
-}
-
-function ask(){
-
-const input=$("q");
-const question=input.value.trim();
-
-if(!question){
-toast("Type a message first");
-return;
-}
-
-const response=localAI(question);
-
-const old=$("messages").textContent;
-
-$("messages").textContent=
-old+
-"\n\nYOU: "+question+
-"\nDOOM: "+response;
-
-input.value="";
-$("messages").scrollTop=$("messages").scrollHeight;
-
-saveHistory(question,response);
-}
-
-function localAI(question){
-
-const q=question.toLowerCase().trim();
-
-if(q==="/clear"){
-clearChat();
-return"";
-}
-
-if(q.startsWith("/plan")){
-return[
-"DOOM PRODUCT PLAN",
-"",
-"01 — Define the user and problem",
-"02 — Map the core workflow",
-"03 — Design the interface",
-"04 — Build the MVP",
-"05 — Add validation + error states",
-"06 — Test on mobile and desktop",
-"07 — Connect secure backend services",
-"08 — Measure and iterate"
-].join("\n");
-}
-
-if(q.startsWith("/code")){
-return[
-"CODE ARCHITECT MODE",
-"",
-"Frontend",
-"→ Semantic HTML",
-"→ Responsive CSS",
-"→ JavaScript state",
-"",
-"Application layer",
-"→ Input validation",
-"→ Error handling",
-"→ Loading states",
-"",
-"Backend direction",
-"→ Authentication",
-"→ API gateway",
-"→ Server-side secrets",
-"→ Rate limiting",
-"",
-"Data layer",
-"→ Database",
-"→ User history",
-"→ Audit / logging",
-"",
-"Quality",
-"→ Accessibility",
-"→ Testing",
-"→ Security review"
-].join("\n");
-}
-
-if(q.startsWith("/idea")){
-return[
-"IDEA MODE",
-"",
-"Find one painful problem.",
-"Identify the exact user.",
-"Remove unnecessary steps.",
-"Automate the repetitive part.",
-"Build the smallest useful prototype.",
-"Measure whether it actually helps.",
-"Then scale."
-].join("\n");
-}
-
-if(q==="/skills" || q.includes("skills")){
-return[
-"SKILL MATRIX",
-"",
-"Frontend → HTML / CSS / JavaScript",
-"UI/UX → responsive product interfaces",
-"Browser → DOM / File API / LocalStorage",
-"AI → prompt design / AI UX / API architecture",
-"Product → problem solving / prototyping / iteration"
-].join("\n");
-}
-
-if(q==="/about" || q.includes("what is doom")){
-return[
-"DOOM AI",
-"",
-"An interactive portfolio prototype.",
-"It demonstrates how a large AI-product idea can",
-"be represented through a practical browser experience.",
-"",
-"Current demo modules:",
-"Chat • Image Prompt • Code Architect • File Inspector"
-].join("\n");
-}
-
-if(q.includes("internship") || q.includes("job")){
-return[
-"INTERNSHIP MODE",
-"",
-"Show what YOU built.",
-"Explain why you made each design decision.",
-"Demonstrate the live prototype.",
-"Be honest about what is prototype vs production.",
-"Keep your code understandable.",
-"Be ready to explain one bug you solved."
-].join("\n");
-}
-
-if(q.includes("hello") || q.includes("hi") || q.includes("namaste")){
-return"Hello! 👋 Welcome to DOOM AI. Try /plan, /code, /idea or /skills.";
-}
-
-if(q.includes("portfolio")){
-return[
-"PORTFOLIO REVIEW",
-"",
-"Strong portfolio =",
-"clear story + visual hierarchy + working demo +",
-"technical explanation + honest project scope.",
-"",
-"DOOM AI is designed around those five principles."
-].join("\n");
-}
-
-return[
-"DOOM LOCAL RESPONSE",
-"",
-"I received:",
-question,
-"",
-"This browser-only demo does not pretend to be a remote",
-"AI model. For real model responses, this interface can",
-"be connected to a secure backend/API.",
-"",
-"Try /plan, /code, /idea or /skills."
-].join("\n");
-}
-
-
-/* =========================
-   HISTORY
-========================= */
-
-function saveHistory(question,response){
-
-try{
-
-const history=JSON.parse(
-localStorage.getItem("doom_chat_history")||"[]"
-);
-
-history.push({
-question,
-response,
-time:new Date().toISOString()
-});
-
-localStorage.setItem(
-"doom_chat_history",
-JSON.stringify(history.slice(-20))
-);
-
-}catch(error){
-console.warn("History unavailable",error);
-}
-}
-
-
-/* =========================
-   IMAGE PROMPT BUILDER
-========================= */
-
-function imagePrompt(){
-
-const description=$("ip").value.trim()||
-"futuristic AI workspace";
-
-const style=$("style").value;
-
-const prompt=[
-"VISUAL PROMPT",
-"",
-description,
-"",
-"STYLE: "+style,
-"",
-"Professional art direction, cinematic composition,",
-"controlled depth of field, sophisticated lighting,",
-"high visual detail, atmospheric depth, clean subject",
-"separation, coherent perspective, polished final render.",
-"",
-"NEGATIVE DIRECTION:",
-"blurry, distorted anatomy, unwanted text, low detail,",
-"poor composition, artifacts, oversaturation."
-].join("\n");
-
-$("io").textContent=prompt;
-toast("Prompt created");
-}
-
-
-/* =========================
-   CODE ARCHITECT
-========================= */
-
-function codePlan(){
-
-const project=$("cp").value.trim()||
-"modern web application";
-
-const architecture=[
-"CODE ARCHITECTURE",
-"",
-"PROJECT",
-project,
-"",
-"1. PRODUCT LAYER",
-"→ User goals",
-"→ Core workflow",
-"→ Responsive interface",
-"",
-"2. FRONTEND",
-"→ Components",
-"→ State management",
-"→ Forms",
-"→ Loading / empty / error states",
-"",
-"3. API LAYER",
-"→ Request validation",
-"→ Authentication",
-"→ Error handling",
-"→ Rate limiting",
-"",
-"4. BACKEND",
-"→ Secure server",
-"→ Business logic",
-"→ AI service integration",
-"→ Server-side secrets",
-"",
-"5. DATA",
-"→ Database",
-"→ User records",
-"→ History",
-"→ Backups",
-"",
-"6. QUALITY",
-"✓ Accessibility",
-"✓ Responsive design",
-"✓ Input validation",
-"✓ Security review",
-"✓ Testing",
-"✓ Performance",
-"✓ Deployment plan"
-].join("\n");
-
-$("co").textContent=architecture;
-toast("Architecture generated");
-}
-
-
-/* =========================
-   COPY
-========================= */
-
-async function copyText(text){
-
-try{
-await navigator.clipboard.writeText(text);
-toast("Copied to clipboard");
-}catch(error){
-
-const area=document.createElement("textarea");
-area.value=text;
-document.body.appendChild(area);
-area.select();
-
-try{
-document.execCommand("copy");
-toast("Copied to clipboard");
-}catch{
-toast("Copy unavailable");
-}
-
-area.remove();
-}
-}
-
-function copyOutput(id){
-
-const el=$(id);
-
-if(!el || !el.textContent.trim()){
-toast("Nothing to copy");
-return;
-}
-
-copyText(el.textContent);
-}
-
-function copyEmail(){
-copyText("meenasaurbh108@gmail.com");
-}
-
-
-/* =========================
-   FILE INSPECTOR
-========================= */
-
-$("fileInput").addEventListener("change",async event=>{
-
-const file=event.target.files?.[0];
-
-if(!file)return;
-
-const output=$("fo");
-
-if(file.size>5*1024*1024){
-output.textContent=
-"FILE TOO LARGE\n\nMaximum demo size: 5 MB.";
-return;
-}
-
-try{
-
-const text=await file.text();
-
-const preview=text.slice(0,12000);
-
-output.textContent=
-"FILE INSPECTION\n\n"+
-"NAME: "+file.name+"\n"+
-"TYPE: "+(file.type||"unknown")+"\n"+
-"SIZE: "+file.size.toLocaleString()+" bytes\n"+
-"CHARACTERS: "+text.length.toLocaleString()+"\n"+
-"\nPREVIEW\n\n"+
-preview+
-(text.length>12000?
-"\n\n… preview truncated at 12,000 characters."
-:"");
-
-toast("File inspected locally");
-
-}catch(error){
-
-output.textContent=
-"Unable to read this file as text.\n\n"+
-"Please choose a text-readable file.";
-
-toast("File could not be read");
-}
-});
-
-
-/* =========================
-   ANIMATED STATS
-========================= */
-
-function animateStats(){
-
-document.querySelectorAll("[data-count]").forEach(el=>{
-
-const target=Number(el.dataset.count);
-const suffix=el.textContent.includes("%")?"%":"+";
-let start=0;
-const duration=1000;
-const startTime=performance.now();
-
-function update(now){
-
-const progress=Math.min(
-(now-startTime)/duration,1
-);
-
-const eased=1-Math.pow(1-progress,3);
-const value=Math.round(start+(target-start)*eased);
-
-el.textContent=value+(suffix==="%"?"%":"+");
-
-if(progress<1){
-requestAnimationFrame(update);
-}
-}
-
-requestAnimationFrame(update);
-});
-}
-
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-animateStats();
-observer.disconnect();
-}
-});
-},{threshold:.35});
-
-const statsSection=document.querySelector(".stats");
-if(statsSection)observer.observe(statsSection);
-
-
-/* =========================
-   TERMINAL EFFECT
-========================= */
-
-const terminalLines=[
-"→ analyzing interface",
-"→ checking responsive layout",
-"→ validating browser modules",
-"→ local tools operational",
-"✓ portfolio ready"
-];
-
-let lineIndex=0;
-
-setInterval(()=>{
-
-const terminal=$("terminal");
-
-if(!terminal || lineIndex>=terminalLines.length)return;
-
-const line=document.createElement("div");
-line.className="termLine";
-line.textContent=terminalLines[lineIndex++];
-
-terminal.appendChild(line);
-
-},1800);
-
-
-/* =========================
-   KEYBOARD SHORTCUT
-========================= */
-
-document.addEventListener("keydown",event=>{
-
-if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==="k"){
-
-event.preventDefault();
-
-document.querySelector("#demo")
-.scrollIntoView({behavior:"smooth"});
-
-setTimeout(()=>$("q").focus(),500);
-}
-});
-
-
-/* =========================
-   INITIALIZATION
-========================= */
-
-console.log(
-"%cDOOM AI%c portfolio initialized.",
-"color:#06d6ff;font-weight:bold",
-"color:white"
-);
-
-</script></body>
-  </html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#050505">
-<title>DOOM AI — Open Knowledge Intelligence</title>
+<meta name="theme-color" content="#05050b">
+<meta name="description" content="DOOM AI — Universal Creative Intelligence">
+<title>DOOM AI — Universal Intelligence</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-
-:root{
-  --bg:#03050a;
-  --panel:#0a0f18;
-  --panel2:#101722;
-  --line:#263244;
-  --text:#f5f7fb;
-  --muted:#9ba8ba;
-  --accent:#64d8ff;
-  --accent2:#9b7cff;
-  --good:#51e59a;
-  --warn:#ffd166;
-  --bad:#ff647c;
-}
-
-html,body{
-  width:100%;
-  min-height:100%;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,
-  "Segoe UI",Arial,sans-serif;
-}
-
+html{scroll-behavior:smooth}
 body{
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#05050b;
+  color:#f8f9ff;
+  min-height:100vh;
   overflow-x:hidden;
 }
-
-button,input,textarea,select{
-  font:inherit;
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+:root{
+ --bg:#05050b;
+ --panel:#0d0d18;
+ --panel2:#111121;
+ --line:#ffffff18;
+ --text:#f8f9ff;
+ --muted:#9298ad;
+ --a:#8b5cf6;
+ --b:#06d6ff;
+ --c:#ff3cac;
+ --good:#22c55e;
+ --danger:#ef4444;
 }
-
-button{
-  cursor:pointer;
+body:before{
+ content:"";
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ z-index:-1;
+ background:
+ radial-gradient(circle at 10% 10%,#8b5cf615,transparent 28%),
+ radial-gradient(circle at 90% 20%,#06d6ff12,transparent 25%),
+ radial-gradient(circle at 50% 100%,#ff3cac10,transparent 30%);
 }
+a{color:inherit;text-decoration:none}
+.hidden{display:none!important}
 
-#app{
-  min-height:100vh;
-  position:relative;
-}
-
-.bg{
-  position:fixed;
-  inset:0;
-  z-index:-2;
-  background:
-    radial-gradient(circle at 15% 20%,rgba(100,216,255,.09),transparent 28%),
-    radial-gradient(circle at 85% 70%,rgba(155,124,255,.10),transparent 30%),
-    #03050a;
-}
-
-.grid{
-  position:fixed;
-  inset:0;
-  z-index:-1;
-  opacity:.16;
-  background-image:
-    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
-  background-size:40px 40px;
-}
-
+/* HEADER */
 header{
-  position:sticky;
-  top:0;
-  z-index:20;
-  backdrop-filter:blur(18px);
-  background:rgba(3,5,10,.78);
-  border-bottom:1px solid var(--line);
+ position:sticky;
+ top:0;
+ z-index:1000;
+ height:70px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 24px;
+ border-bottom:1px solid var(--line);
+ background:#05050bdd;
+ backdrop-filter:blur(20px);
 }
-
-.nav{
-  max-width:1400px;
-  margin:auto;
-  min-height:72px;
-  padding:12px 18px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  font-weight:900;
-  letter-spacing:1px;
-}
-
 .logo{
-  width:44px;
-  height:44px;
-  display:grid;
-  place-items:center;
-  border:1px solid var(--accent);
-  border-radius:13px;
-  background:rgba(100,216,255,.08);
-  box-shadow:0 0 25px rgba(100,216,255,.12);
-  font-size:21px;
+ font-size:22px;
+ font-weight:900;
+ letter-spacing:4px;
+}
+.logo span{
+ background:linear-gradient(90deg,var(--a),var(--b),var(--c));
+ -webkit-background-clip:text;
+ color:transparent;
+}
+nav{display:flex;gap:5px;flex-wrap:wrap}
+nav button{
+ border:1px solid transparent;
+ background:transparent;
+ color:var(--muted);
+ padding:9px 11px;
+ border-radius:10px;
+}
+nav button:hover,nav button.active{
+ color:white;
+ background:#ffffff0a;
+ border-color:var(--line);
+}
+.menu{
+ display:none;
+ background:#ffffff0a;
+ color:white;
+ border:1px solid var(--line);
+ padding:9px 12px;
+ border-radius:10px;
 }
 
-.brandText strong{
-  display:block;
-  font-size:18px;
+/* APP */
+main{max-width:1450px;margin:auto;padding:25px}
+.page{display:none;animation:fade .3s ease}
+.page.active{display:block}
+@keyframes fade{
+ from{opacity:0;transform:translateY(8px)}
+ to{opacity:1;transform:none}
 }
 
-.brandText span{
-  display:block;
-  color:var(--muted);
-  font-size:11px;
-  margin-top:2px;
-}
-
-.status{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  color:var(--good);
-  font-size:12px;
-}
-
-.dot{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:var(--good);
-  box-shadow:0 0 12px var(--good);
-}
-
-main{
-  width:min(1400px,100%);
-  margin:auto;
-  padding:28px 18px 60px;
-}
-
+/* HERO */
 .hero{
-  text-align:center;
-  padding:42px 15px 30px;
+ min-height:calc(100vh - 120px);
+ display:grid;
+ grid-template-columns:1.2fr .8fr;
+ align-items:center;
+ gap:50px;
 }
-
+.badge{
+ display:inline-flex;
+ padding:8px 12px;
+ border:1px solid #8b5cf644;
+ border-radius:999px;
+ color:#c4b5fd;
+ background:#8b5cf610;
+ font-size:13px;
+ margin-bottom:18px;
+}
 .hero h1{
-  font-size:clamp(40px,8vw,86px);
-  line-height:.95;
-  letter-spacing:-4px;
-  margin-bottom:15px;
+ font-size:clamp(60px,10vw,150px);
+ line-height:.82;
+ letter-spacing:-7px;
 }
-
-.hero h1 span{
-  background:linear-gradient(90deg,var(--accent),#fff,var(--accent2));
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
+.gradient{
+ background:linear-gradient(90deg,#fff,var(--b),var(--a),var(--c));
+ -webkit-background-clip:text;
+ color:transparent;
 }
-
 .hero p{
-  max-width:760px;
-  margin:auto;
-  color:var(--muted);
-  line-height:1.65;
+ max-width:700px;
+ color:var(--muted);
+ font-size:18px;
+ line-height:1.7;
+ margin:25px 0;
 }
-
-.searchBox{
-  max-width:950px;
-  margin:30px auto 0;
-  display:flex;
-  gap:10px;
-}
-
-.searchBox input{
-  flex:1;
-  min-width:0;
-  height:58px;
-  padding:0 18px;
-  color:white;
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:15px;
-  outline:none;
-}
-
-.searchBox input:focus{
-  border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(100,216,255,.08);
-}
-
+.actions{display:flex;gap:12px;flex-wrap:wrap}
 .btn{
-  border:1px solid var(--line);
-  background:var(--panel2);
-  color:white;
-  
-  
+ border:1px solid var(--line);
+ background:#ffffff08;
+ color:white;
+ padding:12px 18px;
+ border-radius:12px;
+ transition:.2s;
+}
+.btn:hover{transform:translateY(-2px);background:#ffffff12}
+.btn.primary{
+ border:0;
+ background:linear-gradient(135deg,var(--a),var(--b));
+ box-shadow:0 0 35px #8b5cf633;
+}
+.btn.danger{background:#ef444420;border-color:#ef444455}
+.btn.good{background:#22c55e20;border-color:#22c55e55}
+
+/* CORE */
+.core{
+ min-height:420px;
+ border:1px solid var(--line);
+ border-radius:30px;
+ background:linear-gradient(145deg,#ffffff08,#ffffff02);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ position:relative;
+ overflow:hidden;
+}
+.core:before{
+ content:"";
+ width:230px;
+ height:230px;
+ border-radius:50%;
+ border:1px solid #ffffff22;
+ box-shadow:0 0 80px #8b5cf655,inset 0 0 60px #06d6ff22;
+ animation:pulse 4s infinite;
+}
+.core:after{
+ content:"DOOM";
+ position:absolute;
+ font-size:42px;
+ font-weight:900;
+ letter-spacing:8px;
+ background:linear-gradient(90deg,var(--a),var(--b),var(--c));
+ -webkit-background-clip:text;
+ color:transparent;
+}
+@keyframes pulse{
+ 50%{transform:scale(1.12);box-shadow:0 0 120px #06d6ff55,inset 0 0 80px #ff3cac33}
+}
+
+/* TITLES */
+.section-title{
+ margin:20px 0 25px;
+}
+.section-title h2{font-size:38px}
+.section-title p{color:var(--muted);margin-top:7px}
+
+/* CARDS */
+.grid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:18px;
+}
+.card{
+ border:1px solid var(--line);
+ background:linear-gradient(145deg,#ffffff08,#ffffff02);
+ border-radius:20px;
+ padding:22px;
+ transition:.25s;
+}
+.card:hover{
+ transform:translateY(-5px);
+ border-color:#ffffff30;
+ box-shadow:0 20px 70px #00000055;
+}
+.icon{
+ width:48px;height:48px;
+ display:grid;place-items:center;
+ border-radius:14px;
+ background:linear-gradient(135deg,#8b5cf622,#06d6ff22);
+ font-size:22px;
+ margin-bottom:15px;
+}
+.card h3{font-size:19px;margin-bottom:8px}
+.card p{color:var(--muted);line-height:1.6}
+.card .open{
+ margin-top:18px;
+ width:100%;
+}
+
+/* WORKSPACE */
+.workspace{
+ display:grid;
+ grid-template-columns:320px 1fr;
+ gap:18px;
+}
+.panel{
+ border:1px solid var(--line);
+ background:#0d0d18dd;
+ border-radius:20px;
+ padding:20px;
+}
+.panel h3{margin-bottom:16px}
+label{
+ display:block;
+ font-size:12px;
+ color:var(--muted);
+ margin:14px 0 7px;
+}
+input,textarea,select{
+ width:100%;
+ color:white;
+ background:#05050c;
+ border:1px solid var(--line);
+ border-radius:11px;
+ padding:12px;
+ outline:none;
+}
+input:focus,textarea:focus,select:focus{
+ border-color:#8b5cf688;
+ box-shadow:0 0 0 3px #8b5cf611;
+}
+textarea{min-height:130px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.full{width:100%;margin-top:15px}
+
+/* CHAT */
+.chatbox{
+ height:500px;
+ overflow:auto;
+ padding:10px;
+ display:flex;
+ flex-direction:column;
+ gap:12px;
+}
+.msg{
+ max-width:82%;
+ padding:13px 15px;
+ border-radius:15px;
+ line-height:1.6;
+ white-space:pre-wrap;
+}
+.msg.user{
+ align-self:flex-end;
+ background:linear-gradient(135deg,#8b5cf633,#06d6ff22);
+ border:1px solid #8b5cf644;
+}
+.msg.ai{
+ align-self:flex-start;
+ background:#ffffff08;
+ border:1px solid var(--line);
+}
+.chat-input{
+ display:grid;
+ grid-template-columns:1fr auto;
+ gap:10px;
+ margin-top:12px;
+}
+.chat-input textarea{min-height:55px}
+
+/* OUTPUT */
+.output{
+ min-height:300px;
+ border:1px dashed #ffffff20;
+ border-radius:16px;
+ padding:20px;
+ background:#05050b;
+ overflow:auto;
+}
+pre{
+ white-space:pre-wrap;
+ word-break:break-word;
+ color:#dbeafe;
+ line-height:1.6;
+}
+.status{
+ display:inline-flex;
+ align-items:center;
+ gap:7px;
+ font-size:12px;
+ color:var(--muted);
+}
+.dot{
+ width:8px;height:8px;border-radius:50%;
+ background:var(--good);
+ box-shadow:0 0 10px var(--good);
+}
+
+/* IMAGE */
+.preview{
+ min-height:350px;
+ display:grid;
+ place-items:center;
+ background:#05050b;
+ border:1px dashed #ffffff22;
+ border-radius:16px;
+ overflow:hidden;
+}
+.preview img{
+ max-width:100%;
+ max-height:650px;
+ display:block;
+}
+.placeholder{text-align:center;color:var(--muted);padding:40px}
+
+/* PRICING */
+.price{
+ text-align:center;
+ position:relative;
+}
+.price strong{
+ display:block;
+ font-size:42px;
+ margin:18px 0;
+}
+.price ul{
+ list-style:none;
+ color:var(--muted);
+ line-height:2;
+}
+.price.pro{border-color:#8b5cf655;box-shadow:0 0 50px #8b5cf611}
+
+/* SETTINGS */
+.notice{
+ padding:14px;
+ border-radius:12px;
+ background:#f59e0b12;
+ border:1px solid #f59e0b33;
+ color:#fcd34d;
+ line-height:1.5;
+ margin-bottom:15px;
+}
+.success{
+ padding:12px;
+ border-radius:10px;
+ background:#22c55e12;
+ border:1px solid #22c55e33;
+ color:#86efac;
+}
+.error{
+ padding:12px;
+ border-radius:10px;
+ background:#ef444412;
+ border:1px solid #ef444433;
+ color:#fca5a5;
+}
+
+/* FOOTER */
+footer{
+ border-top:1px solid var(--line);
+ margin-top:60px;
+ padding:30px 0;
+ color:var(--muted);
+ display:flex;
+ justify-content:space-between;
+ gap:20px;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+ .hero{grid-template-columns:1fr}
+ .grid{grid-template-columns:1fr 1fr}
+ .workspace{grid-template-columns:1fr}
+ nav{display:none;position:absolute;top:70px;left:0;right:0;padding:15px;background:#07070ddd;border-bottom:1px solid var(--line)}
+ nav.open{display:grid;grid-template-columns:1fr 1fr}
+ .menu{display:block}
+}
+@media(max-width:600px){
+ main{padding:15px}
+ .grid{grid-template-columns:1fr}
+ .hero h1{font-size:64px;letter-spacing:-4px}
+ .core{min-height:280px}
+ .row{grid-template-columns:1fr}
+ footer{flex-direction:column}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="logo"><span>DOOM</span> AI</div>
+
+ <nav id="nav">
+  <button data-page="home" class="active">Home</button>
+  <button data-page="chat">AI Chat</button>
+  <button data-page="photo">Photo</button>
+  <button data-page="video">Video</button>
+  <button data-page="coding">Coding</button>
+  <button data-page="song">Song</button>
+  <button data-page="ghibli">Ghibli</button>
+  <button data-page="design">Design</button>
+  <button data-page="explore">Explore</button>
+  <button data-page="pricing">Pricing</button>
+  <button data-page="settings">Settings</button>
+ </nav>
+
+ <button class="menu" onclick="toggleMenu()">☰</button>
+</header>
+
+<main>
+
+<!-- ================= HOME ================= -->
+<section id="home" class="page active">
+
+ <div class="hero">
+  <div>
+   <span class="badge">● UNIVERSAL CREATIVE INTELLIGENCE</span>
+
+   <h1>
+    DOOM<br>
+    <span class="gradient">AI</span>
+   </h1>
+
+   <p>
+    One futuristic workspace for intelligence, images, video,
+    coding, music, design and creative exploration.
+   </p>
+
+   <div class="actions">
+    <button class="btn primary" onclick="showPage('chat')">
+     Launch DOOM AI →
+    </button>
+    <button class="btn" onclick="showPage('explore')">
+     Explore System
+    </button>
+   </div>
+  </div>
+
+  <div class="core"></div>
+ </div>
+
+ <div class="section-title">
+  <h2>Creative Intelligence Stack</h2>
+  <p>Everything starts from one interface.</p>
+ </div>
+
+ <div class="grid">
+
+  <div class="card">
+   <div class="icon">🧠</div>
+   <h3>DOOM AI CHAT</h3>
+   <p>Ask, research, brainstorm, write, plan and build.</p>
+   <button class="btn open" onclick="showPage('chat')">Open Chat</button>
+  </div>
+
+  <div class="card">
+   <div class="icon">📸</div>
+   <h3>DOOM PHOTO</h3>
+   <p>Create cinematic and photorealistic image generations.</p>
+   <button class="btn open" onclick="showPage('photo')">Create Photo</button>
+  </div>
+
+  <div class="card">
+   <div class="icon">🎬</div>
+   <h3>CREATE DOOM VIDEO</h3>
+   <p>Prepare cinematic video-generation jobs from prompts.</p>
+   <button class="btn open" onclick="showPage('video')">Create Video</button>
+  </div>
+
+  <div class="card">
+   <div class="icon">💻</div>
+   <h3>DOOM CODING MAKER</h3>
+   <p>Generate, explain, fix and refactor code.</p>
+   <button class="btn open" onclick="showPage('coding')">Open Coding</button>
+  </div>
+
+  <div class="card">
+   <div class="icon">🎵</div>
+   <h3>DOOM SONG MAKER</h3>
+   <p>Create lyrics and connect your audio-generation backend.</p>
+   <button class="btn open" onclick="showPage('song')">Make Song</button>
+  </div>
+
+  <div class="card">
+   <div class="icon">🌌</div>
+   <h3>DOOM GIBLI</h3>
+   <p>Build animated fantasy worlds and character concepts.</p>
+   <button class="btn open" onclick="showPage('ghibli')">Open Ghibli</button>
+  </div>
+
+  <div class="card">
+   <div class="icon">🎨</div>
+   <h3>DESIGN EVERYTHING</h3>
+   <p>Websites, logos, posters, UI and creative concepts.</p>
+   <button class="btn open" onclick="showPage('design')">Open Design</button>
+  </div>
+
+  <div class="card">
+   <div class="icon">🔐</div>
+   <h3>ENCRYPTED CHAT</h3>
+   <p>Browser-to-browser encrypted room demonstration.</p>
+   <button class="btn open" onclick="showPage('encrypted')">Open Secure Chat</button>
+  </div>
+
+  <div class="card">
+   <div class="icon">🌍</div>
+   <h3>EXPLORE</h3>
+   <p>Explore creative workflows and system modules.</p>
+   <button class="btn open" onclick="showPage('explore')">Explore</button>
+  </div>
+
+ </div>
+</section>
+
+
+<!-- ================= CHAT ================= -->
+<section id="chat" class="page">
+
+ <div class="section-title">
+  <h2>DOOM AI Chat</h2>
+  <p>Your main intelligence interface.</p>
+ </div>
+
+ <div class="panel">
+  <div id="chatbox" class="chatbox">
+   <div class="msg ai">
+    DOOM AI online. Ask me anything.
+   </div>
+  </div>
+
+  <div class="chat-input">
+   <textarea id="chatInput"
+    placeholder="Ask DOOM AI anything..."
+    onkeydown="chatKey(event)"></textarea>
+
+   <button class="btn primary" onclick="sendChat()">Send</button>
+  </div>
+
+  <div class="actions" style="margin-top:12px">
+   <button class="btn" onclick="clearChat()">Clear</button>
+   <button class="btn" onclick="exportChat()">Export Chat</button>
+  </div>
+ </div>
+</section>
+
+
+<!-- ================= PHOTO ================= -->
+<section id="photo" class="page">
+
+ <div class="section-title">
+  <h2>DOOM Photo</h2>
+  <p>Image-generation frontend with secure backend API support.</p>
+ </div>
+
+ <div class="workspace">
+
+  <div class="panel">
+   <label>Prompt</label>
+   <textarea id="photoPrompt"
+    placeholder="A futuristic city above the clouds..."></textarea>
+
+   <div class="row">
+    <div>
+     <label>Aspect Ratio</label>
+     <select id="photoRatio">
+      <option>16:9</option>
+      <option>1:1</option>
+      <option>9:16</option>
+     </select>
+    </div>
+
+    <div>
+     <label>Quality</label>
+     <select id="photoQuality">
+      <option>High</option>
+      <option>Ultra</option>
+     </select>
+    </div>
+   </div>
+
+   <label>Style</label>
+   <select id="photoStyle">
+    <option>Cinematic</option>
+    <option>Photorealistic</option>
+    <option>Fantasy</option>
+    <option>Concept Art</option>
+    <option>Anime</option>
+   </select>
+
+   <button class="btn primary full" onclick="generatePhoto()">
+    Generate Photo
+   </button>
+  </div>
+
+  <div class="panel">
+   <div id="photoPreview" class="preview">
+    <div class="placeholder">
+     <h3>PHOTO OUTPUT</h3>
+     <p>Your generated image will appear here.</p>
+    </div>
+   </div>
+  </div>
+
+ </div>
+</section>
+
+
+<!-- ================= VIDEO ================= -->
+<section id="video" class="page">
+
+ <div class="section-title">
+  <h2>Create DOOM Video</h2>
+  <p>Frontend ready for your video-generation backend.</p>
+ </div>
+
+ <div class="workspace">
+
+  <div class="panel">
+
+   <label>Video Prompt</label>
+   <textarea id="videoPrompt"
+    placeholder="A cinematic spaceship entering a black hole..."></textarea>
+
+   <div class="row">
+    <div>
+     <label>Duration</label>
+     <select id="videoDuration">
+      <option value="5">5 seconds</option>
+      <option value="10">10 seconds</option>
+      <option value="20">20 seconds</option>
+     </select>
+    </div>
+
+    <div>
+     <label>Aspect Ratio</label>
+     <select id="videoRatio">
+      <option>16:9</option>
+      <option>9:16</option>
+      <option>1:1</option>
+     </select>
+    </div>
+   </div>
+
+   <label>Camera</label>
+   <select id="videoCamera">
+    <option>Cinematic</option>
+    <option>Handheld</option>
+    <option>Drone</option>
+    <option>Tracking</option>
+   </select>
+
+   <button class="btn primary full" onclick="generateVideo()">
+    Generate Video
+   </button>
+
+  </div>
+
+  <div class="panel">
+   <div id="videoOutput" class="output">
+    <div class="placeholder">
+     <h3>VIDEO OUTPUT</h3>
+     <p>Backend video URL will appear here.</p>
+    </div>
+   </div>
+  </div>
+
+ </div>
+</section>
+
+
+<!-- ================= CODING ================= -->
+<section id="coding" class="page">
+
+ <div class="section-title">
+  <h2>DOOM Coding Maker</h2>
+  <p>Generate, explain, fix and refactor code.</p>
+ </div>
+
+ <div class="workspace">
+
+  <div class="panel">
+
+   <label>What do you want to build?</label>
+   <textarea id="codePrompt"
+    placeholder="Build a responsive landing page..."></textarea>
+
+   <label>Language</label>
+   <select id="codeLanguage">
+    <option>HTML</option>
+    <option>CSS</option>
+    <option>JavaScript</option>
+    <option>Python</option>
+    <option>React</option>
+    <option>Node.js</option>
+    <option>C++</option>
+   </select>
+
+   <label>Action</label>
+   <select id="codeAction">
+    <option>Generate</option>
+    <option>Explain</option>
+    <option>Fix</option>
+    <option>Refactor</option>
+   </select>
+
+   <button class="btn primary full" onclick="generateCode()">
+    Run Coding AI
+   </button>
+
+  </div>
+
+  <div class="panel">
+
+   <div class="actions">
+    <button class="btn" onclick="copyCode()">Copy</button>
+    <button class="btn" onclick="downloadCode()">Download</button>
+   </div>
+
+   <div id="codeOutput" class="output" style="margin-top:12px">
+    <pre>// DOOM CODING OUTPUT</pre>
+   </div>
+
+  </div>
+
+ </div>
+</section>
+
+
+<!-- ================= SONG ================= -->
+<section id="song" class="page">
+
+ <div class="section-title">
+  <h2>DOOM Song Maker</h2>
+  <p>Lyrics + audio-generation backend integration layer.</p>
+ </div>
+
+ <div class="workspace">
+
+  <div class="panel">
+
+   <label>Song Idea</label>
+   <textarea id="songPrompt"
+    placeholder="An epic dark futuristic song about humanity and AI..."></textarea>
+
+   <label>Genre</label>
+   <select id="songGenre">
+    <option>Cinematic</option>
+    <option>Pop</option>
+    <option>Rock</option>
+    <option>Electronic</option>
+    <option>Ambient</option>
+   </select>
+
+   <label>Mood</label>
+   <select id="songMood">
+    <option>Epic</option>
+    <option>Dark</option>
+    <option>Happy</option>
+    <option>Emotional</option>
+   </select>
+
+   <button class="btn primary full" onclick="generateSong()">
+    Generate Song
+   </button>
+
+  </div>
+
+  <div class="panel">
+
+   <h3>Lyrics</h3>
+   <div id="lyricsOutput" class="output">
+    Your lyrics will appear here.
+   </div>
+
+   <div id="audioBox" style="margin-top:15px"></div>
+
+  </div>
+
+ </div>
+</section>
+
+
+<!-- ================= GHIBLI ================= -->
+<section id="ghibli" class="page">
+
+ <div class="section-title">
+  <h2>DOOM Ghibli</h2>
+  <p>Fantasy character and world creation interface.</p>
+ </div>
+
+ <div class="workspace">
+
+  <div class="panel">
+
+   <label>Character / World / Scene</label>
+   <textarea id="ghibliPrompt"
+    placeholder="A magical village floating above an ancient forest..."></textarea>
+
+   <label>Style</label>
+   <select id="ghibliStyle">
+    <option>Ghibli Inspired</option>
+    <option>Anime Fantasy</option>
+    <option>Dreamlike</option>
+    <option>Magical Storybook</option>
+   </select>
+
+   <label>Ratio</label>
+   <select id="ghibliRatio">
+    <option>16:9</option>
+    <option>1:1</option>
+    <option>9:16</option>
+   </select>
+
+   <button class="btn primary full" onclick="generateGhibli()">
+    Create World
+   </button>
+
+  </div>
+
+  <div class="panel">
+   <div id="ghibliPreview" class="preview">
+    <div class="placeholder">GHIBLI OUTPUT</div>
+   </div>
+  </div>
+
+ </div>
+</section>
+
+
+<!-- ================= DESIGN ================= -->
+<section id="design" class="page">
+
+ <div class="section-title">
+  <h2>Design Everything</h2>
+  <p>Turn ideas into structured design concepts.</p>
+ </div>
+
+ <div class="workspace">
+
+  <div class="panel">
+
+   <label>Design Brief</label>
+   <textarea id="designPrompt"
+    placeholder="Create a futuristic AI startup website..."></textarea>
+
+   <label>Design Type</label>
+   <select id="designType">
+    <option>Website</option>
+    <option>Logo</option>
+    <option>Poster</option>
+    <option>App UI</option>
+    <option>Presentation</option>
+    <option>Social Media</option>
+   </select>
+
+   <label>Style</label>
+   <select id="designStyle">
+    <option>Futuristic</option>
+    <option>Minimal</option>
+    <option>Cinematic</option>
+    <option>Luxury</option>
+   </select>
+
+   <button class="btn primary full" onclick="generateDesign()">
+    Generate Design
+   </button>
+
+  </div>
+
+  <div class="panel">
+   <div id="designOutput" class="output">
+    Design specification will appear here.
+   </div>
+  </div>
+
+ </div>
+</section>
+
+
+<!-- ================= ENCRYPTED CHAT ================= -->
+<section id="encrypted" class="page">
+
+ <div class="section-title">
+  <h2>Encrypted Chat</h2>
+  <p>Client-side AES-GCM demonstration. No server message storage required.</p>
+ </div>
+
+ <div class="panel">
+
+  <div class="notice">
+   This is a browser-side encrypted-chat demo. For real multi-device
+   communication you still need WebRTC signaling infrastructure.
+  </div>
+
+  <label>Room Secret</label>
+  <input id="secureSecret" type="password"
+   placeholder="Create the same secret on both devices">
+
+  <label>Message</label>
+  <textarea id="secureMessage"
+   placeholder="Encrypted message..."></textarea>
+
+  <div class="actions" style="margin-top:12px">
+   <button class="btn primary" onclick="encryptMessage()">
+    Encrypt
+   </button>
+   <button class="btn" onclick="decryptMessage()">
+    Decrypt
+   </button>
+  </div>
+
+  <label>Encrypted Data</label>
+  <textarea id="secureOutput"></textarea>
+
+ </div>
+</section>
+
+
+<!-- ================= EXPLORE ================= -->
+<section id="explore" class="page">
+
+ <div class="section-title">
+  <h2>Explore DOOM</h2>
+  <p>Creative workflows available inside the system.</p>
+ </div>
+
+ <div class="grid">
+
+  <div class="card">
+   <div class="icon">⚡</div>
+   <h3>Idea → Website</h3>
+   <p>Idea se complete website architecture generate karo.</p>
+  </div>
+
+  <div class="card">
+   <div class="icon">🧠</div>
+   <h3>Prompt Engineering</h3>
+   <p>Better prompts ke liye structured creative workflow.</p>
+  </div>
+
+  <div class="card">
+   <div class="icon">🚀</div>
+   <h3>Rapid Prototyping</h3>
+   <p>Concept ko quickly working prototype mein convert karo.</p>
+  </div>
+
+  <div class="card">
+   <div class="icon">🎨</div>
+   <h3>Visual Creation</h3>
+   <p>Photo, Ghibli aur design workflows.</p>
+  </div>
+
+  <div class="card">
+   <div class="icon">💻</div>
+   <h3>Code Engineering</h3>
+   <p>Generate, debug aur improve code.</p>
+  </div>
+
+  <div class="card">
+   <div class="icon">🌐</div>
+   <h3>Global Ready</h3>
+   <p>Backend ke through multiple APIs connect ki ja sakti hain.</p>
+  </div>
+
+ </div>
+</section>
+
+
+<!-- ================= PRICING ================= -->
+<section id="pricing" class="page">
+
+ <div class="section-title">
+  <h2>DOOM Plans</h2>
+  <p>Pricing backend/business model ke according configure ki ja sakti hai.</p>
+ </div>
+
+ <div class="grid">
+
+  <div class="card price">
+   <h3>FREE</h3>
+   <strong>$0</strong>
+   <ul>
+    <li>AI Chat</li>
+    <li>Basic Creative Tools</li>
+    <li>Limited Generations</li>
+    <li>Community Access</li>
+   </ul>
+   <button class="btn full" onclick="showPage('chat')">Start Free</button>
+  </div>
+
+  <div class="card price pro">
+   <h3>PRO</h3>
+   <strong>$9</strong>
+   <ul>
+    <li>Higher Limits</li>
+    <li>Advanced Models</li>
+    <li>Priority Generation</li>
+    <li>Creative Tools</li>
+   </ul>
+   <button class="btn primary full">Choose Pro</button>
+  </div>
+
+  <div class="card price">
+   <h3>CREATOR</h3>
+   <strong>$29</strong>
+   <ul>
+    <li>Creator Workflows</li>
+    <li>High Generation Limits</li>
+    <li>Advanced Creative APIs</li>
+    <li>Priority Processing</li>
+   </ul>
+   <button class="btn full">Choose Creator</button>
+  </div>
+
+ </div>
+</section>
+
+
+<!-- ================= SETTINGS ================= -->
+<section id="settings" class="page">
+
+ <div class="section-title">
+  <h2>DOOM System Settings</h2>
+  <p>Backend connection configuration.</p>
+ </div>
+
+ <div class="panel">
+
+  <div class="notice">
+   🔐 <b>IMPORTANT:</b> API keys ko yahan mat daalna.
+   Real secret keys backend ke environment variables / GitHub Secrets
+   mein rakho. Browser ko sirf tumhare backend endpoint se baat karni chahiye.
+  </div>
+
+  <label>Backend Base URL</label>
+  <input id="apiBase"
+   placeholder="https://your-backend.example.com">
+
+  <div class="row">
+
+   <div>
+    <label>Chat Route</label>
+    <input id="routeChat" value="/api/chat">
+   </div>
+
+   <div>
+    <label>Image Route</label>
+    <input id="routeImage" value="/api/image">
+   </div>
+
+  </div>
+
+  <div class="row">
+
+   <div>
+    <label>Video Route</label>
+    <input id="routeVideo" value="/api/video">
+   </div>
+
+   <div>
+    <label>Audio Route</label>
+    <input id="routeAudio" value="/api/audio">
+   </div>
+
+  </div>
+
+  <div class="row">
+
+   <div>
+    <label>Code Route</label>
+    <input id="routeCode" value="/api/code">
+   </div>
+
+   <div>
+    <label>Design Route</label>
+    <input id="routeDesign" value="/api/design">
+   </div>
+
+  </div>
+
+  <div class="row">
+
+   <div>
+    <label>Request Timeout (ms)</label>
+    <input id="timeout" type="number" value="60000">
+   </div>
+
+   <div>
+    <label>Frontend Version</label>
+    <input value="DOOM-AI v1.0" disabled>
+   </div>
+
+  </div>
+
+  <div class="actions" style="margin-top:18px">
+   <button class="btn primary" onclick="saveSettings()">
+    Save Configuration
+   </button>
+
+   <button class="btn good" onclick="testBackend()">
+    Test Backend
+   </button>
+
+   <button class="btn danger" onclick="resetSettings()">
+    Reset
+   </button>
+  </div>
+
+  <div id="settingsStatus" style="margin-top:15px"></div>
+
+ </div>
+</section>
+
+</main>
+
+
+<footer>
+ <div>
+  <b>DOOM AI</b><br>
+  Universal Creative Intelligence
+ </div>
+
+ <div>
+  Built for experimentation, creativity & engineering.
+ </div>
+
+ <div>
+  Contact:
+  <a href="mailto:meenasaurbh108@gmail.com">
+   meenasaurbh108@gmail.com
+  </a>
+ </div>
+</footer>
+
+
+<script>
+/* =========================================================
+   DOOM AI FRONTEND ENGINE
+   IMPORTANT:
+   NO REAL API SECRET IS STORED HERE.
+   KEYS MUST LIVE ON YOUR BACKEND.
+========================================================= */
+
+const DEFAULT_CONFIG={
+ apiBase:"",
+ routes:{
+  chat:"/api/chat",
+  image:"/api/image",
+  video:"/api/video",
+  audio:"/api/audio",
+  code:"/api/code",
+  design:"/api/design"
+ },
+ timeout:60000
+};
+
+let config=loadConfig();
+
+
+/* ================= NAVIGATION ================= */
+
+function showPage(id){
+
+ document.querySelectorAll(".page").forEach(p=>{
+  p.classList.remove("active");
+ });
+
+ const page=document.getElementById(id);
+
+ if(page) page.classList.add("active");
+
+ document.querySelectorAll("nav button").forEach(b=>{
+  b.classList.toggle("active",b.dataset.page===id);
+ });
+
+ window.scrollTo({top:0,behavior:"smooth"});
+
+ document.getElementById("nav").classList.remove("open");
+}
+
+document.querySelectorAll("nav button").forEach(btn=>{
+ btn.addEventListener("click",()=>{
+  showPage(btn.dataset.page);
+ });
+});
+
+function toggleMenu(){
+ document.getElementById("nav").classList.toggle("open");
+}
+
+
+/* ================= CONFIG ================= */
+
+function loadConfig(){
+
+ try{
+  const saved=localStorage.getItem("doom_ai_config");
+
+  if(!saved) return structuredClone(DEFAULT_CONFIG);
+
+  const data=JSON.parse(saved);
+
+  return {
+   ...DEFAULT_CONFIG,
+   ...data,
+   routes:{
+    ...DEFAULT_CONFIG.routes,
+    ...(data.routes||{})
+   }
+  };
+
+ }catch(e){
+  return structuredClone(DEFAULT_CONFIG);
+ }
+}
+
+function saveConfig(){
+
+ localStorage.setItem(
+  "doom_ai_config",
+  JSON.stringify(config)
+ );
+}
+
+function fillSettings(){
+
+ document.getElementById("apiBase").value=config.apiBase;
+ document.getElementById("routeChat").value=config.routes.chat;
+ document.getElementById("routeImage").value=config.routes.image;
+ document.getElementById("routeVideo").value=config.routes.video;
+ document.getElementById("routeAudio").value=config.routes.audio;
+ document.getElementById("routeCode").value=config.routes.code;
+ document.getElementById("routeDesign").value=config.routes.design;
+ document.getElementById("timeout").value=config.timeout;
+}
+
+function saveSettings(){
+
+ config={
+  apiBase:document.getElementById("apiBase").value.trim().replace(/\/$/,""),
+  routes:{
+   chat:document.getElementById("routeChat").value.trim(),
+   image:document.getElementById("routeImage").value.trim(),
+   video:document.getElementById("routeVideo").value.trim(),
+   audio:document.getElementById("routeAudio").value.trim(),
+   code:document.getElementById("routeCode").value.trim(),
+   design:document.getElementById("routeDesign").value.trim()
+  },
+  timeout:Number(document.getElementById("timeout").value)||60000
+ };
+
+ saveConfig();
+
+ statusMessage(
+  "settingsStatus",
+  "Configuration saved locally. No API secret is stored in this page.",
+  true
+ );
+}
+
+function resetSettings(){
+
+ localStorage.removeItem("doom_ai_config");
+
+ config=structuredClone(DEFAULT_CONFIG);
+
+ fillSettings();
+
+ statusMessage(
+  "settingsStatus",
+  "Settings reset.",
+  true
+ );
+}
+
+
+/* ================= API ENGINE ================= */
+
+function endpoint(route){
+
+ let base=(config.apiBase||"").replace(/\/$/,"");
+
+ if(!route.startsWith("/")) route="/"+route;
+
+ return base+route;
+}
+
+async function request(route,body={}){
+
+ const controller=new AbortController();
+
+ const timer=setTimeout(
+  ()=>controller.abort(),
+  config.timeout
+ );
+
+ try{
+
+  const response=await fetch(endpoint(route),{
+   method:"POST",
+   headers:{
+    "Content-Type":"application/json",
+    "Accept":"application/json,text/plain,*/*"
+   },
+   body:JSON.stringify(body),
+   signal:controller.signal
+  });
+
+  const text=await response.text();
+
+  let data;
+
+  try{
+   data=JSON.parse(text);
+  }catch{
+   data={text};
+  }
+
+  if(!response.ok){
+
+   throw new Error(
+    data.error ||
+    data.message ||
+    data.text ||
+    `HTTP ${response.status}`
+   );
+  }
+
+  return data;
+
+ }catch(error){
+
+  if(error.name==="AbortError"){
+   throw new Error("Request timed out.");
+  }
+
+  throw error;
+
+ }finally{
+
+  clearTimeout(timer);
+ }
+}
+
+
+/* ================= RESPONSE PARSER ================= */
+
+function extractText(data){
+
+ if(data==null) return "";
+
+ if(typeof data==="string") return data;
+
+ return (
+  data.text ||
+  data.message ||
+  data.response ||
+  data.output ||
+  data.content ||
+  data.result ||
+  data.answer ||
+  data.data?.text ||
+  data.data?.output ||
+  data.choices?.[0]?.message?.content ||
+  data.choices?.[0]?.text ||
+  ""
+ );
+}
+
+function extractUrl(data){
+
+ if(!data) return "";
+
+ if(typeof data==="string"){
+
+  if(/^https?:\/\//i.test(data)) return data;
+
+  return "";
+ }
+
+ return (
+  data.url ||
+  data.image_url ||
+  data.imageUrl ||
+  data.video_url ||
+  data.videoUrl ||
+  data.audio_url ||
+  data.audioUrl ||
+  data.data?.url ||
+  data.data?.image_url ||
+  data.data?.video_url ||
+  data.data?.audio_url ||
+  data.result?.url ||
+  ""
+ );
+}
+
+
+/* ================= CHAT ================= */
+
+function chatKey(event){
+
+ if(event.key==="Enter" && !event.shiftKey){
+
+  event.preventDefault();
+
+  sendChat();
+ }
+}
+
+async function sendChat(){
+
+ const input=document.getElementById("chatInput");
+ const text=input.value.trim();
+
+ if(!text) return;
+
+ addMessage(text,"user");
+
+ input.value="";
+
+ const loading=addMessage("DOOM AI is thinking...","ai");
+
+ try{
+
+  const data=await request(
+   config.routes.chat,
+   {
+    message:text,
+    prompt:text,
+    history:getChatHistory()
+   }
+  );
+
+  loading.textContent=extractText(data)||"No response received.";
+
+  saveChatMessage("user",text);
+  saveChatMessage("ai",loading.textContent);
+
+ }catch(error){
+
+  loading.textContent=
+   "Backend error: "+error.message+
+   "\n\nCheck Settings → Backend Base URL and route.";
+
+  loading.style.borderColor="#ef444455";
+ }
+}
+
+function addMessage(text,type){
+
+ const box=document.getElementById("chatbox");
+
+ const div=document.createElement("div");
+
+ div.className="msg "+type;
+
+ div.textContent=text;
+
+ box.appendChild(div);
+
+ box.scrollTop=box.scrollHeight;
+
+ return div;
+}
+
+function saveChatMessage(role,text){
+
+ const history=JSON.parse(
+  localStorage.getItem("doom_chat_history")||"[]"
+ );
+
+ history.push({role,text,time:Date.now()});
+
+ localStorage.setItem(
+  "doom_chat_history",
+  JSON.stringify(history.slice(-100))
+ );
+}
+
+function getChatHistory(){
+
+ return JSON.parse(
+  localStorage.getItem("doom_chat_history")||"[]"
+ );
+}
+
+function clearChat(){
+
+ localStorage.removeItem("doom_chat_history");
+
+ document.getElementById("chatbox").innerHTML=
+  `<div class="msg ai">DOOM AI online. Ask me anything.</div>`;
+}
+
+function exportChat(){
+
+ const history=getChatHistory();
+
+ const text=history.map(x=>
+  `[${x.role.toUpperCase()}]\n${x.text}`
+ ).join("\n\n");
+
+ downloadFile(
+  "doom-chat.txt",
+  text||"No chat history."
+ );
+}
+
+
+/* ================= PHOTO ================= */
+
+async function generatePhoto(){
+
+ const prompt=document.getElementById("photoPrompt").value.trim();
+
+ if(!prompt){
+  alert("Photo prompt likho.");
+  return;
+ }
+
+ const preview=document.getElementById("photoPreview");
+
+ preview.innerHTML=
+  `<div class="placeholder">
+    <div class="status"><span class="dot"></span>Generating...</div>
+   </div>`;
+
+ try{
+
+  const data=await request(
+   config.routes.image,
+   {
+    prompt,
+    aspect_ratio:document.getElementById("photoRatio").value,
+    style:document.getElementById("photoStyle").value,
+    quality:document.getElementById("photoQuality").value
+   }
+  );
+
+  const url=extractUrl(data);
+
+  if(url){
+
+   preview.innerHTML=
+    `<img src="${escapeAttr(url)}"
+          alt="DOOM AI generated image">`;
+
+   saveActivity("photo",prompt);
+
+  }else{
+
+   preview.innerHTML=
+    `<div class="placeholder">
+      <h3>Backend response received</h3>
+      <pre>${escapeHtml(JSON.stringify(data,null,2))}</pre>
+     </div>`;
+  }
+
+ }catch(error){
+
+  preview.innerHTML=
+   `<div class="placeholder">
+     <div class="error">${escapeHtml(error.message)}</div>
+    </div>`;
+ }
+}
+
+
+/* ================= VIDEO ================= */
+
+async function generateVideo(){
+
+ const prompt=document.getElementById("videoPrompt").value.trim();
+
+ if(!prompt){
+  alert("Video prompt likho.");
+  return;
+ }
+
+ const output=document.getElementById("videoOutput");
+
+ output.innerHTML=
+  `<div class="status">
+   <span class="dot"></span>
+   Video job starting...
+  </div>`;
+
+ try{
+
+  const data=await request(
+   config.routes.video,
+   {
+    prompt,
+    duration:Number(document.getElementById("videoDuration").value),
+    aspect_ratio:document.getElementById("videoRatio").value,
+    camera:document.getElementById("videoCamera").value
+   }
+  );
+
+  const url=extractUrl(data);
+
+  if(url){
+
+   output.innerHTML=
+    `<video controls playsinline style="max-width:100%;border-radius:14px">
+      <source src="${escapeAttr(url)}">
+     </video>`;
+
+   saveActivity("video",prompt);
+
+  }else{
+
+   output.innerHTML=
+    `<pre>${escapeHtml(JSON.stringify(data,null,2))}</pre>`;
+  }
+
+ }catch(error){
+
+  output.innerHTML=
+   `<div class="error">${escapeHtml(error.message)}</div>`;
+ }
+}
+
+
+/* ================= CODING ================= */
+
+async function generateCode(){
+
+ const prompt=document.getElementById("codePrompt").value.trim();
+
+ if(!prompt){
+  alert("Coding prompt likho.");
+  return;
+ }
+
+ const output=document.getElementById("codeOutput");
+
+ output.innerHTML="<pre>DOOM Coding AI working...</pre>";
+
+ try{
+
+  const data=await request(
+   config.routes.code,
+   {
+    prompt,
+    language:document.getElementById("codeLanguage").value,
+    action:document.getElementById("codeAction").value
+   }
+  );
+
+  const text=extractText(data);
+
+  output.innerHTML=
+   `<pre id="generatedCode">${escapeHtml(
+    text||JSON.stringify(data,null,2)
+   )}</pre>`;
+
+  saveActivity("coding",prompt);
+
+ }catch(error){
+
+  output.innerHTML=
+   `<div class="error">${escapeHtml(error.message)}</div>`;
+ }
+}
+
+function copyCode(){
+
+ const code=document.getElementById("generatedCode");
+
+ if(!code){
+  alert("Pehle code generate karo.");
+  return;
+ }
+
+ navigator.clipboard.writeText(code.textContent)
+  .then(()=>alert("Code copied."));
+}
+
+function downloadCode(){
+
+ const code=document.getElementById("generatedCode");
+
+ if(!code){
+  alert("Pehle code generate karo.");
+  return;
+ }
+
+ downloadFile(
+  "doom-generated-code.txt",
+  code.textContent
+ );
+}
+
+
+/* ================= SONG ================= */
+
+async function generateSong(){
+
+ const prompt=document.getElementById("songPrompt").value.trim();
+
+ if(!prompt){
+  alert("Song idea likho.");
+  return;
+ }
+
+ const lyrics=document.getElementById("lyricsOutput");
+ const audio=document.getElementById("audioBox");
+
+ lyrics.textContent="Generating lyrics...";
+ audio.innerHTML="";
+
+ try{
+
+  const data=await request(
+   config.routes.audio,
+   {
+    prompt,
+    genre:document.getElementById("songGenre").value,
+    mood:document.getElementById("songMood").value,
+    type:"song"
+   }
+  );
+
+  const text=extractText(data);
+  const url=extractUrl(data);
+
+  lyrics.textContent=text||
+   "Backend returned no lyrics.";
+
+  if(url){
+
+   audio.innerHTML=
+    `<audio controls style="width:100%">
+      <source src="${escapeAttr(url)}">
+     </audio>`;
+  }
+
+  saveActivity("song",prompt);
+
+ }catch(error){
+
+  lyrics.innerHTML=
+   `<div class="error">${escapeHtml(error.message)}</div>`;
+ }
+}
+
+
+/* ================= GHIBLI ================= */
+
+async function generateGhibli(){
+
+ const prompt=document.getElementById("ghibliPrompt").value.trim();
+
+ if(!prompt){
+  alert("Ghibli prompt likho.");
+  return;
+ }
+
+ const preview=document.getElementById("ghibliPreview");
+
+ preview.innerHTML=
+  `<div class="placeholder">
+   <div class="status"><span class="dot"></span>Creating world...</div>
+  </div>`;
+
+ try{
+
+  const data=await request(
+   config.routes.image,
+   {
+    prompt,
+    style:document.getElementById("ghibliStyle").value,
+    aspect_ratio:document.getElementById("ghibliRatio").value,
+    mode:"ghibli"
+   }
+  );
+
+  const url=extractUrl(data);
+
+  if(url){
+
+   preview.innerHTML=
+    `<img src="${escapeAttr(url)}"
+      alt="DOOM fantasy image">`;
+
+  }else{
+
+   preview.innerHTML=
+    `<pre>${escapeHtml(JSON.stringify(data,null,2))}</pre>`;
+  }
+
+ }catch(error){
+
+  preview.innerHTML=
+   `<div class="error">${escapeHtml(error.message)}</div>`;
+ }
+}
+
+
+/* ================= DESIGN ================= */
+
+async function generateDesign(){
+
+ const prompt=document.getElementById("designPrompt").value.trim();
+
+ if(!prompt){
+  alert("Design brief likho.");
+  return;
+ }
+
+ const output=document.getElementById("designOutput");
+
+ output.textContent="Design intelligence working...";
+
+ try{
+
+  const data=await request(
+   config.routes.design,
+   {
+    prompt,
+    type:document.getElementById("designType").value,
+    style:document.getElementById("designStyle").value
+   }
+  );
+
+  output.innerHTML=
+   `<pre>${escapeHtml(
+    extractText(data)||JSON.stringify(data,null,2)
+   )}</pre>`;
+
+  saveActivity("design",prompt);
+
+ }catch(error){
+
+  output.innerHTML=
+   `<div class="error">${escapeHtml(error.message)}</div>`;
+ }
+}
+
+
+/* ================= BACKEND TEST ================= */
+
+async function testBackend(){
+
+ const status=document.getElementById("settingsStatus");
+
+ status.innerHTML=
+  `<div class="status">
+   <span class="dot"></span>Testing backend...
+  </div>`;
+
+ try{
+
+  /*
+    Backend ko ideally:
+    GET /health
+    ya POST /api/health
+    provide karna chahiye.
+
+    Yahan GET request ki ja rahi hai.
+  */
+
+  const base=(config.apiBase||"").replace(/\/$/,"");
+
+  if(!base){
+
+   throw new Error(
+    "Backend Base URL empty hai."
+   );
+  }
+
+  const controller=new AbortController();
+
+  const timer=setTimeout(
+   ()=>controller.abort(),
+   10000
+  );
+
+  const response=await fetch(
+   base+"/health",
+   {
+    method:"GET",
+    signal:controller.signal
+   }
+  );
+
+  clearTimeout(timer);
+
+  if(!response.ok){
+   throw new Error("Health endpoint returned HTTP "+response.status);
+  }
+
+  status.innerHTML=
+   `<div class="success">
+    ✓ Backend connected successfully.
+   </div>`;
+
+ }catch(error){
+
+  status.innerHTML=
+   `<div class="error">
+    Backend connection failed: ${escapeHtml(error.message)}
+   </div>`;
+ }
+}
+
+
+/* ================= ACTIVITY ================= */
+
+function saveActivity(type,text){
+
+ const data=JSON.parse(
+  localStorage.getItem("doom_activity")||"[]"
+ );
+
+ data.unshift({
+  type,
+  text,
+  time:new Date().toISOString()
+ });
+
+ localStorage.setItem(
+  "doom_activity",
+  JSON.stringify(data.slice(0,50))
+ );
+}
+
+
+/* ================= SECURE DEMO ================= */
+
+async function deriveKey(secret){
+
+ const encoder=new TextEncoder();
+
+ const material=
+  await crypto.subtle.importKey(
+   "raw",
+   encoder.encode(secret),
+   "PBKDF2",
+   false,
+   ["deriveKey"]
+  );
+
+ return crypto.subtle.deriveKey(
+  {
+   name:"PBKDF2",
+   salt:encoder.encode("DOOM-AI-SECURE-ROOM-v1"),
+   iterations:120000,
+   hash:"SHA-256"
+  },
+  material,
+  {
+   name:"AES-GCM",
+   length:256
+  },
+  false,
+  ["encrypt","decrypt"]
+ );
+}
+
+function bytesToBase64(bytes){
+
+ let binary="";
+
+ bytes.forEach(b=>{
+  binary+=String.fromCharCode(b);
+ });
+
+ return btoa(binary);
+}
+
+function base64ToBytes(str){
+
+ const binary=atob(str);
+
+ return Uint8Array.from(
+  binary,
+  c=>c.charCodeAt(0)
+ );
+}
+
+async function encryptMessage(){
+
+ const secret=document.getElementById("secureSecret").value;
+
+ const message=document.getElementById("secureMessage").value;
+
+ if(!secret||!message){
+  alert("Secret aur message dono bharo.");
+  return;
+ }
+
+ try{
+
+  const key=await deriveKey(secret);
+
+  const iv=crypto.getRandomValues(
+   new Uint8Array(12)
+  );
+
+  const encrypted=
+   await crypto.subtle.encrypt(
+    {name:"AES-GCM",iv},
+    key,
+    new TextEncoder().encode(message)
+   );
+
+  const payload={
+   iv:bytesToBase64(iv),
+   data:bytesToBase64(
+    new Uint8Array(encrypted)
+   )
+  };
+
+  document.getElementById("secureOutput").value=
+   btoa(JSON.stringify(payload));
+
+ }catch(error){
+
+  alert(error.message);
+ }
+}
+
+async function decryptMessage(){
+
+ const secret=document.getElementById("secureSecret").value;
+
+ const encoded=document.getElementById("secureOutput").value;
+
+ if(!secret||!encoded){
+  alert("Secret aur encrypted data dono chahiye.");
+  return;
+ }
+
+ try{
+
+  const payload=
+   JSON.parse(atob(encoded));
+
+  const key=await deriveKey(secret);
+
+  const decrypted=
+   await crypto.subtle.decrypt(
+    {
+     name:"AES-GCM",
+     iv:base64ToBytes(payload.iv)
+    },
+    key,
+    base64ToBytes(payload.data)
+   );
+
+  document.getElementById("secureMessage").value=
+   new TextDecoder().decode(decrypted);
+
+ }catch(error){
+
+  alert("Decryption failed. Secret ya data galat hai.");
+ }
+}
+
+
+/* ================= HELPERS ================= */
+
+function statusMessage(id,message,success){
+
+ document.getElementById(id).innerHTML=
+  `<div class="${success?"success":"error"}">
+   ${escapeHtml(message)}
+  </div>`;
+}
+
+function escapeHtml(value){
+
+ return String(value)
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
+}
+
+function escapeAttr(value){
+
+ return String(value)
+  .replaceAll("&","&amp;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;");
+}
+
+function downloadFile(filename,text){
+
+ const blob=new Blob(
+  [text],
+  {type:"text/plain;charset=utf-8"}
+ );
+
+ const url=URL.createObjectURL(blob);
+
+ const a=document.createElement("a");
+
+ a.href=url;
+ a.download=filename;
+
+ document.body.appendChild(a);
+ a.click();
+ a.remove();
+
+ URL.revokeObjectURL(url);
+}
+
+
+/* ================= STARTUP ================= */
+
+fillSettings();
+
+console.log(
+ "%cDOOM AI frontend initialized.",
+ "font-size:20px;font-weight:bold"
+);
+
+console.log(
+ "API secrets must remain on the backend."
+);
+
+</script>
+
+</body>
+   </html>
