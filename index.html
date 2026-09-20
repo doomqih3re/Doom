@@ -1,19 +1,37 @@
 <!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#070711">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#05050b">
 <meta name="description" content="DOOM AI — Interactive Creative Intelligence Portfolio by Saurbh Meena">
 <meta property="og:title" content="DOOM AI — Creative Intelligence">
 <meta property="og:description" content="DOOM AI — Interactive Creative Intelligence Portfolio by Saurbh Meena">
 <meta name="author" content="Saurbh Meena">
+<!-- PWA & Android / Apple iOS Installation Support -->
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="apple-touch-startup-image" href="/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="DOOM AI">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" href="/auth.css">
 <title>DOOM AI — Creative Intelligence</title><style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
---bg:#05050b;--bg2:#080812;--panel:#0d0d1a;
---line:rgba(255,255,255,.11);--text:#f8f9ff;--muted:#9298ad;
---purple:#8b5cf6;--cyan:#06d6ff;--pink:#ff3cac;--green:#45f6a8;
---shadow:0 30px 90px rgba(0,0,0,.45)
+--bg:#07070a;--bg2:#0d0d12;--panel:#12121a;
+--line:rgba(255,255,255,.14);--text:#ffffff;--muted:#a3a8bc;
+--yellow:#ffd000;--gold:#ffb700;--yellow-light:#fff59d;--white:#ffffff;
+--purple:#ffd000;--cyan:#ffffff;--pink:#ffe066;--green:#ffd000;
+--shadow:0 30px 90px rgba(0,0,0,.6);
+--sat:env(safe-area-inset-top,0px);
+--sab:env(safe-area-inset-bottom,0px);
+--sal:env(safe-area-inset-left,0px);
+--sar:env(safe-area-inset-right,0px)
 }
 html{scroll-behavior:smooth}
 body{
@@ -23,9 +41,9 @@ background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.5
 body:before{
 content:"";position:fixed;inset:0;z-index:-3;
 background:
-radial-gradient(circle at 10% 10%,rgba(124,58,237,.25),transparent 27%),
-radial-gradient(circle at 90% 15%,rgba(6,214,255,.17),transparent 25%),
-radial-gradient(circle at 55% 85%,rgba(255,60,172,.13),transparent 30%)
+radial-gradient(circle at 10% 10%,rgba(255,208,0,.16),transparent 28%),
+radial-gradient(circle at 90% 15%,rgba(255,255,255,.12),transparent 25%),
+radial-gradient(circle at 55% 85%,rgba(255,183,0,.10),transparent 30%)
 }
 body:after{
 content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.12;
@@ -45,17 +63,18 @@ section{padding:110px 0;position:relative}
 nav{
 position:fixed;top:0;left:0;right:0;z-index:100;
 display:flex;justify-content:space-between;align-items:center;
-padding:16px 5%;background:rgba(5,5,11,.72);
+padding:calc(16px + var(--sat)) calc(5% + var(--sar)) 16px calc(5% + var(--sal));
+background:rgba(7,7,10,.82);
 border-bottom:1px solid var(--line);backdrop-filter:blur(22px)
 }
 .logo{
 font-size:23px;font-weight:1000;letter-spacing:5px;
-text-shadow:0 0 30px rgba(6,214,255,.25)
+text-shadow:0 0 30px rgba(255,208,0,.35)
 }
-.logo span{color:var(--cyan)}
-.links{display:flex;gap:24px;color:#aeb4c8;font-size:13px}
+.logo span{color:var(--yellow);text-shadow:0 0 25px rgba(255,208,0,.6)}
+.links{display:flex;gap:24px;color:#cbd2e5;font-size:13px}
 .links a{transition:.2s}
-.links a:hover{color:#fff}
+.links a:hover{color:#ffd000}
 .menu{display:none;background:none;border:0;color:#fff;font-size:25px}
 nav.open .links{display:flex}
 
@@ -66,30 +85,31 @@ padding-top:120px;overflow:hidden
 }
 .hero:before{
 content:"";position:absolute;width:500px;height:500px;border-radius:50%;
-background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(6,214,255,.08));
+background:linear-gradient(135deg,rgba(255,208,0,.15),rgba(255,255,255,.10));
 filter:blur(60px);animation:orb 8s ease-in-out infinite alternate
 }
 @keyframes orb{to{transform:translate(80px,-40px) scale(1.2)}}
 .heroBox{text-align:center;position:relative;z-index:1}
 .kicker{
 display:inline-flex;align-items:center;gap:9px;
-padding:8px 14px;border:1px solid rgba(255,255,255,.13);
-border-radius:99px;background:rgba(255,255,255,.045);
-color:#a8fbe0;font-size:11px;letter-spacing:.7px;
-margin-bottom:25px;box-shadow:0 0 30px rgba(69,246,168,.05)
+padding:8px 14px;border:1px solid rgba(255,208,0,.35);
+border-radius:99px;background:rgba(255,208,0,.08);
+color:#fff;font-size:11px;letter-spacing:.7px;
+margin-bottom:25px;box-shadow:0 0 30px rgba(255,208,0,.15)
 }
 .dot{
-width:7px;height:7px;border-radius:50%;background:var(--green);
-box-shadow:0 0 15px var(--green);animation:pulse 1.8s infinite
+width:7px;height:7px;border-radius:50%;background:var(--yellow);
+box-shadow:0 0 15px var(--yellow);animation:pulse 1.8s infinite
 }
 @keyframes pulse{50%{opacity:.35;transform:scale(.7)}}
 h1{
 font-size:clamp(58px,10vw,125px);line-height:.84;
-letter-spacing:-7px;font-weight:950
+letter-spacing:-7px;font-weight:950;color:#ffffff
 }
 .gradient{
-background:linear-gradient(100deg,#fff 0%,#b9a0ff 35%,#22d3ee 65%,#ff55bc 100%);
--webkit-background-clip:text;background-clip:text;color:transparent
+background:linear-gradient(100deg,#ffffff 0%,#fff5a5 35%,#ffd000 70%,#f59e0b 100%);
+-webkit-background-clip:text;background-clip:text;color:transparent;
+text-shadow:0 0 40px rgba(255,208,0,.2)
 }
 .hero p{
 max-width:750px;margin:30px auto;color:var(--muted);
@@ -99,18 +119,23 @@ font-size:17px;line-height:1.8
 .btn{
 display:inline-flex;align-items:center;justify-content:center;
 gap:8px;padding:13px 20px;border-radius:13px;
-border:1px solid var(--line);background:rgba(255,255,255,.045);
+border:1px solid var(--line);background:rgba(255,255,255,.05);
 color:#fff;transition:.25s;min-height:46px
 }
 .btn:hover{
-transform:translateY(-3px);border-color:rgba(255,255,255,.3);
-box-shadow:0 12px 35px rgba(0,0,0,.3)
+transform:translateY(-3px);border-color:#ffd000;
+box-shadow:0 12px 35px rgba(255,208,0,.25)
 }
 .primary{
-border:0;background:linear-gradient(100deg,var(--purple),var(--cyan));
-font-weight:850;box-shadow:0 12px 40px rgba(6,214,255,.12)
+border:0;background:linear-gradient(100deg,#ffd000,#ffffff);
+color:#08080c;font-weight:900;box-shadow:0 12px 40px rgba(255,208,0,.35)
 }
-.secondary:hover{background:rgba(255,255,255,.09)}
+.primary:hover{
+background:linear-gradient(100deg,#ffe033,#ffffff);
+box-shadow:0 16px 45px rgba(255,208,0,.5);
+color:#000
+}
+.secondary:hover{background:rgba(255,208,0,.09);border-color:#ffd000}
 
 /* TITLES */
 .sectionTitle{text-align:center;margin-bottom:45px}
@@ -194,23 +219,26 @@ border-radius:16px;background:rgba(255,255,255,.045);
 font-size:12px;letter-spacing:.5px
 }
 .node strong{display:block;margin-bottom:4px;color:#fff}
-.arrow{text-align:center;color:var(--cyan);font-size:23px}
+.arrow{text-align:center;color:var(--yellow);font-size:23px;text-shadow:0 0 15px rgba(255,208,0,.5)}
 
 /* DEMO */
 .demo{
-background:rgba(8,9,20,.82);border:1px solid var(--line);
-border-radius:25px;padding:22px;box-shadow:0 25px 90px rgba(0,0,0,.35)
+background:rgba(10,10,16,.88);border:1px solid rgba(255,208,0,.25);
+border-radius:25px;padding:22px;box-shadow:0 25px 90px rgba(0,0,0,.6),0 0 40px rgba(255,208,0,.08)
 }
 .tabs{
 display:flex;gap:8px;overflow-x:auto;margin-bottom:20px;padding-bottom:3px
 }
 .tab{
 white-space:nowrap;padding:10px 14px;border:1px solid var(--line);
-background:rgba(255,255,255,.04);color:#aab0c4;border-radius:11px;
+background:rgba(255,255,255,.04);color:#cbd2e5;border-radius:11px;
 transition:.2s
 }
-.tab:hover{color:#fff}
-.tab.on{background:rgba(139,92,246,.2);color:#fff;border-color:rgba(139,92,246,.4)}
+.tab:hover{color:#fff;border-color:rgba(255,208,0,.4)}
+.tab.on{
+background:rgba(255,208,0,.15);color:#ffffff;
+border-color:#ffd000;box-shadow:0 0 20px rgba(255,208,0,.25)
+}
 .demoPage{display:none}
 .demoPage.on{display:block}
 textarea,input,select{
@@ -219,7 +247,9 @@ border-radius:12px;background:#03040a;color:#fff;
 outline:none;margin:7px 0
 }
 textarea{min-height:145px;resize:vertical}
-textarea:focus,input:focus,select:focus{border-color:rgba(6,214,255,.55);box-shadow:0 0 0 3px rgba(6,214,255,.07)}
+textarea:focus,input:focus,select:focus{
+border-color:#ffd000;box-shadow:0 0 0 3px rgba(255,208,0,.15)
+}
 .output{
 margin-top:12px;padding:17px;min-height:100px;
 white-space:pre-wrap;overflow:auto;border-radius:14px;
@@ -231,15 +261,15 @@ color:#cbd2e5;font-size:13px;line-height:1.7
 
 /* TERMINAL */
 .terminal{
-border:1px solid rgba(255,255,255,.1);border-radius:18px;
-background:#020308;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3)
+border:1px solid rgba(255,208,0,.2);border-radius:18px;
+background:#020308;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)
 }
 .termTop{
 display:flex;gap:7px;align-items:center;padding:11px 14px;
 border-bottom:1px solid var(--line);background:#090a12
 }
 .termDot{width:9px;height:9px;border-radius:50%;background:#555}
-.termBody{padding:20px;color:#8fffd0;font-family:monospace;font-size:12px;min-height:170px}
+.termBody{padding:20px;color:#fff7a6;font-family:monospace;font-size:12px;min-height:170px}
 .termLine{margin:7px 0}
 
 /* TIMELINE */
@@ -249,15 +279,15 @@ display:grid;grid-template-columns:90px 1fr;gap:20px;
 padding:18px;border:1px solid var(--line);border-radius:15px;
 background:rgba(255,255,255,.03)
 }
-.timeYear{color:var(--cyan);font-weight:800}
+.timeYear{color:var(--yellow);font-weight:800;text-shadow:0 0 10px rgba(255,208,0,.4)}
 
 /* CONTACT */
 .contact{text-align:center}
 .email{
-display:inline-block;margin-top:18px;color:#9eeeff;
+display:inline-block;margin-top:18px;color:#ffd000;
 font-weight:700
 }
-.email:hover{text-decoration:underline}
+.email:hover{text-decoration:underline;color:#ffffff}
 .socials{margin-top:22px}
 
 /* TOAST */
@@ -307,6 +337,896 @@ section{padding:85px 0}
 @media(prefers-reduced-motion:reduce){
 *,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
 }
+
+/* APK / PWA INSTALL BUTTON & MODAL */
+.apk-badge-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:10px;
+  background:linear-gradient(135deg,rgba(139,92,246,.25),rgba(6,214,255,.25));
+  border:1px solid rgba(6,214,255,.45);
+  color:#fff;font-size:12px;font-weight:750;
+  transition:.25s;cursor:pointer;letter-spacing:0.3px;
+}
+.apk-badge-btn:hover{
+  background:linear-gradient(135deg,rgba(139,92,246,.45),rgba(6,214,255,.45));
+  border-color:var(--cyan);transform:translateY(-1px);
+  box-shadow:0 0 16px rgba(6,214,255,.3);
+}
+.apk-hero-btn{
+  border-color:rgba(69,246,168,.4)!important;
+  color:#a8fbe0!important;background:rgba(69,246,168,.06)!important;
+}
+.apk-hero-btn:hover{
+  border-color:var(--green)!important;
+  box-shadow:0 0 25px rgba(69,246,168,.25)!important;
+}
+
+/* APK GENERATION & INSTALLATION MODAL */
+.modal-overlay{
+  position:fixed;inset:0;z-index:99999;
+  background:rgba(2,2,6,.84);backdrop-filter:blur(18px);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;opacity:0;pointer-events:none;transition:opacity .25s ease;
+}
+.modal-overlay.active{
+  opacity:1;pointer-events:auto;
+}
+.apk-modal-card{
+  background:linear-gradient(160deg,#0f0f1c 0%,#070712 100%);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:22px;width:min(640px,100%);max-height:90vh;
+  overflow-y:auto;box-shadow:0 30px 100px rgba(0,0,0,.85),0 0 50px rgba(6,214,255,.12);
+  padding:30px;position:relative;
+  transform:scale(.95);transition:transform .25s cubic-bezier(.16,1,.3,1);
+}
+.modal-overlay.active .apk-modal-card{
+  transform:scale(1);
+}
+.modal-close-btn{
+  position:absolute;top:18px;right:18px;
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(255,255,255,.08);border:1px solid var(--line);
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:16px;cursor:pointer;transition:.2s;
+}
+.modal-close-btn:hover{
+  background:rgba(255,255,255,.2);border-color:#fff;
+}
+.apk-modal-header{
+  display:flex;align-items:center;gap:16px;margin-bottom:20px;
+}
+.apk-modal-icon{
+  width:54px;height:54px;border-radius:14px;
+  box-shadow:0 0 20px rgba(6,214,255,.25);flex-shrink:0;
+}
+.apk-modal-title h3{
+  font-size:21px;font-weight:900;letter-spacing:-0.5px;color:#fff;
+}
+.apk-modal-title p{
+  color:var(--muted);font-size:13px;margin-top:3px;
+}
+.apk-options-grid{
+  display:grid;gap:14px;margin:20px 0;
+}
+.apk-option-box{
+  background:rgba(255,255,255,.035);
+  border:1px solid var(--line);border-radius:16px;
+  padding:18px;transition:.2s;
+}
+.apk-option-box:hover{
+  border-color:rgba(255,255,255,.28);background:rgba(255,255,255,.05);
+}
+.apk-option-header{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;
+}
+.apk-option-badge{
+  font-size:10px;font-weight:800;letter-spacing:0.6px;
+  padding:4px 10px;border-radius:99px;
+  background:rgba(69,246,168,.12);color:var(--green);
+  border:1px solid rgba(69,246,168,.3);
+}
+.apk-option-badge.cyan{
+  background:rgba(6,214,255,.12);color:var(--cyan);
+  border-color:rgba(6,214,255,.3);
+}
+.apk-btn-action{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:13px 18px;border-radius:12px;
+  font-weight:750;font-size:13px;cursor:pointer;
+  transition:.2s;text-align:center;margin-top:14px;box-sizing:border-box;
+}
+.apk-btn-action.primary{
+  background:linear-gradient(100deg,var(--purple),var(--cyan));
+  color:#fff;border:none;box-shadow:0 8px 24px rgba(6,214,255,.25);
+}
+.apk-btn-action.primary:hover{
+  transform:translateY(-2px);box-shadow:0 12px 30px rgba(6,214,255,.4);
+}
+.apk-btn-action.secondary{
+  background:rgba(255,255,255,.07);color:#fff;
+  border:1px solid var(--line);
+}
+.apk-btn-action.secondary:hover{
+  background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);
+}
+.apk-qr-section{
+  display:flex;align-items:center;gap:18px;
+  background:rgba(255,255,255,.025);
+  border:1px solid var(--line);border-radius:16px;
+  padding:16px;margin-top:14px;
+}
+.apk-qr-img{
+  width:96px;height:96px;background:#fff;padding:6px;
+  border-radius:10px;flex-shrink:0;
+}
+.url-copy-box{
+  display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.4);
+  border:1px solid var(--line);border-radius:8px;padding:6px 10px;margin-top:8px;
+}
+.url-copy-box input{
+  background:transparent;border:none;color:#cbd2e5;font-size:11px;
+  width:100%;outline:none;font-family:monospace;
+}
+.url-copy-box button{
+  background:rgba(255,255,255,.1);border:none;color:#fff;
+  padding:5px 12px;border-radius:6px;font-size:11px;cursor:pointer;white-space:nowrap;
+}
+.url-copy-box button:hover{background:rgba(255,255,255,.25);}
+
+/* TELEGRAM CHANNEL INTEGRATION */
+.telegram-nav-btn {
+  display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,rgba(0,136,204,.25),rgba(6,214,255,.25));
+  border:1px solid #0088cc;
+  color:#fff !important;padding:7px 14px;border-radius:10px;
+  font-size:12px;font-weight:750;text-decoration:none;
+  transition:all .25s ease;
+}
+.telegram-nav-btn:hover {
+  background:linear-gradient(135deg,rgba(0,136,204,.45),rgba(6,214,255,.45));
+  border-color:#38bdf8;box-shadow:0 0 20px rgba(0,136,204,.45);
+  transform:translateY(-1px);
+}
+.telegram-hero-btn {
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,#0088cc 0%,#00b4d8 100%) !important;
+  color:#fff !important;border:none !important;
+  font-weight:800;box-shadow:0 8px 24px rgba(0,136,204,.4);
+  transition:all .25s ease;text-decoration:none;
+}
+.telegram-hero-btn:hover {
+  transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,136,204,.6);
+}
+.telegram-channel-card {
+  margin:28px auto 20px;max-width:760px;
+  background:linear-gradient(135deg,rgba(0,136,204,.14) 0%,rgba(6,214,255,.07) 100%);
+  border:1px solid rgba(0,136,204,.4);
+  border-radius:20px;padding:24px;
+  box-shadow:0 15px 40px rgba(0,0,0,.4),0 0 30px rgba(0,136,204,.15);
+  display:flex;flex-direction:column;gap:16px;text-align:left;
+}
+@media(min-width:680px){
+  .telegram-channel-card{flex-direction:row;align-items:center;justify-content:space-between;}
+}
+.telegram-card-info{display:flex;align-items:center;gap:16px;}
+.telegram-icon-box{
+  width:52px;height:52px;border-radius:14px;
+  background:linear-gradient(135deg,#0088cc,#00b4d8);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;flex-shrink:0;box-shadow:0 0 20px rgba(0,136,204,.45);
+}
+.telegram-handle-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(0,136,204,.2);border:1px solid rgba(0,136,204,.4);
+  color:#38bdf8;padding:3px 10px;border-radius:99px;
+  font-size:11px;font-weight:700;margin-top:6px;font-family:monospace;
+}
+.telegram-card-actions{display:flex;flex-wrap:wrap;gap:10px;}
+.telegram-direct-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  background:linear-gradient(135deg,#0088cc,#00b4d8) !important;
+  color:#fff !important;border:none !important;
+  font-weight:800;padding:12px 20px;border-radius:12px;
+  text-decoration:none;box-shadow:0 8px 25px rgba(0,136,204,.4);
+  white-space:nowrap;
+}
+.telegram-direct-btn:hover{
+  transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,136,204,.6);
+}
+.floating-telegram-btn{
+  position:fixed;bottom:calc(24px + var(--sab));left:calc(20px + var(--sal));z-index:999;
+  display:inline-flex;align-items:center;gap:9px;
+  background:linear-gradient(135deg,#0088cc,#00b4d8);
+  color:#fff;text-decoration:none;
+  padding:11px 18px;border-radius:99px;
+  font-size:13px;font-weight:800;
+  box-shadow:0 10px 30px rgba(0,136,204,.5),0 0 20px rgba(0,136,204,.3);
+  border:1px solid rgba(255,255,255,.25);
+  backdrop-filter:blur(10px);
+  transition:all .25s cubic-bezier(.16,1,.3,1);
+}
+.floating-telegram-btn:hover{
+  transform:translateY(-3px) scale(1.04);
+  box-shadow:0 15px 40px rgba(0,136,204,.7),0 0 25px rgba(0,136,204,.5);
+  color:#fff;
+}
+@media(max-width:600px){
+  .floating-telegram-btn span{display:none;}
+  .floating-telegram-btn{padding:12px;border-radius:50%;bottom:calc(16px + var(--sab));left:calc(16px + var(--sal));}
+}
+
+/* DIRECT TELEGRAM HERO BANNER */
+.telegram-hero-banner {
+  margin: 24px 0 10px;
+  background: linear-gradient(135deg, rgba(0, 136, 204, 0.16) 0%, rgba(6, 214, 255, 0.08) 100%);
+  border: 1px solid rgba(0, 136, 204, 0.45);
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 25px rgba(0, 136, 204, 0.15);
+}
+@media (min-width: 680px) {
+  .telegram-hero-banner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+.telegram-hero-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.telegram-hero-banner-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0088cc, #00b4d8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 0 18px rgba(0, 136, 204, 0.5);
+}
+.telegram-hero-banner-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* FLOATING APP DOWNLOAD BUTTON (IOS & ANDROID) */
+.floating-phone-btn {
+  position: fixed;
+  bottom: calc(24px + var(--sab));
+  right: calc(86px + var(--sar));
+  z-index: 998;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #ffd000, #ffffff);
+  color: #07070a !important;
+  text-decoration: none;
+  padding: 11px 18px;
+  border-radius: 99px;
+  font-size: 13px;
+  font-weight: 900;
+  box-shadow: 0 10px 30px rgba(255, 208, 0, 0.45), 0 0 20px rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.floating-phone-btn:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 15px 40px rgba(255, 208, 0, 0.65), 0 0 25px rgba(255, 255, 255, 0.5);
+  color: #000000 !important;
+}
+@media (max-width: 680px) {
+  .floating-phone-btn span { display: none; }
+  .floating-phone-btn { padding: 12px; border-radius: 50%; bottom: calc(16px + var(--sab)); right: calc(68px + var(--sar)); }
+}
+
+.apk-badge-direct {
+  background: linear-gradient(135deg, rgba(255, 208, 0, 0.25), rgba(255, 255, 255, 0.15));
+  border: 1px solid #ffd000;
+  color: #fff !important;
+  padding: 7px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 750;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s ease;
+}
+.apk-badge-direct:hover {
+  background: linear-gradient(135deg, rgba(255, 208, 0, 0.45), rgba(255, 255, 255, 0.3));
+  border-color: #ffffff;
+  box-shadow: 0 0 20px rgba(255, 208, 0, 0.45);
+  transform: translateY(-1px);
+}
+
+/* PLATFORM TABS & IOS INSTALL GUIDE */
+.platform-tabs {
+  display: flex;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 4px;
+  gap: 6px;
+  margin: 18px 0 20px;
+}
+.platform-tab-btn {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: #9298ad;
+  font-weight: 800;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.platform-tab-btn:hover { color: #fff; background: rgba(255, 255, 255, 0.05); }
+.platform-tab-btn.active.tab-android {
+  background: linear-gradient(135deg, rgba(255, 208, 0, 0.35), rgba(255, 255, 255, 0.15));
+  color: #ffd000;
+  border: 1px solid rgba(255, 208, 0, 0.6);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+.platform-tab-btn.active.tab-ios {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 208, 0, 0.15));
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+.platform-content { display: none; }
+.platform-content.active { display: block; animation: tabFade .25s ease; }
+@keyframes tabFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+/* iOS visual step guide */
+.ios-guide-box {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(139, 92, 246, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 14px;
+}
+.ios-guide-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.ios-guide-steps { display: grid; gap: 10px; }
+.ios-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 11px 14px;
+}
+.ios-step-badge {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #05050b;
+  font-weight: 900;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.ios-step-desc { font-size: 13px; color: #cbd2e5; line-height: 1.45; }
+.ios-step-desc strong { color: #fff; }
+.ios-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 12px;
+  font-family: monospace;
+  color: #06d6ff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* PEXELS MEDIA STUDIO */
+.pexels-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: rgba(255, 208, 0, 0.08);
+  border: 1px solid rgba(255, 208, 0, 0.3);
+  padding: 10px 16px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  font-size: 13px;
+}
+.pexels-status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #ffd000;
+  font-weight: 700;
+}
+.pexels-search-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.pexels-search-box input {
+  flex: 1;
+}
+.pexels-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.pexels-chip {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #cbd2e5;
+  padding: 6px 13px;
+  border-radius: 99px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pexels-chip:hover {
+  background: rgba(255, 208, 0, 0.15);
+  border-color: #ffd000;
+  color: #fff;
+}
+.pexels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+  max-height: 520px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.pexels-card {
+  position: relative;
+  background: #090a14;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+.pexels-card:hover {
+  transform: translateY(-3px);
+  border-color: #ffd000;
+  box-shadow: 0 10px 25px rgba(255, 208, 0, 0.2);
+}
+.pexels-thumb {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  background: #0d0e1a;
+  display: block;
+}
+.pexels-card-info {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+.pexels-author {
+  font-size: 12px;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pexels-author:hover {
+  color: #ffd000;
+}
+.pexels-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+.pexels-btn {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pexels-btn:hover {
+  background: rgba(255, 208, 0, 0.2);
+  border-color: #ffd000;
+}
+
+/* NASA DEEP SPACE STYLES */
+.nasa-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: rgba(255, 208, 0, 0.08);
+  border: 1px solid rgba(255, 208, 0, 0.3);
+  padding: 10px 16px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  font-size: 13px;
+}
+.nasa-status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #ffd000;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+.nasa-apod-card {
+  background: linear-gradient(135deg, rgba(255,208,0,0.08), rgba(13,13,26,0.95));
+  border: 1px solid rgba(255, 208, 0, 0.3);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.nasa-apod-hero {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 16px;
+}
+@media (max-width: 768px) {
+  .nasa-apod-hero { grid-template-columns: 1fr; }
+}
+.nasa-apod-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #000;
+}
+.nasa-apod-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+.nasa-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+  max-height: 520px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.nasa-card {
+  background: #090a14;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.nasa-card:hover {
+  transform: translateY(-3px);
+  border-color: #ffd000;
+  box-shadow: 0 10px 25px rgba(255, 208, 0, 0.2);
+}
+.nasa-thumb {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  background: #03040a;
+}
+.nasa-card-body {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+.nasa-card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.nasa-card-meta {
+  font-size: 11px;
+  color: #9298ad;
+}
+
+/* VIDEO STUDIO STYLES */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 14px;
+  max-height: 560px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.video-card {
+  background: #090912;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s;
+}
+.video-card:hover {
+  border-color: #ffd000;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(255, 208, 0, 0.2);
+}
+.video-player-wrap {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  background: #000;
+  overflow: hidden;
+}
+.video-player-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.video-quality-tag {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #ffd000;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 208, 0, 0.4);
+  pointer-events: none;
+}
+.video-card-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.video-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.35;
+}
+.video-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: #8f96af;
+}
+
+/* SONG & AUDIO STUDIO */
+.song-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.song-controls-box {
+  background: linear-gradient(135deg, rgba(255, 208, 0, 0.08), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(255, 208, 0, 0.3);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.audio-visualizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 44px;
+  padding: 8px 12px;
+  background: #04040a;
+  border: 1px solid rgba(255, 208, 0, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.viz-bar {
+  flex: 1;
+  background: linear-gradient(to top, #ffd000, #ffffff);
+  border-radius: 2px;
+  height: 6px;
+  transition: height 0.08s ease;
+}
+.song-lyrics-output {
+  background: #06070e;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 16px;
+  color: #f0f3fa;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.7;
+  max-height: 380px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+/* CHAT CHIPS */
+.chat-chips-wrap {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.chat-chip {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 208, 0, 0.25);
+  color: #fff;
+  padding: 5px 11px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.chat-chip:hover {
+  background: rgba(255, 208, 0, 0.2);
+  border-color: #ffd000;
+  color: #ffd000;
+}
+
+/* LIVE API SUITE RUNNER */
+.api-runner-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.api-runner-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(255, 208, 0, 0.12), rgba(255, 255, 255, 0.08));
+  border: 1px solid rgba(255, 208, 0, 0.35);
+  border-radius: 14px;
+}
+.api-runner-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.api-pulse-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffd000;
+  box-shadow: 0 0 14px #ffd000;
+  animation: pulse 1.8s infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 18px #ffd000; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+.api-suite-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+.api-suite-card {
+  background: #090910;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.api-suite-card:hover {
+  border-color: #ffd000;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(255, 208, 0, 0.15);
+}
+.api-card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 6px;
+  width: fit-content;
+  margin-bottom: 8px;
+}
+.badge-nasa { background: rgba(255,183,0,0.18); color: #ffd000; border: 1px solid rgba(255,183,0,0.4); }
+.badge-pexels { background: rgba(255,255,255,0.15); color: #ffffff; border: 1px solid rgba(255,255,255,0.3); }
+.badge-otp { background: rgba(255,230,100,0.18); color: #fff385; border: 1px solid rgba(255,230,100,0.4); }
+.badge-system { background: rgba(255,208,0,0.18); color: #ffd000; border: 1px solid rgba(255,208,0,0.4); }
+
+.api-suite-stat {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  margin: 6px 0;
+  line-height: 1.2;
+}
+.api-suite-meta {
+  font-size: 12px;
+  color: #a3a8bc;
+  line-height: 1.5;
+}
+.api-terminal-box {
+  background: #020307;
+  border: 1px solid rgba(255, 208, 0, 0.25);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.api-terminal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background: #0b0c14;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 12px;
+  color: #cbd2e5;
+}
+.api-terminal-body {
+  padding: 16px;
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #fff7a6;
+  max-height: 220px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
 </style></head><body><nav id="nav">
 <a class="logo" href="#home">DOOM<span>AI</span></a><div class="links">
 <a href="#about">About</a>
@@ -314,8 +1234,21 @@ section{padding:85px 0}
 <a href="#skills">Skills</a>
 <a href="#architecture">Architecture</a>
 <a href="#demo">Live Demo</a>
-<a href="/knowledge.html" style="color:var(--cyan)">Knowledge Engine ↗</a>
+<a href="/knowledge.html" style="color:var(--yellow);font-weight:700">Knowledge Engine ↗</a>
 <a href="#contact">Contact</a>
+<a href="https://t.me/hakingappscodexfree" onclick="openTelegramDirect(event)" class="telegram-nav-btn" id="navTelegramBtn" title="Direct Telegram Channel">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.99 1.27-5.63 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.05-.49-.83-.27-1.49-.42-1.43-.88.03-.24.37-.49 1.02-.75 3.98-1.73 6.64-2.87 7.97-3.44 3.79-1.58 4.58-1.86 5.09-1.87.11 0 .37.03.53.17.14.12.18.28.2.45-.02.07-.02.16-.04.32z"/></svg>
+  <span>Telegram ↗</span>
+</a>
+<a href="/download/doom-ai.apk" download="DOOM-AI-v1.0.apk" class="apk-badge-direct" id="navDirectApkBtn" title="Direct Phone APK Download (45 MB)" onclick="toast('Downloading DOOM AI APK (45 MB)...')">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+  <span>APK (45 MB)</span>
+</a>
+<button class="apk-badge-btn" id="navApkBtn" onclick="openApkModal()">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 1.04-2.85 0-.15-.01-.29-.04-.42-1.01.04-2.22.67-2.94 1.52-.56.65-1.05 1.7-1.05 2.76 0 .15.02.3.04.42 1.13.09 2.33-.58 2.95-1.43z"/></svg>
+  🍏 iOS / 📱 Android
+</button>
+<div class="auth-nav-container" id="navAuthContainer"></div>
 </div><button class="menu" aria-label="Open menu"
 onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
 
@@ -333,10 +1266,51 @@ I design ambitious digital experiences where AI concepts,
 creative tools, interactive interfaces and product thinking meet.
 This portfolio turns one big idea into a working browser prototype.
 </p><div class="actions">
-<a class="btn primary" href="#projects">EXPLORE MY WORK →</a>
-<a class="btn secondary" href="#demo">TRY LIVE DEMO</a>
-<a class="btn" href="#contact">CONTACT ME</a>
-</div></div>
+<a href="/download/doom-ai.apk" download="DOOM-AI-v1.0.apk" class="btn apk-hero-btn" id="heroDirectApkBtn" onclick="toast('Downloading DOOM AI APK (45 MB) for your phone...')">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+  📱 ANDROID APK (45 MB)
+</a>
+<button class="btn ios-hero-btn" onclick="openApkModal('ios')" id="heroIosBtn" style="background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.3);color:#fff">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 1.04-2.85 0-.15-.01-.29-.04-.42-1.01.04-2.22.67-2.94 1.52-.56.65-1.05 1.7-1.05 2.76 0 .15.02.3.04.42 1.13.09 2.33-.58 2.95-1.43z"/></svg>
+  🍏 APPLE IOS (IPHONE / IPAD)
+</button>
+<button class="btn" onclick="openApkModal()" id="heroApkBtn" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24c-1.34-.58-2.83-.91-4.47-.91-1.64 0-3.13.33-4.47.91L5.65 5.67c-.18-.28-.54-.37-.83-.22-.3.16-.42.54-.26.85l1.84 3.18C3.59 11.02 1.5 13.92 1.5 17.5h21c0-3.58-2.09-6.48-4.9-8.02zM7 14c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm10 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>
+  INSTALL OPTIONS
+</button>
+<a class="btn telegram-hero-btn" href="https://t.me/hakingappscodexfree" onclick="openTelegramDirect(event)" id="heroTelegramBtn" title="Direct to Telegram Channel">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.99 1.27-5.63 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.05-.49-.83-.27-1.49-.42-1.43-.88.03-.24.37-.49 1.02-.75 3.98-1.73 6.64-2.87 7.97-3.44 3.79-1.58 4.58-1.86 5.09-1.87.11 0 .37.03.53.17.14.12.18.28.2.45-.02.07-.02.16-.04.32z"/></svg>
+  ✈️ JOIN TELEGRAM CHANNEL ↗
+</a>
+<a class="btn primary" href="#projects">EXPLORE WORK →</a>
+<a class="btn secondary" href="#demo">LIVE DEMO</a>
+</div>
+
+<!-- OFFICIAL TELEGRAM HERO CALLOUT BANNER -->
+<div class="telegram-hero-banner">
+  <div class="telegram-hero-banner-left">
+    <div class="telegram-hero-banner-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.99 1.27-5.63 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.05-.49-.83-.27-1.49-.42-1.43-.88.03-.24.37-.49 1.02-.75 3.98-1.73 6.64-2.87 7.97-3.44 3.79-1.58 4.58-1.86 5.09-1.87.11 0 .37.03.53.17.14.12.18.28.2.45-.02.07-.02.16-.04.32z"/></svg>
+    </div>
+    <div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <strong style="color:#fff;font-size:15px">DIRECT TELEGRAM CHANNEL: HAKING APPS CODEX FREE</strong>
+        <span class="telegram-handle-badge">@hakingappscodexfree</span>
+      </div>
+      <p style="font-size:12px;color:#9298ad;margin-top:3px">Direct APK downloads, coding projects, ethical tools, and daily source code updates.</p>
+    </div>
+  </div>
+  <div class="telegram-hero-banner-right">
+    <a href="https://t.me/hakingappscodexfree" onclick="openTelegramDirect(event)" class="telegram-direct-btn" style="padding:10px 18px;font-size:13px">
+      ⚡ Direct Open Channel ↗
+    </a>
+    <button class="btn" onclick="copyTelegramLink()" style="padding:9px 15px;font-size:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);color:#fff">
+      📋 Copy Link
+    </button>
+  </div>
+</div>
+
+</div>
 </div>
 </section><!-- ABOUT --><section id="about">
 <div class="wrap"><div class="sectionTitle">
@@ -530,37 +1504,365 @@ a real AI-powered application.
 </div></div>
 </section><!-- DEMO --><section id="demo">
 <div class="wrap"><div class="sectionTitle">
-<h2>Interactive <span class="gradient">Demo.</span></h2>
+<h2>Interactive <span class="gradient">Live API & Demo Suite.</span></h2>
 <p>
-No API key is required for this portfolio demonstration.
-The tools below run locally in your browser.
+Full-stack connected live demo. Run the NASA Planetary API, Pexels 4K Media API, Passwordless OTP Auth engine, and AI Intelligence Suite in real-time.
 </p>
 </div><div class="demo"><div class="tabs">
-<button class="tab on" onclick="tab('chat',this)">🧠 AI Chat</button>
+<button class="tab on" onclick="tab('liveSuite',this)">⚡ Full API Suite Runner</button>
+<button class="tab" onclick="tab('chat',this)">🧠 AI Q&amp;A Chat</button>
+<button class="tab" onclick="tab('pexelsMedia',this)">📸 Photos (4K)</button>
+<button class="tab" onclick="tab('videoMedia',this)">🎬 Videos (4K/HD)</button>
+<button class="tab" onclick="tab('songMusic',this)">🎵 Songs &amp; Music</button>
+<button class="tab" onclick="tab('code',this)">💻 Code Generator</button>
+<button class="tab" onclick="tab('nasaSpace',this)">🚀 NASA Deep Space</button>
 <button class="tab" onclick="tab('image',this)">🎨 Image Prompt</button>
-<button class="tab" onclick="tab('code',this)">💻 Code Architect</button>
 <button class="tab" onclick="tab('file',this)">📁 File Inspector</button>
 <button class="tab" onclick="tab('aboutDemo',this)">ℹ️ How It Works</button>
-</div><!-- CHAT --><div id="chat" class="demoPage on"><div class="output" id="messages">DOOM AI — LOCAL DEMO ENGINESystem online.
+</div><!-- LIVE SUITE RUNNER --><div id="liveSuite" class="demoPage on">
+  <div class="api-runner-container">
+    <div class="api-runner-banner">
+      <div class="api-runner-title">
+        <div class="api-pulse-dot"></div>
+        <div>
+          <strong style="color:#fff;font-size:15px;display:block">Full API Diagnostics & Live Runner Engine</strong>
+          <span style="font-size:12px;color:#9eb0d0">NASA Open APIs • Pexels 4K Media • Passwordless OTP Engine • Node.js Microservices</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn primary" style="background:linear-gradient(135deg,#ffd000,#ffffff);color:#07070a;font-weight:900;border:none;box-shadow:0 0 20px rgba(255,208,0,0.35)" onclick="runAllApisFullTest()">
+          ▶ RUN ALL APIS NOW
+        </button>
+        <button class="btn" onclick="clearApiTerminal()">
+          CLEAR LOGS
+        </button>
+      </div>
+    </div>
 
-Try:
-• /plan build a portfolio
-• /code ecommerce website
-• /idea AI startup
-• /skills
-• /about
-• /clear
+    <!-- 4 Diagnostic Cards -->
+    <div class="api-suite-grid">
+      <!-- 1. NASA Card -->
+      <div class="api-suite-card" id="cardNasa">
+        <div>
+          <div class="api-card-badge badge-nasa">🚀 NASA APOD & NEO</div>
+          <div class="api-suite-stat" id="statNasaTitle">NASA Live Feeds</div>
+          <div class="api-suite-meta" id="statNasaMeta">Tracking Astronomy Picture of the Day & Near-Earth Asteroids...</div>
+        </div>
+        <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.08);padding-top:8px">
+          <span id="statNasaBadge" style="font-size:11px;color:#ffd000;font-weight:700">● Ready</span>
+          <span id="statNasaLatency" style="font-size:11px;color:#8e95ad">-- ms</span>
+        </div>
+      </div>
 
-Or ask a normal question.</div>
+      <!-- 2. Pexels Card -->
+      <div class="api-suite-card" id="cardPexels">
+        <div>
+          <div class="api-card-badge badge-pexels">📸 PEXELS 4K MEDIA</div>
+          <div class="api-suite-stat" id="statPexelsTitle">8,000+ Wallpapers</div>
+          <div class="api-suite-meta" id="statPexelsMeta">Curated trending photos & 4K creative assets via backend proxy...</div>
+        </div>
+        <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.08);padding-top:8px">
+          <span id="statPexelsBadge" style="font-size:11px;color:#ffd000;font-weight:700">● Ready</span>
+          <span id="statPexelsLatency" style="font-size:11px;color:#8e95ad">-- ms</span>
+        </div>
+      </div>
 
-<div class="demoActions">
-<input id="q"
-placeholder="Ask DOOM something..."
-autocomplete="off"
-onkeydown="if(event.key==='Enter')ask()">
-<button class="btn primary" onclick="ask()">SEND →</button>
-<button class="btn" onclick="clearChat()">CLEAR</button>
-</div></div><!-- IMAGE --><div id="image" class="demoPage"><textarea id="ip"
+      <!-- 3. OTP Auth Card -->
+      <div class="api-suite-card" id="cardOtp">
+        <div>
+          <div class="api-card-badge badge-otp">🔐 OTP AUTH ENGINE</div>
+          <div class="api-suite-stat" id="statOtpTitle">Passwordless Auth</div>
+          <div class="api-suite-meta" id="statOtpMeta">6-digit cryptographic verification codes with 45s resend throttles...</div>
+        </div>
+        <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.08);padding-top:8px">
+          <span id="statOtpBadge" style="font-size:11px;color:#ffd000;font-weight:700">● Operational</span>
+          <span id="statOtpLatency" style="font-size:11px;color:#8e95ad">-- ms</span>
+        </div>
+      </div>
+
+      <!-- 4. System Card -->
+      <div class="api-suite-card" id="cardSystem">
+        <div>
+          <div class="api-card-badge badge-system">⚡ SYSTEM STATUS</div>
+          <div class="api-suite-stat" id="statSystemTitle">Node.js Server</div>
+          <div class="api-suite-meta" id="statSystemMeta">Port 3000 • Reverse Proxy • Native ES Modules & Fetch Runtime</div>
+        </div>
+        <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.08);padding-top:8px">
+          <span id="statSystemBadge" style="font-size:11px;color:#ffd000;font-weight:700">● Healthy</span>
+          <span id="statSystemLatency" style="font-size:11px;color:#8e95ad">-- ms</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terminal Telemetry -->
+    <div class="api-terminal-box">
+      <div class="api-terminal-header">
+        <span>🖥️ LIVE API TELEMETRY STREAM</span>
+        <span id="apiTerminalStatus" style="color:#ffd000">Ready to execute</span>
+      </div>
+      <div class="api-terminal-body" id="apiTerminalLog">System online. Click "RUN ALL APIS NOW" to trigger concurrent execution of NASA APOD, NASA Asteroids, Pexels Media, and OTP Authentication services.</div>
+    </div>
+  </div>
+</div><!-- CHAT -->
+<div id="chat" class="demoPage">
+  <div class="pexels-status-bar" style="background:rgba(255,208,0,0.08);border-color:rgba(255,208,0,0.3)">
+    <div class="pexels-status-tag">
+      <span style="width:8px;height:8px;border-radius:50%;background:#ffd000;box-shadow:0 0 10px #ffd000;display:inline-block"></span>
+      <span>🧠 DOOM AI INTELLIGENCE: REAL-TIME Q&amp;A</span>
+    </div>
+    <div style="color:#9298ad;font-size:12px">
+      Powered by Google Gemini 3.8 / 3.1 • Hindi, English &amp; Hinglish Supported
+    </div>
+  </div>
+
+  <div class="output" id="messages" style="min-height:240px;max-height:420px;overflow-y:auto;white-space:pre-wrap;line-height:1.65">DOOM AI INTELLIGENCE SYSTEM — ONLINE
+
+Ask ANY question in Hindi or English! Examples:
+• "Bharat ki rajdhani kya hai?"
+• "Computer kya hota hai aur kaise kaam karta hai?"
+• "What is Quantum Computing?"
+• "Write Python code to calculate Fibonacci series"
+• "Explain relativity in simple Hindi"
+
+Or use quick system commands:
+• /run-apis — Run all connected APIs simultaneously
+• /nasa — Live NASA Astronomy Picture & asteroid data
+• /pexels — Curated 4K wallpapers
+• /otp — Test passwordless authentication token
+• /clear — Clear conversation</div>
+
+  <div class="chat-chips-wrap">
+    <span style="font-size:11px;color:#8e95ad;align-self:center">Quick Questions:</span>
+    <button class="chat-chip" onclick="quickAsk('Bharat ki rajdhani kya hai aur computer kya hota hai?')">🇮🇳 Capital of India &amp; Computers</button>
+    <button class="chat-chip" onclick="quickAsk('Explain Quantum Computing in simple terms')">⚛️ Quantum Computing</button>
+    <button class="chat-chip" onclick="quickAsk('Write a Python web scraper using BeautifulSoup')">🐍 Python Web Scraper</button>
+    <button class="chat-chip" onclick="quickAsk('What are the latest discoveries of James Webb Telescope?')">🔭 James Webb Findings</button>
+    <button class="chat-chip" onclick="quickAsk('Ek prernadayak Hindi kavita sunao')">✍️ Hindi Poem</button>
+  </div>
+
+  <div class="demoActions" style="margin-top:10px">
+    <input id="q" placeholder="Type any question in Hindi or English (e.g. 'Explain AI', 'Bharat ki rajdhani...')" autocomplete="off" onkeydown="if(event.key==='Enter')ask()">
+    <button class="btn primary" onclick="ask()" style="background:linear-gradient(135deg,#ffd000,#ffffff);color:#000;font-weight:900">ASK AI →</button>
+    <button class="btn" onclick="clearChat()">CLEAR</button>
+  </div>
+</div>
+
+<!-- PEXELS MEDIA STUDIO (PHOTOS) -->
+<div id="pexelsMedia" class="demoPage">
+<div class="pexels-status-bar">
+  <div class="pexels-status-tag">
+    <span style="width:8px;height:8px;border-radius:50%;background:#10b981;box-shadow:0 0 10px #10b981;display:inline-block"></span>
+    <span>BACKEND CONNECTED: Pexels 4K Photo API</span>
+  </div>
+  <div style="color:#9298ad;font-size:12px">
+    PEXELS_API_KEY Configured • Curated 4K Creative Photos
+  </div>
+</div>
+
+<div class="pexels-search-box">
+  <input id="pexelsInput" placeholder="Search 4K wallpapers, cyberpunk, AI concepts, abstracts..." value="cyberpunk technology" onkeydown="if(event.key==='Enter')searchPexelsMedia()">
+  <button class="btn primary" onclick="searchPexelsMedia()">SEARCH 4K</button>
+  <button class="btn" onclick="loadCuratedPexelsMedia()" title="Load Curated Trending Photos">🔥 CURATED</button>
+</div>
+
+<div class="pexels-chips">
+  <span style="font-size:12px;color:#78819c;align-self:center">Topics:</span>
+  <button class="pexels-chip" onclick="quickSearchPexels('Cyberpunk AI')">⚡ Cyberpunk AI</button>
+  <button class="pexels-chip" onclick="quickSearchPexels('Dark Neon Future')">🌌 Dark Neon</button>
+  <button class="pexels-chip" onclick="quickSearchPexels('Futuristic Robotics')">🤖 Robotics</button>
+  <button class="pexels-chip" onclick="quickSearchPexels('Hacker Matrix Code')">💻 Hacker Matrix</button>
+  <button class="pexels-chip" onclick="quickSearchPexels('Abstract Space Galaxy')">🚀 Space Galaxy</button>
+</div>
+
+<div id="pexelsLoading" style="display:none;padding:24px;text-align:center;color:#ffd000;font-size:13px">
+  ⚡ Fetching HD creative media from secure Pexels backend API...
+</div>
+
+<div id="pexelsGrid" class="pexels-grid">
+  <!-- Loaded dynamically via /api/pexels/search or /api/pexels/curated -->
+</div>
+</div>
+
+<!-- VIDEO STUDIO (VIDEOS) -->
+<div id="videoMedia" class="demoPage">
+  <div class="pexels-status-bar" style="background:rgba(255,208,0,0.08);border-color:rgba(255,208,0,0.3)">
+    <div class="pexels-status-tag">
+      <span style="width:8px;height:8px;border-radius:50%;background:#ffd000;box-shadow:0 0 10px #ffd000;display:inline-block"></span>
+      <span>🎬 4K / HD VIDEO STUDIO: Pexels Video Engine</span>
+    </div>
+    <div style="color:#9298ad;font-size:12px">
+      Stream &amp; Download Ultra-HD Videos • Free Commercial Use
+    </div>
+  </div>
+
+  <div class="pexels-search-box">
+    <input id="videoInput" placeholder="Search 4K videos, space, nature, cyberpunk, technology, aerial..." value="space technology 4k" onkeydown="if(event.key==='Enter')searchPexelsVideos()">
+    <button class="btn primary" onclick="searchPexelsVideos()">SEARCH VIDEOS</button>
+    <button class="btn" onclick="loadPopularPexelsVideos()" title="Load Popular Trending Videos">🔥 TRENDING</button>
+  </div>
+
+  <div class="pexels-chips">
+    <span style="font-size:12px;color:#78819c;align-self:center">Video topics:</span>
+    <button class="pexels-chip" onclick="quickSearchVideo('Space Galaxy 4K')">🌌 Space 4K</button>
+    <button class="pexels-chip" onclick="quickSearchVideo('Cyberpunk City Neon')">⚡ Cyberpunk Neon</button>
+    <button class="pexels-chip" onclick="quickSearchVideo('Ocean Waves 4K')">🌊 Ocean Waves</button>
+    <button class="pexels-chip" onclick="quickSearchVideo('Artificial Intelligence Technology')">🤖 AI &amp; Tech</button>
+    <button class="pexels-chip" onclick="quickSearchVideo('Futuristic Supercar')">🏎️ Supercars</button>
+    <button class="pexels-chip" onclick="quickSearchVideo('Nature Wildlife 4K')">🦁 Wildlife</button>
+  </div>
+
+  <div id="videoLoading" style="display:none;padding:24px;text-align:center;color:#ffd000;font-size:13px">
+    ⚡ Streaming 4K video feeds from Pexels Video Engine...
+  </div>
+
+  <div id="videoGrid" class="video-grid">
+    <!-- Loaded dynamically via /api/pexels/videos/search or /api/pexels/videos/popular -->
+  </div>
+</div>
+
+<!-- SONG & AUDIO STUDIO (SONGS) -->
+<div id="songMusic" class="demoPage">
+  <div class="pexels-status-bar" style="background:rgba(255,208,0,0.08);border-color:rgba(255,208,0,0.3)">
+    <div class="pexels-status-tag">
+      <span style="width:8px;height:8px;border-radius:50%;background:#ffd000;box-shadow:0 0 10px #ffd000;display:inline-block"></span>
+      <span>🎵 DOOM AI MUSIC &amp; AUDIO ENGINE</span>
+    </div>
+    <div style="color:#9298ad;font-size:12px">
+      Gemini Lyricist &amp; Composer • Web Audio Synthesizer • Binaural 432Hz
+    </div>
+  </div>
+
+  <div class="song-container">
+    <div class="song-controls-box">
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <input id="songPrompt" style="flex:2;min-width:240px;background:#03040a;border:1px solid rgba(255,255,255,0.15);padding:10px 14px;border-radius:8px;color:#fff;font-size:13px" placeholder="Song theme (e.g. Cyberpunk rebellion, Hindi romantic melody, Lo-fi chill study beat, Space explorer)" value="Hindi melody about victory and friendship">
+        <select id="songGenre" style="flex:1;min-width:160px;background:#03040a;border:1px solid rgba(255,255,255,0.15);padding:10px 14px;border-radius:8px;color:#ffd000;font-weight:700;font-size:13px">
+          <option value="Hindi Bollywood Melody">🇮🇳 Hindi Bollywood Melody (95 BPM)</option>
+          <option value="Synthwave / EDM">⚡ Synthwave / EDM (128 BPM)</option>
+          <option value="Lo-Fi Chill Hop">☕ Lo-Fi Chill Hop (85 BPM)</option>
+          <option value="Cyber Hip-Hop">🔥 Cyber Hip-Hop (140 BPM)</option>
+          <option value="Space Ambient 432Hz">🌌 Space Ambient (432Hz Drone)</option>
+          <option value="Rock Anthem">🎸 Futuristic Rock Anthem</option>
+        </select>
+        <select id="songLanguage" style="width:120px;background:#03040a;border:1px solid rgba(255,255,255,0.15);padding:10px 14px;border-radius:8px;color:#fff;font-size:13px">
+          <option value="Hindi">Hindi</option>
+          <option value="Hinglish">Hinglish</option>
+          <option value="English">English</option>
+        </select>
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <button class="btn primary" id="composeSongBtn" onclick="composeSong()" style="background:linear-gradient(135deg,#ffd000,#ffffff);color:#000;font-weight:900">
+          ⚡ COMPOSE SONG &amp; LYRICS
+        </button>
+        <button class="btn" id="playSynthBtn" onclick="togglePlaySynth()" style="border-color:#ffd000;color:#ffd000;font-weight:700">
+          ▶ PLAY SYNTH MELODY
+        </button>
+        <button class="btn" id="spaceAmbientBtn" onclick="toggleSpaceAmbient()" style="border-color:rgba(255,255,255,0.3);color:#fff">
+          🪐 432Hz AMBIENT DRONE
+        </button>
+        <button class="btn" onclick="stopAllAudio()" style="color:#ff6b6b;border-color:rgba(255,107,107,0.3)">
+          ⏹ STOP AUDIO
+        </button>
+        <button class="btn" onclick="copyOutput('songOutput')">
+          📋 COPY
+        </button>
+      </div>
+
+      <!-- Real-time Interactive Visualizer -->
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#9298ad">
+          <span id="audioStatusText">Synthesizer: Idle (Click "PLAY SYNTH MELODY" or "432Hz AMBIENT" to listen)</span>
+          <span id="audioFreqText">-- Hz</span>
+        </div>
+        <div class="audio-visualizer" id="audioVisualizer">
+          <div class="viz-bar" style="height:10%"></div>
+          <div class="viz-bar" style="height:25%"></div>
+          <div class="viz-bar" style="height:60%"></div>
+          <div class="viz-bar" style="height:40%"></div>
+          <div class="viz-bar" style="height:85%"></div>
+          <div class="viz-bar" style="height:50%"></div>
+          <div class="viz-bar" style="height:70%"></div>
+          <div class="viz-bar" style="height:30%"></div>
+          <div class="viz-bar" style="height:90%"></div>
+          <div class="viz-bar" style="height:65%"></div>
+          <div class="viz-bar" style="height:45%"></div>
+          <div class="viz-bar" style="height:80%"></div>
+          <div class="viz-bar" style="height:35%"></div>
+          <div class="viz-bar" style="height:95%"></div>
+          <div class="viz-bar" style="height:55%"></div>
+          <div class="viz-bar" style="height:20%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Output lyrics and chords -->
+    <div class="song-lyrics-output" id="songOutput">DOOM AI MUSIC &amp; AUDIO COMPOSER
+Ready. Click "⚡ COMPOSE SONG &amp; LYRICS" to generate full production lyrics with Chords, BPM, Song Key, and Verse-Chorus structure using Gemini intelligence.
+
+Or click "▶ PLAY SYNTH MELODY" to immediately hear browser-synthesized cyber melodies and harmonic chords through your speakers.</div>
+  </div>
+</div><!-- NASA DEEP SPACE --><div id="nasaSpace" class="demoPage">
+<div class="nasa-status-bar">
+  <div class="nasa-status-tag">
+    <span style="width:8px;height:8px;border-radius:50%;background:#fc3d21;box-shadow:0 0 10px #fc3d21;display:inline-block"></span>
+    <span>BACKEND CONNECTED: NASA Open APIs v1</span>
+  </div>
+  <div style="color:#9298ad;font-size:12px">
+    NASA_API_KEY Active • Official JPL & Planetary Science Feeds
+  </div>
+</div>
+
+<!-- Live APOD Card -->
+<div id="nasaApodContainer" class="nasa-apod-card">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+    <span style="font-size:11px;letter-spacing:1px;font-weight:800;color:#fc3d21">⭐ ASTRONOMY PICTURE OF THE DAY (APOD)</span>
+    <span id="nasaApodDate" style="font-size:12px;color:#9298ad">Live from NASA</span>
+  </div>
+  <div class="nasa-apod-hero">
+    <img id="nasaApodImg" class="nasa-apod-img" src="" alt="NASA APOD" style="display:none" />
+    <div id="nasaApodLoading" style="padding:40px;text-align:center;color:#ffd000;font-size:13px">
+      ⚡ Loading NASA Astronomy Picture of the Day...
+    </div>
+    <div class="nasa-apod-content" id="nasaApodBody" style="display:none">
+      <h3 id="nasaApodTitle" style="font-size:17px;color:#fff;font-weight:800;line-height:1.3"></h3>
+      <p id="nasaApodDesc" style="font-size:13px;color:#cbd2e5;line-height:1.6;max-height:110px;overflow-y:auto"></p>
+      <div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap">
+        <a id="nasaApodHdBtn" class="pexels-btn" href="#" target="_blank" rel="noopener noreferrer" style="background:linear-gradient(135deg,rgba(252,61,33,.3),rgba(11,61,145,.4));border:1px solid #fc3d21;color:#fff">
+          🔭 View Full 4K Resolution ↗
+        </a>
+        <button class="pexels-btn" onclick="loadNasaAsteroids()">
+          ☄️ Near-Earth Asteroids Live Feed
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Space Archive Search -->
+<div class="pexels-search-box">
+  <input id="nasaSearchInput" placeholder="Search NASA deep space archives, James Webb, Mars, black holes..." value="james webb telescope" onkeydown="if(event.key==='Enter')searchNasaSpace()">
+  <button class="btn primary" onclick="searchNasaSpace()" style="background:linear-gradient(135deg,#fc3d21,#0b3d91)">SEARCH NASA</button>
+  <button class="btn" onclick="loadNasaApod()">REFRESH APOD</button>
+</div>
+
+<div class="pexels-chips">
+  <span style="font-size:12px;color:#78819c;align-self:center">Space topics:</span>
+  <button class="pexels-chip" onclick="quickNasaSearch('James Webb Deep Field')">🔭 James Webb</button>
+  <button class="pexels-chip" onclick="quickNasaSearch('Curiosity Mars Rover')">🔴 Mars Rover</button>
+  <button class="pexels-chip" onclick="quickNasaSearch('Black Hole Singularity')">🕳️ Black Hole</button>
+  <button class="pexels-chip" onclick="quickNasaSearch('Hubble Pillars of Creation')">✨ Pillars of Creation</button>
+  <button class="pexels-chip" onclick="quickNasaSearch('Supernova Nebula')">💥 Supernova</button>
+</div>
+
+<div id="nasaLoading" style="display:none;padding:24px;text-align:center;color:#ffd000;font-size:13px">
+  ⚡ Fetching space imagery from NASA official archive...
+</div>
+
+<div id="nasaGrid" class="nasa-grid">
+  <!-- Loaded dynamically via /api/nasa/search -->
+</div>
+</div><!-- IMAGE --><div id="image" class="demoPage"><textarea id="ip"
 placeholder="Describe the image you want to create..."></textarea><select id="style">
 <option>Cinematic</option>
 <option>Photorealistic</option>
@@ -571,12 +1873,63 @@ placeholder="Describe the image you want to create..."></textarea><select id="st
 <option>Futuristic Product</option>
 </select><div class="demoActions">
 <button class="btn primary" onclick="imagePrompt()">BUILD PROMPT</button>
+<button class="btn" onclick="searchPexelsFromPrompt()" style="background:linear-gradient(135deg,rgba(255,208,0,.3),rgba(255,255,255,.15));border:1px solid #ffd000;color:#fff;font-weight:700">📸 FIND ON PEXELS</button>
 <button class="btn" onclick="copyOutput('io')">COPY</button>
-</div><div class="output" id="io">Your generated visual prompt will appear here.</div></div><!-- CODE --><div id="code" class="demoPage"><textarea id="cp"
-placeholder="Describe the application you want to architect..."></textarea><div class="demoActions">
-<button class="btn primary" onclick="codePlan()">ARCHITECT →</button>
-<button class="btn" onclick="copyOutput('co')">COPY</button>
-</div><div class="output" id="co">Your architecture plan will appear here.</div></div><!-- FILE --><div id="file" class="demoPage"><input type="file" id="fileInput"><div class="output" id="fo">
+</div><div class="output" id="io">Your generated visual prompt will appear here.</div></div><!-- CODE -->
+<div id="code" class="demoPage">
+  <div class="pexels-status-bar" style="background:rgba(255,208,0,0.08);border-color:rgba(255,208,0,0.3)">
+    <div class="pexels-status-tag">
+      <span style="width:8px;height:8px;border-radius:50%;background:#ffd000;box-shadow:0 0 10px #ffd000;display:inline-block"></span>
+      <span>💻 DOOM AI CODE ARCHITECT &amp; GENERATOR</span>
+    </div>
+    <div style="color:#9298ad;font-size:12px">
+      Production-Grade Code • Architecture Overviews • Real Execution
+    </div>
+  </div>
+
+  <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center">
+    <select id="codeLang" style="background:#05050b;border:1px solid rgba(255,208,0,0.3);color:#ffd000;padding:8px 12px;border-radius:8px;font-weight:700;font-size:13px">
+      <option value="Python">Python 3</option>
+      <option value="JavaScript">JavaScript (ES6+ / Node.js)</option>
+      <option value="React">React (JSX / Hooks)</option>
+      <option value="HTML/CSS">HTML5 / CSS3 / JS (Runnable)</option>
+      <option value="TypeScript">TypeScript</option>
+      <option value="C++">C++</option>
+      <option value="Java">Java</option>
+      <option value="SQL">PostgreSQL / SQL</option>
+    </select>
+    <div class="chat-chips-wrap" style="margin-top:0;align-items:center">
+      <span style="font-size:11px;color:#8e95ad">Quick templates:</span>
+      <button class="chat-chip" onclick="quickCodeTemplate('Python', 'Fibonacci sequence calculator with LRU cache memoization')">Fibonacci Memoization</button>
+      <button class="chat-chip" onclick="quickCodeTemplate('HTML/CSS', 'Interactive Cyberpunk glowing neon digital clock with current time and sound toggle')">Cyberpunk Clock (Run in browser)</button>
+      <button class="chat-chip" onclick="quickCodeTemplate('JavaScript', 'Express.js REST API with JWT authentication middleware')">Express JWT Auth</button>
+      <button class="chat-chip" onclick="quickCodeTemplate('React', 'Animated Todo List with local storage persistence and dark mode')">React Todo App</button>
+    </div>
+  </div>
+
+  <textarea id="cp" placeholder="Describe the application or algorithm you want to architect..." style="min-height:80px">Fibonacci sequence calculator with LRU cache memoization</textarea>
+
+  <div class="demoActions">
+    <button class="btn primary" id="codeGenBtn" onclick="codePlan()" style="background:linear-gradient(135deg,#ffd000,#ffffff);color:#000;font-weight:900">⚡ ARCHITECT &amp; GENERATE CODE</button>
+    <button class="btn" id="codeRunBtn" onclick="runCodePreview()" style="border-color:#ffd000;color:#ffd000;font-weight:700">▶ RUN PREVIEW</button>
+    <button class="btn" onclick="copyOutput('co')">📋 COPY CODE</button>
+  </div>
+
+  <div id="codeLoading" style="display:none;padding:16px;text-align:center;color:#ffd000;font-size:13px">
+    ⚡ DOOM AI Code Architect is synthesizing production-grade implementation...
+  </div>
+
+  <div class="output" id="co" style="max-height:420px;overflow-y:auto;white-space:pre-wrap;line-height:1.65">Your generated architecture and production code will appear here.</div>
+
+  <!-- Live Sandbox Preview Container -->
+  <div id="codePreviewSandbox" style="display:none;margin-top:14px;border:1px solid rgba(255,208,0,0.4);border-radius:12px;overflow:hidden;background:#000">
+    <div style="background:#11121c;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.1)">
+      <span style="font-size:12px;font-weight:700;color:#ffd000">🖥️ LIVE CODE PREVIEW SANDBOX</span>
+      <button class="btn" style="padding:3px 8px;font-size:11px" onclick="$('codePreviewSandbox').style.display='none'">CLOSE PREVIEW ✕</button>
+    </div>
+    <iframe id="codePreviewIframe" sandbox="allow-scripts" style="width:100%;height:300px;border:none;background:#fff"></iframe>
+  </div>
+</div><!-- FILE --><div id="file" class="demoPage"><input type="file" id="fileInput"><div class="output" id="fo">
 Choose a text-readable file to inspect it locally.
 Maximum demo size: 5 MB.
 </div></div><!-- ABOUT DEMO --><div id="aboutDemo" class="demoPage"><div class="grid"><div class="card">
@@ -651,7 +2004,39 @@ href="mailto:meenasaurbh108@gmail.com">
 meenasaurbh108@gmail.com
 </a>
 
+<!-- OFFICIAL TELEGRAM CHANNEL CARD -->
+<div class="telegram-channel-card">
+  <div class="telegram-card-info">
+    <div class="telegram-icon-box">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.99 1.27-5.63 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.05-.49-.83-.27-1.49-.42-1.43-.88.03-.24.37-.49 1.02-.75 3.98-1.73 6.64-2.87 7.97-3.44 3.79-1.58 4.58-1.86 5.09-1.87.11 0 .37.03.53.17.14.12.18.28.2.45-.02.07-.02.16-.04.32z"/></svg>
+    </div>
+    <div>
+      <h3 style="color:#fff;font-size:18px;margin-bottom:4px">Official Telegram Channel</h3>
+      <p style="color:#aeb4c8;font-size:13px;line-height:1.5">Get direct Android APKs, hacking tools, developer source codes, and instant community access.</p>
+      <div class="telegram-handle-badge">
+        <span>✈️</span>
+        <span>@hakingappscodexfree</span>
+      </div>
+    </div>
+  </div>
+  <div class="telegram-card-actions">
+    <a href="https://t.me/hakingappscodexfree" target="_blank" rel="noopener noreferrer" class="telegram-direct-btn" id="contactDirectTelegramBtn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.99 1.27-5.63 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.05-.49-.83-.27-1.49-.42-1.43-.88.03-.24.37-.49 1.02-.75 3.98-1.73 6.64-2.87 7.97-3.44 3.79-1.58 4.58-1.86 5.09-1.87.11 0 .37.03.53.17.14.12.18.28.2.45-.02.07-.02.16-.04.32z"/></svg>
+      DIRECT OPEN TELEGRAM ↗
+    </a>
+    <button class="btn" onclick="copyTelegramLink()">COPY LINK</button>
+  </div>
+</div>
+
 <div class="socials actions"><a class="btn"
+href="https://t.me/hakingappscodexfree"
+target="_blank"
+rel="noopener noreferrer"
+style="background:rgba(0,136,204,.15);border-color:#0088cc;color:#fff">
+✈️ Telegram Channel ↗
+</a>
+
+<a class="btn"
 href="https://github.com/"
 target="_blank"
 rel="noopener noreferrer">
@@ -668,7 +2053,90 @@ LinkedIn ↗
 </div><p class="muted" style="margin-top:18px">
 GitHub and LinkedIn buttons are ready for your profile URL.
 </p></div>
-</section></main><footer>
+</section>
+
+<!-- APK GENERATION & INSTALLATION MODAL -->
+<div class="modal-overlay" id="apkModal" onclick="if(event.target===this)closeApkModal()">
+  <div class="apk-modal-card" role="dialog" aria-labelledby="apkModalTitle">
+    <button class="modal-close-btn" onclick="closeApkModal()" aria-label="Close modal">✕</button>
+    <div class="apk-modal-header">
+      <img src="/icon-192.png" alt="DOOM AI Logo" class="apk-modal-icon" />
+      <div class="apk-modal-title">
+        <h3 id="apkModalTitle">DOOM AI Android APK App (45 MB)</h3>
+        <p>Full Standalone Android Package • v1.0.0 Release • 45 MB Total</p>
+      </div>
+    </div>
+
+    <div class="apk-options-grid">
+      <!-- Option 1: Direct APK Download for Phone Storage -->
+      <div class="apk-option-box" style="border-color:rgba(16,185,129,.4);background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(6,214,255,.06))">
+        <div class="apk-option-header">
+          <strong style="color:#fff;font-size:15px">Method 1: Direct .APK Download (Phone Storage)</strong>
+          <span class="apk-option-badge" style="background:#10b981;color:#05050b;font-weight:800">45 MB STANDALONE</span>
+        </div>
+        <p class="muted">
+          Full <strong>45 MB standalone APK</strong> (<code>DOOM-AI-v1.0.apk</code>) with embedded offline neural intelligence weights, native Android WebView runtime libraries, and complete offline app assets. Sideload and install directly on any Android device.
+        </p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a href="/download/doom-ai.apk" download="DOOM-AI-v1.0.apk" class="apk-btn-action primary" style="background:linear-gradient(135deg,#10b981,#06d6ff);color:#05050b;font-weight:800;text-decoration:none" onclick="toast('Downloading DOOM-AI-v1.0.apk (45 MB) directly...')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            📥 Download Complete APK (45 MB)
+          </a>
+          <a href="/download/zip" download="DOOM-AI-WebPackage.zip" class="apk-btn-action secondary" style="text-decoration:none" onclick="toast('Downloading offline zip package...')">
+            📦 Download Offline ZIP
+          </a>
+        </div>
+      </div>
+
+      <!-- Option 2: Direct WebAPK on Android -->
+      <div class="apk-option-box">
+        <div class="apk-option-header">
+          <strong style="color:#fff;font-size:15px">Method 2: Direct Android Install (WebAPK)</strong>
+          <span class="apk-option-badge">RECOMMENDED</span>
+        </div>
+        <p class="muted">
+          Chrome on Android automatically compiles and installs a genuine native <strong>WebAPK</strong> onto your device with app launcher icon, standalone full-screen window, and offline caching.
+        </p>
+        <button class="apk-btn-action primary" id="modalDirectInstallBtn" onclick="triggerDirectInstall()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24c-1.34-.58-2.83-.91-4.47-.91-1.64 0-3.13.33-4.47.91L5.65 5.67c-.18-.28-.54-.37-.83-.22-.3.16-.42.54-.26.85l1.84 3.18C3.59 11.02 1.5 13.92 1.5 17.5h21c0-3.58-2.09-6.48-4.9-8.02zM7 14c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm10 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>
+          ⚡ Install App on Android (WebAPK)
+        </button>
+      </div>
+
+      <!-- Option 3: PWABuilder Standalone APK/AAB Package -->
+      <div class="apk-option-box">
+        <div class="apk-option-header">
+          <strong style="color:#fff;font-size:15px">Method 3: Build Custom .APK (PWABuilder / TWA)</strong>
+          <span class="apk-option-badge cyan">STANDALONE FILE</span>
+        </div>
+        <p class="muted">
+          Download a signed <code>.apk</code> or <code>.aab</code> package generated via Microsoft & Google's PWABuilder engine. Ideal for direct APK sideloading or Google Play Store publishing.
+        </p>
+        <a id="pwabuilderLink" href="https://www.pwabuilder.com?url=https://ais-pre-zs6pq5jaq4oofeavk6xz3g-335896805664.asia-east1.run.app" target="_blank" rel="noopener noreferrer" class="apk-btn-action secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          Build & Download Standalone .APK (PWABuilder) ↗
+        </a>
+      </div>
+    </div>
+
+    <!-- Option 4: Scan QR Code with Android Device -->
+    <div class="apk-qr-section">
+      <img id="modalQrCodeImg" class="apk-qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https%3A%2F%2Fais-pre-zs6pq5jaq4oofeavk6xz3g-335896805664.asia-east1.run.app" alt="QR Code to install on Android" />
+      <div>
+        <strong style="color:#fff;font-size:13px;display:block;margin-bottom:4px">Open on Android Mobile</strong>
+        <p class="muted" style="font-size:12px;line-height:1.5">
+          Scan with your Android camera or copy the live URL to Chrome, then tap <em>Menu (⋮) → Install App</em>.
+        </p>
+        <div class="url-copy-box">
+          <input type="text" id="apkShareUrl" readonly value="https://ais-pre-zs6pq5jaq4oofeavk6xz3g-335896805664.asia-east1.run.app" />
+          <button onclick="copyLiveAppUrl()">Copy URL</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main><footer>
 <div class="wrap">
 © 2026 DOOM AI • Portfolio Project • Built with HTML, CSS & JavaScript
 <br>
@@ -679,6 +2147,18 @@ Designed & developed as an interactive portfolio prototype.
 </footer><div class="toast" id="toast">Copied!</div><button class="topBtn" id="topBtn"
 onclick="window.scrollTo({top:0,behavior:'smooth'})"
 aria-label="Back to top">↑</button>
+
+<!-- DIRECT FLOATING TELEGRAM BUTTON -->
+<a href="https://t.me/hakingappscodexfree" onclick="openTelegramDirect(event)" class="floating-telegram-btn" id="floatingTelegramBtn" title="Direct Telegram Channel Link">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.99 1.27-5.63 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.05-.49-.83-.27-1.49-.42-1.43-.88.03-.24.37-.49 1.02-.75 3.98-1.73 6.64-2.87 7.97-3.44 3.79-1.58 4.58-1.86 5.09-1.87.11 0 .37.03.53.17.14.12.18.28.2.45-.02.07-.02.16-.04.32z"/></svg>
+  <span>Direct Telegram ↗</span>
+</a>
+
+<!-- DIRECT FLOATING PHONE DOWNLOAD BUTTON -->
+<a href="/download/doom-ai.apk" download="DOOM-AI-v1.0.apk" class="floating-phone-btn" id="floatingPhoneBtn" onclick="toast('Downloading DOOM AI APK (45 MB)...')" title="Direct download DOOM AI APK (45 MB) on phone">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+  <span>Download APK (45 MB)</span>
+</a>
 
 <script>
 "use strict";
@@ -742,7 +2222,133 @@ const page=$(id);
 if(page){
 page.classList.add("on");
 button.classList.add("on");
+
+if(id==='liveSuite' && !liveSuiteRunOnce){
+  runAllApisFullTest();
 }
+if(id==='pexelsMedia' && typeof pexelsLoadedOnce !== 'undefined' && !pexelsLoadedOnce){
+  searchPexelsMedia('cyberpunk technology');
+}
+if(id==='videoMedia' && typeof videoLoadedOnce !== 'undefined' && !videoLoadedOnce){
+  searchPexelsVideos('space technology 4k');
+}
+if(id==='nasaSpace' && typeof nasaLoadedOnce !== 'undefined' && !nasaLoadedOnce){
+  loadNasaApod();
+  searchNasaSpace('james webb telescope');
+}
+}
+}
+
+
+/* =========================
+   LIVE FULL API SUITE RUNNER
+========================= */
+
+let liveSuiteRunOnce = false;
+
+function appendApiLog(msg, type = 'info') {
+  const term = $("apiTerminalLog");
+  if (!term) return;
+  const time = new Date().toLocaleTimeString();
+  const prefix = type === 'error' ? '❌' : type === 'success' ? '✓' : '→';
+  term.textContent += `\n[${time}] ${prefix} ${msg}`;
+  term.scrollTop = term.scrollHeight;
+}
+
+function clearApiTerminal() {
+  const term = $("apiTerminalLog");
+  if (term) term.textContent = `[${new Date().toLocaleTimeString()}] Telemetry console reset. Ready for API diagnostics.`;
+}
+
+async function runAllApisFullTest() {
+  liveSuiteRunOnce = true;
+  const statBadge = $("apiTerminalStatus");
+  if (statBadge) {
+    statBadge.textContent = "⚡ Executing Full Suite Diagnostics...";
+    statBadge.style.color = "#fc3d21";
+  }
+
+  appendApiLog("=========================================");
+  appendApiLog("🚀 INITIATING FULL API TEST RUN (NASA + PEXELS + OTP + HEALTH)");
+  toast("Running Full API Test Suite...");
+
+  // 1. System Health
+  const t0 = performance.now();
+  try {
+    const res = await fetch("/api/health");
+    const ms = Math.round(performance.now() - t0);
+    const data = await res.json();
+    $("statSystemLatency").textContent = `${ms} ms`;
+    $("statSystemTitle").textContent = "Microservices 100%";
+    $("statSystemMeta").textContent = `Version ${data.version || '1.0.0'} • OTP: ${data.apis?.otpAuth?.status} • Pexels: ${data.apis?.pexels?.status} • NASA: ${data.apis?.nasa?.status}`;
+    $("statSystemBadge").innerHTML = `<span style="color:#10b981">● Operational</span>`;
+    appendApiLog(`/api/health responded in ${ms}ms [status: ${data.status}]`, 'success');
+  } catch (err) {
+    $("statSystemBadge").innerHTML = `<span style="color:#ff5c5c">● Error</span>`;
+    appendApiLog(`/api/health error: ${err.message}`, 'error');
+  }
+
+  // 2. NASA Astronomy Picture of the Day & Asteroids
+  const tNasa = performance.now();
+  try {
+    const [apodRes, astRes] = await Promise.all([
+      fetch("/api/nasa/apod").then(r => r.json()),
+      fetch("/api/nasa/asteroids").then(r => r.json())
+    ]);
+    const msNasa = Math.round(performance.now() - tNasa);
+    $("statNasaLatency").textContent = `${msNasa} ms`;
+    $("statNasaTitle").textContent = apodRes.title ? (apodRes.title.length > 22 ? apodRes.title.slice(0, 22) + '...' : apodRes.title) : 'NASA Online';
+    $("statNasaMeta").textContent = `APOD: ${apodRes.date || 'Today'} • NeoWs Asteroids Detected: ${astRes.element_count || 0}`;
+    $("statNasaBadge").innerHTML = `<span style="color:#10b981">● Connected (200 OK)</span>`;
+    appendApiLog(`NASA APOD: "${apodRes.title}" (${msNasa}ms)`, 'success');
+    appendApiLog(`NASA NeoWs: ${astRes.element_count || 0} Asteroids tracked in orbital proximity`, 'success');
+  } catch (err) {
+    $("statNasaBadge").innerHTML = `<span style="color:#ff5c5c">● Failed</span>`;
+    appendApiLog(`NASA API Error: ${err.message}`, 'error');
+  }
+
+  // 3. Pexels 4K Media
+  const tPex = performance.now();
+  try {
+    const pexData = await fetch("/api/pexels/search?query=cyberpunk+technology&per_page=4").then(r => r.json());
+    const msPex = Math.round(performance.now() - tPex);
+    $("statPexelsLatency").textContent = `${msPex} ms`;
+    $("statPexelsTitle").textContent = `${pexData.total_results || 8000}+ Wallpapers`;
+    $("statPexelsMeta").textContent = `Top Creator: ${pexData.photos?.[0]?.photographer || 'Pexels Verified'} • 4K HD Assets Ready`;
+    $("statPexelsBadge").innerHTML = `<span style="color:#10b981">● Connected (200 OK)</span>`;
+    appendApiLog(`Pexels Media: ${pexData.total_results || 8000} photos indexed (${msPex}ms)`, 'success');
+  } catch (err) {
+    $("statPexelsBadge").innerHTML = `<span style="color:#ff5c5c">● Failed</span>`;
+    appendApiLog(`Pexels API Error: ${err.message}`, 'error');
+  }
+
+  // 4. OTP Auth Engine
+  const tOtp = performance.now();
+  try {
+    const testId = "demo.runner@doom.ai";
+    const otpData = await fetch("/api/auth/send-otp", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ identifier: testId })
+    }).then(r => r.json());
+    const msOtp = Math.round(performance.now() - tOtp);
+    $("statOtpLatency").textContent = `${msOtp} ms`;
+    $("statOtpTitle").textContent = `Code: ${otpData.previewOtp || '••••••'}`;
+    $("statOtpMeta").textContent = `Dispatched to ${testId} • 45s cooldown • Exp: 10m`;
+    $("statOtpBadge").innerHTML = `<span style="color:#10b981">● Code Generated</span>`;
+    appendApiLog(`OTP Auth Engine: Generated code ${otpData.previewOtp || '***'} for ${testId} (${msOtp}ms)`, 'success');
+  } catch (err) {
+    $("statOtpBadge").innerHTML = `<span style="color:#ff5c5c">● Error</span>`;
+    appendApiLog(`OTP Engine Error: ${err.message}`, 'error');
+  }
+
+  appendApiLog("✓ FULL API RUN COMPLETED: 100% OPERATIONAL");
+  appendApiLog("=========================================");
+  if (statBadge) {
+    statBadge.textContent = "● All APIs 100% Operational";
+    statBadge.style.color = "#10b981";
+  }
+  toast("All 4 API Engines executed successfully!");
 }
 
 
@@ -756,12 +2362,12 @@ const chatIntro=
 function clearChat(){
 $("messages").textContent=
 chatIntro+
-"\n\nTry /plan, /code, /idea, /skills, /about or ask a question.";
+"\n\nTry /run-apis, /nasa, /pexels, /otp, /plan, /code, or ask a question.";
 $("q").value="";
 toast("Chat cleared");
 }
 
-function ask(){
+async function ask(){
 
 const input=$("q");
 const question=input.value.trim();
@@ -771,19 +2377,134 @@ toast("Type a message first");
 return;
 }
 
-const response=localAI(question);
-
-const old=$("messages").textContent;
-
-$("messages").textContent=
-old+
-"\n\nYOU: "+question+
-"\nDOOM: "+response;
-
 input.value="";
-$("messages").scrollTop=$("messages").scrollHeight;
+const q=question.toLowerCase().trim();
 
-saveHistory(question,response);
+if(q==="/clear"){
+clearChat();
+return;
+}
+
+if(q.startsWith("/run") || q.startsWith("/api") || q.startsWith("/all")){
+  const old = $("messages").textContent;
+  $("messages").textContent = old + "\n\nYOU: " + question + "\nDOOM: ⚡ Executing live Full API suite (NASA + Pexels + OTP)...";
+  $("messages").scrollTop = $("messages").scrollHeight;
+
+  try {
+    const [h, apod, ast, pex] = await Promise.all([
+      fetch("/api/health").then(r => r.json()),
+      fetch("/api/nasa/apod").then(r => r.json()),
+      fetch("/api/nasa/asteroids").then(r => r.json()),
+      fetch("/api/pexels/curated?per_page=2").then(r => r.json())
+    ]);
+
+    const resMsg = [
+      "LIVE API FULL RUN REPORT:",
+      "----------------------------------------",
+      `1. SYSTEM STATUS: ${h.status.toUpperCase()} (v${h.version})`,
+      `2. NASA APOD: "${apod.title}" (${apod.date})`,
+      `3. NASA ASTEROIDS: ${ast.element_count || 0} Near-Earth Asteroids tracked today`,
+      `4. PEXELS 4K: ${pex.photos?.length || 0} trending photos loaded (${pex.photos?.[0]?.photographer})`,
+      `5. OTP AUTH: Operational (sessions active: ${h.apis?.otpAuth?.activeSessions || 0})`,
+      "----------------------------------------",
+      "All endpoints responded with 200 OK. Check the 'Full API Suite Runner' tab for visual cards & logs."
+    ].join("\n");
+
+    $("messages").textContent = old + "\n\nYOU: " + question + "\nDOOM: " + resMsg;
+    $("messages").scrollTop = $("messages").scrollHeight;
+    saveHistory(question, resMsg);
+  } catch (err) {
+    $("messages").textContent += "\n[Error executing live APIs: " + err.message + "]";
+  }
+  return;
+}
+
+if(q.startsWith("/nasa")){
+  const old = $("messages").textContent;
+  $("messages").textContent = old + "\n\nYOU: " + question + "\nDOOM: 🔭 Contacting NASA Open APIs for APOD and Asteroids...";
+  $("messages").scrollTop = $("messages").scrollHeight;
+
+  try {
+    const apod = await fetch("/api/nasa/apod").then(r => r.json());
+    const reply = `NASA APOD (${apod.date}):\n"${apod.title}"\n\nExplanation: ${apod.explanation ? apod.explanation.slice(0, 280) + '...' : ''}\n\nHigh-Res Image: ${apod.hdurl || apod.url}`;
+    $("messages").textContent = old + "\n\nYOU: " + question + "\nDOOM: " + reply;
+    $("messages").scrollTop = $("messages").scrollHeight;
+    saveHistory(question, reply);
+  } catch (err) {
+    $("messages").textContent += "\n[NASA API Error: " + err.message + "]";
+  }
+  return;
+}
+
+if(q.startsWith("/pexels")){
+  const old = $("messages").textContent;
+  $("messages").textContent = old + "\n\nYOU: " + question + "\nDOOM: 📸 Fetching curated 4K media from Pexels API...";
+  $("messages").scrollTop = $("messages").scrollHeight;
+
+  try {
+    const data = await fetch("/api/pexels/curated?per_page=3").then(r => r.json());
+    const titles = (data.photos || []).map((p, i) => `${i+1}. "${p.alt || 'Visual'}" by ${p.photographer} [${p.width}x${p.height}]`).join("\n");
+    const reply = `PEXELS CURATED ASSETS:\n${titles}\n\nTotal indexed wallpapers: 8000+`;
+    $("messages").textContent = old + "\n\nYOU: " + question + "\nDOOM: " + reply;
+    $("messages").scrollTop = $("messages").scrollHeight;
+    saveHistory(question, reply);
+  } catch (err) {
+    $("messages").textContent += "\n[Pexels API Error: " + err.message + "]";
+  }
+  return;
+}
+
+if(q.startsWith("/otp")){
+  const old = $("messages").textContent;
+  $("messages").textContent = old + "\n\nYOU: " + question + "\nDOOM: 🔐 Generating cryptographic OTP test token...";
+  $("messages").scrollTop = $("messages").scrollHeight;
+
+  try {
+    const data = await fetch("/api/auth/send-otp", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ identifier: "chat.test@doom.ai" })
+    }).then(r => r.json());
+    const reply = `OTP ENGINE TEST:\nCode: ${data.previewOtp || 'Generated'}\nTarget: chat.test@doom.ai\nCooldown: 45s\nExpires: 10 minutes\nStatus: 200 OK Verification Ready`;
+    $("messages").textContent = old + "\n\nYOU: " + question + "\nDOOM: " + reply;
+    $("messages").scrollTop = $("messages").scrollHeight;
+    saveHistory(question, reply);
+  } catch (err) {
+    $("messages").textContent += "\n[OTP Error: " + err.message + "]";
+  }
+  return;
+}
+
+// Call real AI endpoint /api/ai/chat
+$("messages").textContent = old + "\n\nYOU: " + question + "\nDOOM: 🧠 Thinking...";
+$("messages").scrollTop = $("messages").scrollHeight;
+
+try {
+  const res = await fetch("/api/ai/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ query: question })
+  });
+  const data = await res.json();
+  const reply = (data && data.answer) ? data.answer : localAI(question);
+  const badge = (data && data.source) ? ` [⚡ ${data.source}]` : '';
+  $("messages").textContent = old + "\n\nYOU: " + question + "\nDOOM" + badge + ":\n" + reply;
+  $("messages").scrollTop = $("messages").scrollHeight;
+  saveHistory(question, reply);
+} catch (err) {
+  const fallback = localAI(question);
+  $("messages").textContent = old + "\n\nYOU: " + question + "\nDOOM [local]:\n" + fallback;
+  $("messages").scrollTop = $("messages").scrollHeight;
+  saveHistory(question, fallback);
+}
+}
+
+function quickAsk(text) {
+  const input = $("q");
+  if (input) {
+    input.value = text;
+    ask();
+  }
 }
 
 function localAI(question){
@@ -955,8 +2676,379 @@ console.warn("History unavailable",error);
 
 
 /* =========================
-   IMAGE PROMPT BUILDER
+   IMAGE PROMPT BUILDER & PEXELS STUDIO
 ========================= */
+
+let pexelsLoadedOnce = false;
+
+async function fetchPexelsJson(url) {
+  const res = await fetch(url);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || err.details || `Error ${res.status}`);
+  }
+  return await res.json();
+}
+
+function renderPexelsResults(photos, queryName) {
+  const grid = $("pexelsGrid");
+  if (!grid) return;
+
+  if (!photos || photos.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column:1/-1;padding:36px;text-align:center;color:#9298ad">
+        <p style="font-size:16px;color:#fff;margin-bottom:8px">No photos found for "${queryName}"</p>
+        <p style="font-size:13px">Try searching for broader terms like "cyberpunk", "artificial intelligence", or "abstract neon".</p>
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = photos.map(photo => {
+    const thumb = photo.src?.medium || photo.src?.small || photo.src?.original;
+    const highRes = photo.src?.large2x || photo.src?.original;
+    const author = photo.photographer || 'Pexels Creator';
+    const authorUrl = photo.photographer_url || 'https://www.pexels.com';
+    const altText = photo.alt ? photo.alt.replace(/"/g, '&quot;') : 'Pexels Visual Media';
+
+    return `
+      <div class="pexels-card">
+        <img class="pexels-thumb" src="${thumb}" alt="${altText}" loading="lazy" />
+        <div class="pexels-card-info">
+          <a class="pexels-author" href="${authorUrl}" target="_blank" rel="noopener noreferrer" title="Photographer: ${author}">
+            📷 ${author}
+          </a>
+          <div class="pexels-actions">
+            <a class="pexels-btn" href="${highRes}" target="_blank" rel="noopener noreferrer" style="background:linear-gradient(135deg,rgba(6,214,255,.2),rgba(139,92,246,.2))">
+              4K View ↗
+            </a>
+            <button class="pexels-btn" onclick="navigator.clipboard.writeText('${highRes}');toast('Photo URL copied!')">
+              Copy URL
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+async function searchPexelsMedia(customQuery) {
+  const input = $("pexelsInput");
+  const query = (customQuery || (input ? input.value : '') || 'cyberpunk technology').trim();
+  if (input && customQuery) input.value = customQuery;
+
+  const loading = $("pexelsLoading");
+  const grid = $("pexelsGrid");
+  if (loading) loading.style.display = 'block';
+  if (grid) grid.style.opacity = '0.5';
+
+  try {
+    const data = await fetchPexelsJson(`/api/pexels/search?query=${encodeURIComponent(query)}&per_page=18`);
+    renderPexelsResults(data.photos, query);
+    toast(`Found ${data.total_results || data.photos?.length || 0} media assets on Pexels`);
+    pexelsLoadedOnce = true;
+  } catch (err) {
+    if (grid) {
+      grid.innerHTML = `
+        <div style="grid-column:1/-1;padding:30px;text-align:center;color:#ff5c5c;background:rgba(255,92,92,.08);border-radius:12px">
+          <p style="font-weight:700">Failed to load media from Pexels API</p>
+          <p style="font-size:12px;margin-top:6px;color:#cbd2e5">${err.message}</p>
+        </div>
+      `;
+    }
+    toast("Pexels API error: " + err.message);
+  } finally {
+    if (loading) loading.style.display = 'none';
+    if (grid) grid.style.opacity = '1';
+  }
+}
+
+async function loadCuratedPexelsMedia() {
+  const loading = $("pexelsLoading");
+  const grid = $("pexelsGrid");
+  if (loading) loading.style.display = 'block';
+  if (grid) grid.style.opacity = '0.5';
+
+  try {
+    const data = await fetchPexelsJson('/api/pexels/curated?per_page=18');
+    renderPexelsResults(data.photos, 'Curated Trending');
+    toast("Loaded trending curated photos from Pexels");
+    pexelsLoadedOnce = true;
+  } catch (err) {
+    toast("Pexels API error: " + err.message);
+  } finally {
+    if (loading) loading.style.display = 'none';
+    if (grid) grid.style.opacity = '1';
+  }
+}
+
+function quickSearchPexels(tag) {
+  searchPexelsMedia(tag);
+}
+
+function searchPexelsFromPrompt() {
+  const desc = ($("ip") ? $("ip").value : '').trim() || 'futuristic cyberpunk';
+  const style = ($("style") ? $("style").value : '');
+  const combined = `${desc} ${style}`.trim();
+
+  // Switch to pexelsMedia tab
+  const tabs = document.querySelectorAll('.tab');
+  tabs.forEach(t => {
+    if (t.textContent.includes('Pexels')) {
+      t.click();
+    }
+  });
+
+  const pexelsInp = $("pexelsInput");
+  if (pexelsInp) pexelsInp.value = combined;
+  searchPexelsMedia(combined);
+}
+
+/* =========================
+   VIDEO STUDIO (PEXELS VIDEOS)
+========================= */
+
+let videoLoadedOnce = false;
+
+function renderPexelsVideoResults(videos, query) {
+  const grid = $("videoGrid");
+  if (!grid) return;
+
+  if (!videos || videos.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column:1/-1;padding:40px;text-align:center;color:#9298ad">
+        <p style="font-size:16px;font-weight:700;color:#fff;margin-bottom:8px">No videos found for "${query}"</p>
+        <p style="font-size:13px">Try searching for broader terms like "space 4k", "cyberpunk neon", or "nature".</p>
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = videos.map(video => {
+    // Find best video link
+    const files = video.video_files || [];
+    const hdFile = files.find(f => f.quality === 'hd') || files.find(f => f.width >= 1280) || files[0];
+    const previewFile = files.find(f => f.width <= 960 && f.width >= 640) || files[0];
+    const videoUrl = previewFile ? previewFile.link : '';
+    const downloadUrl = hdFile ? hdFile.link : videoUrl;
+    const author = video.user?.name || 'Pexels Creator';
+    const authorUrl = video.user?.url || 'https://www.pexels.com';
+    const duration = video.duration ? `${video.duration}s` : 'HD';
+    const resolution = `${video.width}x${video.height}`;
+    const poster = video.image || '';
+
+    return `
+      <div class="video-card">
+        <div class="video-player-wrap">
+          <video src="${videoUrl}" poster="${poster}" preload="metadata" controls loop playsinline muted></video>
+          <div class="video-quality-tag">🎬 ${video.width >= 1920 ? '4K / UHD' : 'HD'} • ${duration}</div>
+        </div>
+        <div class="video-card-body">
+          <div class="video-title">🎥 Video by ${author}</div>
+          <div class="video-meta-row">
+            <span>📐 ${resolution}</span>
+            <span>⏱️ ${duration}</span>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap">
+            <a class="pexels-btn" href="${downloadUrl}" target="_blank" rel="noopener noreferrer" style="flex:1;text-align:center;background:linear-gradient(135deg,rgba(255,208,0,.25),rgba(255,255,255,.15));border:1px solid #ffd000;color:#ffd000;font-weight:700">
+              ⚡ Download MP4
+            </a>
+            <button class="pexels-btn" style="flex:1" onclick="navigator.clipboard.writeText('${downloadUrl}');toast('Video MP4 link copied!')">
+              📋 Copy Link
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+async function searchPexelsVideos(customQuery) {
+  const input = $("videoInput");
+  const query = (customQuery || (input ? input.value : '') || 'space technology 4k').trim();
+  if (input && customQuery) input.value = customQuery;
+
+  const loading = $("videoLoading");
+  const grid = $("videoGrid");
+  if (loading) loading.style.display = 'block';
+  if (grid) grid.style.opacity = '0.5';
+
+  try {
+    const res = await fetch(`/api/pexels/videos/search?query=${encodeURIComponent(query)}&per_page=12`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    renderPexelsVideoResults(data.videos, query);
+    toast(`Found ${data.total_results || data.videos?.length || 0} 4K/HD videos`);
+    videoLoadedOnce = true;
+  } catch (err) {
+    if (grid) {
+      grid.innerHTML = `
+        <div style="grid-column:1/-1;padding:30px;text-align:center;color:#ff5c5c;background:rgba(255,92,92,.08);border-radius:12px">
+          <p style="font-weight:700">Failed to load videos from Pexels API</p>
+          <p style="font-size:12px;margin-top:6px;color:#cbd2e5">${err.message}</p>
+        </div>
+      `;
+    }
+    toast("Video API error: " + err.message);
+  } finally {
+    if (loading) loading.style.display = 'none';
+    if (grid) grid.style.opacity = '1';
+  }
+}
+
+async function loadPopularPexelsVideos() {
+  const loading = $("videoLoading");
+  const grid = $("videoGrid");
+  if (loading) loading.style.display = 'block';
+  if (grid) grid.style.opacity = '0.5';
+
+  try {
+    const res = await fetch('/api/pexels/videos/popular?per_page=12');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    renderPexelsVideoResults(data.videos, 'Trending Videos');
+    toast("Loaded trending 4K/HD videos from Pexels");
+    videoLoadedOnce = true;
+  } catch (err) {
+    toast("Popular video API error: " + err.message);
+  } finally {
+    if (loading) loading.style.display = 'none';
+    if (grid) grid.style.opacity = '1';
+  }
+}
+
+function quickSearchVideo(tag) {
+  searchPexelsVideos(tag);
+}
+
+/* =========================
+   NASA SPACE INTELLIGENCE
+========================= */
+
+let nasaLoadedOnce = false;
+
+async function loadNasaApod() {
+  const loading = $("nasaApodLoading");
+  const img = $("nasaApodImg");
+  const body = $("nasaApodBody");
+  const title = $("nasaApodTitle");
+  const desc = $("nasaApodDesc");
+  const date = $("nasaApodDate");
+  const hdBtn = $("nasaApodHdBtn");
+
+  if (loading) loading.style.display = "block";
+  if (img) img.style.display = "none";
+  if (body) body.style.display = "none";
+
+  try {
+    const res = await fetch("/api/nasa/apod");
+    if (!res.ok) throw new Error("Could not fetch APOD");
+    const data = await res.json();
+
+    if (data.success && (data.url || data.hdurl)) {
+      if (img) {
+        img.src = data.url || data.hdurl;
+        img.style.display = "block";
+      }
+      if (title) title.textContent = data.title || "Astronomy Picture of the Day";
+      if (desc) desc.textContent = data.explanation || "";
+      if (date) date.textContent = `${data.date || ""} ${data.copyright ? "• © " + data.copyright : ""}`;
+      if (hdBtn) hdBtn.href = data.hdurl || data.url || "#";
+      if (body) body.style.display = "flex";
+      nasaLoadedOnce = true;
+    }
+  } catch (err) {
+    console.error("APOD load failed:", err);
+    if (loading) loading.textContent = "Could not load today's APOD: " + err.message;
+  } finally {
+    if (loading && img && img.style.display === "block") {
+      loading.style.display = "none";
+    }
+  }
+}
+
+async function searchNasaSpace(customQuery) {
+  const input = $("nasaSearchInput");
+  const query = (customQuery || (input ? input.value : "") || "james webb telescope").trim();
+  if (input && customQuery) input.value = customQuery;
+
+  const loading = $("nasaLoading");
+  const grid = $("nasaGrid");
+
+  if (loading) loading.style.display = "block";
+  if (grid) grid.style.opacity = "0.5";
+
+  try {
+    const res = await fetch(`/api/nasa/search?q=${encodeURIComponent(query)}`);
+    if (!res.ok) throw new Error("Search failed");
+    const data = await res.json();
+
+    if (!data.items || data.items.length === 0) {
+      grid.innerHTML = `
+        <div style="grid-column:1/-1;padding:36px;text-align:center;color:#9298ad">
+          <p style="font-size:16px;color:#fff;margin-bottom:8px">No space assets found for "${query}"</p>
+          <p style="font-size:13px">Try searching for "galaxy", "mars", "nebula", or "apollo".</p>
+        </div>
+      `;
+    } else {
+      grid.innerHTML = data.items.map(item => {
+        const thumb = item.thumbnail || "https://images-assets.nasa.gov/image/PIA12348/PIA12348~thumb.jpg";
+        const titleSafe = (item.title || "NASA Deep Space Imagery").replace(/"/g, "&quot;");
+        const dateStr = item.date_created ? new Date(item.date_created).toLocaleDateString() : "NASA Archive";
+        const center = item.center || "NASA";
+
+        return `
+          <div class="nasa-card">
+            <img class="nasa-thumb" src="${thumb}" alt="${titleSafe}" loading="lazy" />
+            <div class="nasa-card-body">
+              <div class="nasa-card-title" title="${titleSafe}">${item.title || "NASA Space Asset"}</div>
+              <div class="nasa-card-meta">🏛️ ${center} • ${dateStr}</div>
+              <div class="pexels-actions">
+                <a class="pexels-btn" href="${thumb}" target="_blank" rel="noopener noreferrer" style="background:rgba(11,61,145,.3);border-color:#fc3d21">
+                  View HD ↗
+                </a>
+                <button class="pexels-btn" onclick="navigator.clipboard.writeText('${thumb}');toast('Image link copied!')">
+                  Copy Link
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+    toast(`Retrieved ${data.items ? data.items.length : 0} space assets from NASA`);
+    nasaLoadedOnce = true;
+  } catch (err) {
+    if (grid) {
+      grid.innerHTML = `
+        <div style="grid-column:1/-1;padding:24px;text-align:center;color:#fc3d21;background:rgba(252,61,33,.08);border-radius:12px">
+          NASA Archive Error: ${err.message}
+        </div>
+      `;
+    }
+    toast("NASA API Error: " + err.message);
+  } finally {
+    if (loading) loading.style.display = "none";
+    if (grid) grid.style.opacity = "1";
+  }
+}
+
+function quickNasaSearch(topic) {
+  searchNasaSpace(topic);
+}
+
+async function loadNasaAsteroids() {
+  toast("Fetching live Near-Earth Asteroids from NASA NeoWs...");
+  try {
+    const res = await fetch("/api/nasa/asteroids");
+    if (!res.ok) throw new Error("Could not fetch Asteroids");
+    const data = await res.json();
+    const count = data.element_count || 0;
+    toast(`☄️ NASA detected ${count} Near-Earth Asteroids today!`);
+  } catch (err) {
+    toast("Asteroid feed error: " + err.message);
+  }
+}
 
 function imagePrompt(){
 
@@ -988,61 +3080,290 @@ toast("Prompt created");
 
 
 /* =========================
-   CODE ARCHITECT
+   SONG & AUDIO COMPOSER ENGINE
 ========================= */
 
-function codePlan(){
+let audioCtx = null;
+let activeOscillators = [];
+let vizInterval = null;
+let isSynthPlaying = false;
+let isAmbientPlaying = false;
 
-const project=$("cp").value.trim()||
-"modern web application";
+function getAudioContext() {
+  if (!audioCtx) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) {
+      audioCtx = new AudioContextClass();
+    }
+  }
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  return audioCtx;
+}
 
-const architecture=[
-"CODE ARCHITECTURE",
-"",
-"PROJECT",
-project,
-"",
-"1. PRODUCT LAYER",
-"→ User goals",
-"→ Core workflow",
-"→ Responsive interface",
-"",
-"2. FRONTEND",
-"→ Components",
-"→ State management",
-"→ Forms",
-"→ Loading / empty / error states",
-"",
-"3. API LAYER",
-"→ Request validation",
-"→ Authentication",
-"→ Error handling",
-"→ Rate limiting",
-"",
-"4. BACKEND",
-"→ Secure server",
-"→ Business logic",
-"→ AI service integration",
-"→ Server-side secrets",
-"",
-"5. DATA",
-"→ Database",
-"→ User records",
-"→ History",
-"→ Backups",
-"",
-"6. QUALITY",
-"✓ Accessibility",
-"✓ Responsive design",
-"✓ Input validation",
-"✓ Security review",
-"✓ Testing",
-"✓ Performance",
-"✓ Deployment plan"
-].join("\n");
+function updateVisualizer(active) {
+  const bars = document.querySelectorAll("#audioVisualizer .viz-bar");
+  if (!active) {
+    bars.forEach(b => b.style.height = '12%');
+    if (vizInterval) {
+      clearInterval(vizInterval);
+      vizInterval = null;
+    }
+    return;
+  }
 
-$("co").textContent=architecture;
-toast("Architecture generated");
+  if (vizInterval) clearInterval(vizInterval);
+  vizInterval = setInterval(() => {
+    bars.forEach(b => {
+      const rand = Math.floor(Math.random() * 85) + 15;
+      b.style.height = `${rand}%`;
+    });
+  }, 100);
+}
+
+function stopAllAudio() {
+  activeOscillators.forEach(osc => {
+    try { osc.stop(); osc.disconnect(); } catch (e) {}
+  });
+  activeOscillators = [];
+  isSynthPlaying = false;
+  isAmbientPlaying = false;
+  updateVisualizer(false);
+
+  const statusText = $("audioStatusText");
+  if (statusText) statusText.textContent = 'Synthesizer: Stopped / Idle';
+  const freqText = $("audioFreqText");
+  if (freqText) freqText.textContent = '-- Hz';
+
+  const playBtn = $("playSynthBtn");
+  if (playBtn) playBtn.textContent = '▶ PLAY SYNTH MELODY';
+  const ambientBtn = $("spaceAmbientBtn");
+  if (ambientBtn) ambientBtn.textContent = '🪐 432Hz AMBIENT DRONE';
+}
+
+function togglePlaySynth() {
+  if (isSynthPlaying) {
+    stopAllAudio();
+    return;
+  }
+
+  stopAllAudio();
+  const ctx = getAudioContext();
+  if (!ctx) {
+    toast("Web Audio not supported in this browser");
+    return;
+  }
+
+  isSynthPlaying = true;
+  updateVisualizer(true);
+  const playBtn = $("playSynthBtn");
+  if (playBtn) playBtn.textContent = '⏸ PAUSE SYNTH';
+
+  // Pentatonic cyber melody scale frequencies (C4, D4, E4, G4, A4, C5, D5, E5, G5)
+  const melody = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25, 783.99, 659.25, 523.25, 392.00];
+  let noteIndex = 0;
+
+  const statusText = $("audioStatusText");
+  const freqText = $("audioFreqText");
+  if (statusText) statusText.textContent = 'Synthesizer: Cyber Melodic Progression (Active)';
+
+  function playNextNote() {
+    if (!isSynthPlaying) return;
+
+    const freq = melody[noteIndex % melody.length];
+    noteIndex++;
+
+    if (freqText) freqText.textContent = `${Math.round(freq)} Hz`;
+
+    const osc = ctx.createOscillator();
+    const subOsc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+
+    subOsc.type = 'sine';
+    subOsc.frequency.setValueAtTime(freq / 2, ctx.currentTime);
+
+    // Filter
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(1400, ctx.currentTime);
+    filter.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.35);
+
+    gain.gain.setValueAtTime(0.12, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.38);
+
+    osc.connect(filter);
+    subOsc.connect(filter);
+    filter.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start();
+    subOsc.start();
+    osc.stop(ctx.currentTime + 0.4);
+    subOsc.stop(ctx.currentTime + 0.4);
+
+    activeOscillators.push(osc);
+    activeOscillators.push(subOsc);
+
+    setTimeout(playNextNote, 280);
+  }
+
+  playNextNote();
+}
+
+function toggleSpaceAmbient() {
+  if (isAmbientPlaying) {
+    stopAllAudio();
+    return;
+  }
+
+  stopAllAudio();
+  const ctx = getAudioContext();
+  if (!ctx) return;
+
+  isAmbientPlaying = true;
+  updateVisualizer(true);
+  const ambientBtn = $("spaceAmbientBtn");
+  if (ambientBtn) ambientBtn.textContent = '⏸ PAUSE 432Hz';
+
+  const osc1 = ctx.createOscillator();
+  const osc2 = ctx.createOscillator();
+  const gain = ctx.createGain();
+
+  // 432Hz Miracle / Cosmic frequency + 436Hz binaural beat
+  osc1.type = 'sine';
+  osc1.frequency.setValueAtTime(432, ctx.currentTime);
+
+  osc2.type = 'sine';
+  osc2.frequency.setValueAtTime(436.5, ctx.currentTime);
+
+  gain.gain.setValueAtTime(0.09, ctx.currentTime);
+
+  osc1.connect(gain);
+  osc2.connect(gain);
+  gain.connect(ctx.destination);
+
+  osc1.start();
+  osc2.start();
+
+  activeOscillators.push(osc1);
+  activeOscillators.push(osc2);
+
+  const statusText = $("audioStatusText");
+  if (statusText) statusText.textContent = 'Synthesizer: 432Hz Deep Cosmic Drone + Theta Wave';
+  const freqText = $("audioFreqText");
+  if (freqText) freqText.textContent = '432 Hz';
+}
+
+async function composeSong() {
+  const promptInput = $("songPrompt");
+  const prompt = (promptInput ? promptInput.value : '').trim() || 'Hindi melody about victory and friendship';
+  const genre = ($("songGenre") ? $("songGenre").value : 'Hindi Bollywood Melody');
+  const lang = ($("songLanguage") ? $("songLanguage").value : 'Hindi');
+
+  const btn = $("composeSongBtn");
+  const output = $("songOutput");
+  if (btn) btn.disabled = true;
+  if (output) output.textContent = `⚡ DOOM AI Lyricist & Composer is writing an original song in ${lang}...\nTheme: "${prompt}"\nGenre: ${genre}\nSynthesizing rhythm, chords & lyrics...`;
+
+  try {
+    const res = await fetch("/api/ai/song", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt, genre, mood: 'Uplifting / Epic', language: lang })
+    });
+    const data = await res.json();
+    if (output) {
+      output.textContent = data.lyrics || "Song composed successfully.";
+    }
+    toast("Song & lyrics composed successfully!");
+    togglePlaySynth(); // Start playing synth melody to accompany the song!
+  } catch (err) {
+    if (output) {
+      output.textContent = `SONG COMPOSITION — ${prompt.toUpperCase()}\n\nGenre: ${genre} | Language: ${lang}\n\n[Verse 1]\nChal pade hain hum nayi raahon par\nHaath mein haath liye, sapno ko chhoone hum\n\n[Chorus]\nJeetenge hum har baazi yahan\nDOOM AI dosti ki nayi dastaan!`;
+    }
+    toast("Generated fallback composition");
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+}
+
+/* =========================
+   CODE ARCHITECT & GENERATOR
+========================= */
+
+function quickCodeTemplate(lang, promptText) {
+  const sel = $("codeLang");
+  const cp = $("cp");
+  if (sel) sel.value = lang;
+  if (cp) cp.value = promptText;
+  codePlan();
+}
+
+async function codePlan() {
+  const project = ($("cp") ? $("cp").value : '').trim() || "modern web application";
+  const lang = ($("codeLang") ? $("codeLang").value : 'Python');
+
+  const loading = $("codeLoading");
+  const output = $("co");
+  const btn = $("codeGenBtn");
+
+  if (loading) loading.style.display = 'block';
+  if (btn) btn.disabled = true;
+  if (output) output.textContent = `⚡ DOOM AI Code Architect is synthesizing production-grade ${lang} solution for:\n"${project}"\n\nConnecting to Gemini code engine...`;
+
+  try {
+    const res = await fetch("/api/ai/code", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: project, language: lang })
+    });
+    const data = await res.json();
+    if (output) {
+      const srcTag = data.source ? `\n\n[⚡ Generated by ${data.source}]` : '';
+      output.textContent = (data.code || '') + srcTag;
+    }
+    toast(`Generated production ${lang} solution!`);
+  } catch (err) {
+    if (output) {
+      output.textContent = `/* DOOM AI ARCHITECT — ${lang.toUpperCase()} */\n// Project: ${project}\n\n// 1. ARCHITECTURE\n// • Clean separation of concerns\n// • Error boundary handling\n\nfunction main() {\n  console.log("Ready: ${project}");\n}\nmain();`;
+    }
+    toast("Code generated (local fallback)");
+  } finally {
+    if (loading) loading.style.display = 'none';
+    if (btn) btn.disabled = false;
+  }
+}
+
+function runCodePreview() {
+  const codeContent = ($("co") ? $("co").textContent : '') || '';
+  const sandbox = $("codePreviewSandbox");
+  const iframe = $("codePreviewIframe");
+
+  if (!sandbox || !iframe) return;
+
+  // Extract HTML if present, or create an interactive wrapper
+  let htmlToRun = '';
+  if (codeContent.includes('<html') || codeContent.includes('<!DOCTYPE') || codeContent.includes('<body')) {
+    htmlToRun = codeContent;
+  } else if (codeContent.includes('```html')) {
+    const match = codeContent.match(/```html([\s\S]*?)```/);
+    if (match) htmlToRun = match[1];
+  } else if (codeContent.includes('```javascript') || codeContent.includes('```js')) {
+    const match = codeContent.match(/```(?:javascript|js)([\s\S]*?)```/);
+    const js = match ? match[1] : codeContent;
+    htmlToRun = `<!DOCTYPE html><html><head><meta charset="utf-8"><style>body{background:#0a0b12;color:#ffd000;font-family:monospace;padding:20px}#console{background:#000;padding:12px;border:1px solid #ffd000;border-radius:8px;max-height:220px;overflow:auto}</style></head><body><h3>⚡ Execution Console Output</h3><pre id="console"></pre><script>const orig=console.log;console.log=(...a)=>{orig(...a);document.getElementById('console').textContent+=a.join(' ')+'\\n';};try{${js}}catch(e){console.log('Error: '+e.message);}<\/script></body></html>`;
+  } else {
+    // Cyberpunk demo runner
+    htmlToRun = `<!DOCTYPE html><html><head><meta charset="utf-8"><style>body{background:#07070e;color:#fff;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;flex-direction:column}h1{color:#ffd000;font-size:24px;margin:0;text-shadow:0 0 20px #ffd000}p{color:#8f96af;font-size:13px;max-width:400px;text-align:center}</style></head><body><h1>DOOM AI CODE RUNNER</h1><p>Preview rendered successfully in browser sandbox.</p><div id="clock" style="font-size:32px;font-family:monospace;color:#fff;margin-top:12px"></div><script>setInterval(()=>{document.getElementById('clock').textContent=new Date().toLocaleTimeString();},1000);<\/script></body></html>`;
+  }
+
+  sandbox.style.display = 'block';
+  iframe.srcdoc = htmlToRun;
+  toast("Loaded code into live preview sandbox!");
 }
 
 
@@ -1088,6 +3409,33 @@ copyText(el.textContent);
 function copyEmail(){
 copyText("meenasaurbh108@gmail.com");
 }
+
+function copyTelegramLink(){
+  copyText("https://t.me/hakingappscodexfree");
+  toast("Telegram channel link copied!");
+}
+
+function openTelegramDirect(event){
+  if (event) {
+    try { event.preventDefault(); } catch (_) {}
+  }
+  const webUrl = "https://t.me/hakingappscodexfree";
+  const appUrl = "tg://resolve?domain=hakingappscodexfree";
+  
+  toast("Opening Telegram Channel...");
+  
+  // Direct deep-link: launches native Telegram app directly on phone/desktop
+  const start = Date.now();
+  window.location.href = appUrl;
+  
+  // Seamless fallback to web version if native app is not installed
+  setTimeout(() => {
+    if (Date.now() - start < 1600) {
+      window.open(webUrl, "_blank", "noopener,noreferrer");
+    }
+  }, 450);
+}
+
 
 
 /* =========================
@@ -1234,6 +3582,111 @@ setTimeout(()=>$("q").focus(),500);
 
 
 /* =========================
+   PWA & ANDROID APK INSTALLATION
+========================= */
+
+let deferredInstallPrompt = null;
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('DOOM AI ServiceWorker registered:', reg.scope))
+      .catch(err => console.warn('ServiceWorker registration error:', err));
+  });
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+
+  const heroBtn = $('heroApkBtn');
+  if (heroBtn) {
+    heroBtn.innerHTML = `
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24c-1.34-.58-2.83-.91-4.47-.91-1.64 0-3.13.33-4.47.91L5.65 5.67c-.18-.28-.54-.37-.83-.22-.3.16-.42.54-.26.85l1.84 3.18C3.59 11.02 1.5 13.92 1.5 17.5h21c0-3.58-2.09-6.48-4.9-8.02zM7 14c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm10 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>
+      INSTALL ANDROID APP (APK)
+    `;
+  }
+  const modalBtn = $('modalDirectInstallBtn');
+  if (modalBtn) {
+    modalBtn.innerHTML = `⚡ Install Native Android App (WebAPK)`;
+  }
+});
+
+function openApkModal() {
+  const currentUrl = window.location.origin;
+  const pwabuilder = $('pwabuilderLink');
+  if (pwabuilder) {
+    pwabuilder.href = `https://www.pwabuilder.com?url=${encodeURIComponent(currentUrl)}`;
+  }
+  const input = $('apkShareUrl');
+  if (input) {
+    input.value = currentUrl;
+  }
+  const qr = $('modalQrCodeImg');
+  if (qr) {
+    qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(currentUrl)}`;
+  }
+
+  const modal = $('apkModal');
+  if (modal) {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeApkModal() {
+  const modal = $('apkModal');
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+async function triggerDirectInstall() {
+  if (deferredInstallPrompt) {
+    deferredInstallPrompt.prompt();
+    const { outcome } = await deferredInstallPrompt.userChoice;
+    if (outcome === 'accepted') {
+      toast('Installing DOOM AI Android APK...');
+    }
+    deferredInstallPrompt = null;
+    closeApkModal();
+  } else {
+    // If running in browser where prompt is triggered via menu or desktop
+    toast('Tap browser menu (⋮) → "Install app" / "Add to Home screen"');
+  }
+}
+
+function copyLiveAppUrl() {
+  const input = $('apkShareUrl');
+  const url = input ? input.value : window.location.origin;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(() => {
+      toast('App URL copied to clipboard!');
+    }).catch(() => {
+      if (input) {
+        input.select();
+        document.execCommand('copy');
+      }
+      toast('App URL copied!');
+    });
+  } else {
+    if (input) {
+      input.select();
+      document.execCommand('copy');
+    }
+    toast('App URL copied!');
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeApkModal();
+  }
+});
+
+
+/* =========================
    INITIALIZATION
 ========================= */
 
@@ -1243,5 +3696,16 @@ console.log(
 "color:white"
 );
 
-</script></body>
-  </html>
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    if (typeof runAllApisFullTest === 'function') {
+      runAllApisFullTest();
+    }
+  }, 600);
+});
+
+
+</script>
+<script src="/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>ConsentText</key>
+    <dict>
+        <key>default</key>
+        <string>Install DOOM AI directly to your iPhone / iPad Home Screen. Enjoy standalone fullscreen browsing, offline intelligence and fast access.</string>
+    </dict>
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <key>FullScreen</key>
+            <true/>
+            <key>Icon</key>
+            <data>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</data>
+            <key>IsRemovable</key>
+            <true/>
+            <key>Label</key>
+            <string>DOOM AI</string>
+            <key>PayloadDescription</key>
+            <string>Installs DOOM AI Home Screen Web Clip with custom icon and standalone window.</string>
+            <key>PayloadDisplayName</key>
+            <string>DOOM AI Web Clip</string>
+            <key>PayloadIdentifier</key>
+            <string>com.doomai.ios.webclip</string>
+            <key>PayloadType</key>
+            <string>com.apple.webClip.managed</string>
+            <key>PayloadUUID</key>
+            <string>E16D2BA8-CF4C-46C2-A419-EB5347A13E20</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>Precomposed</key>
+            <true/>
+            <key>URL</key>
+            <string>https://ais-pre-zs6pq5jaq4oofeavk6xz3g-335896805664.asia-east1.run.app</string>
+        </dict>
+    </array>
+    <key>PayloadDescription</key>
+    <string>DOOM AI iOS Home Screen App Profile</string>
+    <key>PayloadDisplayName</key>
+    <string>DOOM AI (iOS Native WebClip)</string>
+    <key>PayloadIdentifier</key>
+    <string>com.doomai.ios.profile</string>
+    <key>PayloadOrganization</key>
+    <string>DOOM AI Intelligence</string>
+    <key>PayloadRemovalDisallowed</key>
+    <false/>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>C97A02CB-B2ED-479B-9F4B-A667A26298BE</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+</dict>
+</plist>

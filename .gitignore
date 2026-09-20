@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Environment Variables & Secrets (Keep confidential on GitHub)
+.env
+.env.local
+.env.*.local
+
+# Build artifacts & temp archives
+dist/
+*.log
+.DS_Store

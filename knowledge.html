@@ -3,7 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#050505">
+<meta name="theme-color" content="#03050a">
+<!-- PWA & Android APK Installation Support -->
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="/auth.css">
 <title>DOOM AI — Open Knowledge Intelligence</title>
 
 <style>
@@ -453,12 +462,21 @@ footer{
       </div>
     </div>
 
-    <div style="display:flex;align-items:center;gap:15px">
+    <div style="display:flex;align-items:center;gap:15px;flex-wrap:wrap">
       <a href="/" class="btn" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;min-height:auto;font-size:12px;color:#f5f7fb">← Back to Portfolio</a>
+      <a href="/download/doom-ai.apk" download="DOOM-AI-v1.0.apk" class="btn" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;min-height:auto;font-size:12px;color:#05050b;background:linear-gradient(135deg,#10b981,#06d6ff);font-weight:750">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        <span>📱 Download APK (45 MB)</span>
+      </a>
+      <a href="https://t.me/hakingappscodexfree" onclick="openTelegramDirect(event)" class="btn" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;min-height:auto;font-size:12px;color:#fff;background:linear-gradient(135deg,rgba(0,136,204,.35),rgba(6,214,255,.35));border:1px solid #0088cc">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.99 1.27-5.63 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.05-.49-.83-.27-1.49-.42-1.43-.88.03-.24.37-.49 1.02-.75 3.98-1.73 6.64-2.87 7.97-3.44 3.79-1.58 4.58-1.86 5.09-1.87.11 0 .37.03.53.17.14.12.18.28.2.45-.02.07-.02.16-.04.32z"/></svg>
+        <span>Telegram ↗</span>
+      </a>
       <div class="status">
         <i class="dot"></i>
         DEMO ENGINE ONLINE
       </div>
+      <div class="auth-nav-container" id="navAuthContainer"></div>
     </div>
   </div>
 </header>
@@ -1263,6 +1281,24 @@ return DOOM.version;
 
 }
 
+function openTelegramDirect(event){
+  if (event) {
+    try { event.preventDefault(); } catch (_) {}
+  }
+  const webUrl = "https://t.me/hakingappscodexfree";
+  const appUrl = "tg://resolve?domain=hakingappscodexfree";
+  
+  const start = Date.now();
+  window.location.href = appUrl;
+  
+  setTimeout(() => {
+    if (Date.now() - start < 1600) {
+      window.open(webUrl, "_blank", "noopener,noreferrer");
+    }
+  }, 450);
+}
+
 </script>
+<script src="/auth.js"></script>
 </body>
 </html>
