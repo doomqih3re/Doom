@@ -36,9 +36,10 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+  const url = new URL(event.request.url);
+  if (url.pathname.startsWith('/api/')) return; // Never cache dynamic backend API routes!
 
   // Static assets: cache first, then network
-  const url = new URL(event.request.url);
   if (url.pathname.match(/\.(png|svg|jpg|jpeg|gif|css|js|woff2?)$/)) {
     event.respondWith(
       caches.match(event.request).then((cached) => {
